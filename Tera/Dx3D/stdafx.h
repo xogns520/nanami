@@ -159,3 +159,7 @@ struct ST_SIZE
 #include "cGameObject.h"
 #include "cAutoReleasePool.h"
 #include "cObjectPool.h"
+
+#define ROOM_LENGTH 256
+#define RESOURCE_FOLDER "./Resources/"
+using namespace std;
