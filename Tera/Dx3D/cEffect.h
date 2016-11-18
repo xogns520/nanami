@@ -1,7 +1,12 @@
 #pragma once
+
+
 class cEffect
 {
-public:
+private :
+
+
+public :
 	cEffect();
 	~cEffect();
 };
