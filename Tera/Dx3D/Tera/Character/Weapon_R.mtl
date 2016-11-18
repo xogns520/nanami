@@ -1,0 +1,16 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 14.11.2016 14:12:51
+
+newmtl R_Event_Wit_Dual_01_MI
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\Tera\S1Game\CookedPC\Art_Data\Packages\CH\PC\UmodelExport\PC_Weapons_Event\Texture2D\R_Event_Wit_Dual_01_diff.tga
+	map_Kd D:\Tera\S1Game\CookedPC\Art_Data\Packages\CH\PC\UmodelExport\PC_Weapons_Event\Texture2D\R_Event_Wit_Dual_01_diff.tga
