@@ -55,6 +55,9 @@
     <Filter Include="Main\Util-Manager">
       <UniqueIdentifier>{0367c1e5-7ab8-4c6d-b8c1-f56413acaa06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\Effect">
+      <UniqueIdentifier>{7580824a-bb75-4fd3-9f7e-7b9b255aab9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -211,7 +214,7 @@
       <Filter>Main\Loader</Filter>
     </ClInclude>
     <ClInclude Include="cEffect.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Main\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -351,7 +354,7 @@
       <Filter>Main\Loader</Filter>
     </ClCompile>
     <ClCompile Include="cEffect.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Main\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
