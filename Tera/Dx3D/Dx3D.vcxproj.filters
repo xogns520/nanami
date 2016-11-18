@@ -210,6 +210,9 @@
     <ClInclude Include="cRawLoader.h">
       <Filter>Main\Loader</Filter>
     </ClInclude>
+    <ClInclude Include="cEffect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -346,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="cRawLoader.cpp">
       <Filter>Main\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="cEffect.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

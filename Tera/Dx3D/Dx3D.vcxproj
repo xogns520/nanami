@@ -21,7 +21,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -95,6 +95,7 @@
     <ClInclude Include="cCharController.h" />
     <ClInclude Include="cCube.h" />
     <ClInclude Include="cDeviceManager.h" />
+    <ClInclude Include="cEffect.h" />
     <ClInclude Include="cFace.h" />
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFrame.h" />
@@ -144,6 +145,7 @@
     <ClCompile Include="cCharController.cpp" />
     <ClCompile Include="cCube.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
+    <ClCompile Include="cEffect.cpp" />
     <ClCompile Include="cFace.cpp" />
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFrame.cpp" />
