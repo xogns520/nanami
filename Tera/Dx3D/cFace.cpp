@@ -38,7 +38,7 @@ cFace::cFace()
 
 cFace::~cFace(void)
 {
-	Destroy();
+	//Destroy();
 	SAFE_RELEASE(m_pAnimController);
 }
 

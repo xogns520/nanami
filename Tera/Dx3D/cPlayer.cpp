@@ -3,12 +3,14 @@
 #include "cBody.h"
 #include "cFace.h"
 #include "cHair.h"
+#include "cTail.h"
 #include "cWeapon.h"
 
 cPlayer::cPlayer()
 	: m_pBody(NULL)
 	, m_pFace(NULL)
 	, m_pHair(NULL)
+	, m_pTail(NULL)
 	, m_pWeapon(NULL)
 {
 }
@@ -19,10 +21,11 @@ cPlayer::~cPlayer()
 	SAFE_DELETE(m_pBody);
 	SAFE_DELETE(m_pFace);
 	SAFE_DELETE(m_pHair);
+	SAFE_DELETE(m_pTail);
 	SAFE_DELETE(m_pWeapon);
 }
 
-void cPlayer::Setup(char * Directory, char * PathBody, char * PathFace, char * PathHair)
+void cPlayer::Setup(char * Directory, char * PathBody, char * PathFace, char * PathHair, char* PathTail)
 {
 	m_pBody = new cBody(Directory, PathBody);
 	m_pFace = new cFace(Directory, PathFace);
@@ -41,7 +44,7 @@ void cPlayer::Setup(char * Directory, char * PathBody, char * PathFace, char * P
 	//m_pMap = pW;
 
 	m_pWeapon = new cWeapon;
-	m_pWeapon->Load("./Tera/Character/Weapon_R.obj", &mat);
+	m_pWeapon->Load("./Tera/Character/Weapon_R.object", &mat);
 
 	//m_pHair->m_matHairTM = m_pBody->m_matHairTM;
 	//m_pHair->Load(Directory, PathHair);
@@ -49,6 +52,13 @@ void cPlayer::Setup(char * Directory, char * PathBody, char * PathFace, char * P
 	//cObjMap* pMap2 = new cObjMap;
 	//pMap2->Load("./Tera/Wall.obj", &mat);
 	//m_pWall = pMap2;
+}
+
+void cPlayer::Update(int AniIndex)
+{
+	m_pBody->SetAnimationIndex(AniIndex);
+	m_pFace->SetAnimationIndex(AniIndex);
+	m_pHair->SetAnimationIndex(AniIndex);
 }
 
 void cPlayer::Render(D3DXMATRIX* pMat)

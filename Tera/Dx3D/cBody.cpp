@@ -56,6 +56,13 @@ void cBody::GetNeckWorld(D3DXFRAME * pFrame, D3DXMATRIX * pParentTM)
 		m_matRWeaponTM = pBone->CombinedTransformationMatrix;
 		//D3DXMatrixRotationX(&m_matNeckTM, D3DXToRadian(90));
 	}
+	//Bip01-Pelvis or Bip1-Spine
+	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("Bip01-Pelvis"))
+	{
+		pBone->CombinedTransformationMatrix = pBone->TransformationMatrix * (*pParentTM);
+		m_matTaliTM = pBone->CombinedTransformationMatrix;
+		//D3DXMatrixRotationX(&m_matNeckTM, D3DXToRadian(90));
+	}
 	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("Dummy_root"))
 	{
 		pBone->CombinedTransformationMatrix = pBone->TransformationMatrix * (*pParentTM);
@@ -84,7 +91,7 @@ cBody::cBody()
 
 cBody::~cBody(void)
 {
-	Destroy();
+	//Destroy();
 	SAFE_RELEASE(m_pAnimController);
 }
 

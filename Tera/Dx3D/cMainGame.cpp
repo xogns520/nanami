@@ -45,8 +45,8 @@ cMainGame::~cMainGame(void)
 
 	g_pFontManager->Destroy();
 	g_pTextureManager->Destroy();
-	g_pDeviceManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
+	g_pDeviceManager->Destroy();
 	g_pObjectPool->Destroy();
 }
 
@@ -98,11 +98,12 @@ void cMainGame::Setup()
 	m_pCharController = new cCharController;
 
 	m_pPlayer = new cPlayer;
-	m_pPlayer->Setup("./Tera/Character/", "Elin_Body_Wait.X", "Elin_Head_Wait.X", "Elin_Hair_Wait.X");
+	//m_pPlayer->Setup("./Tera/Character/", "Elin_Body_Wait.X", "Elin_Head_Wait.X", "Elin_Hair_Wait.X", NULL);
+	m_pPlayer->Setup("./Tera/Character/", "Elin_Body_WD.X", "Elin_Face_WD.X", "Elin_Hair_WD.X", NULL);
 	
 	
 	m_pPlayerDash = new cPlayer;
-	m_pPlayerDash->Setup("./Tera/Character/", "Elin_Body_Dash.X", "Elin_Head_Dash.X", "Elin_Hair_Dash.X");
+	m_pPlayerDash->Setup("./Tera/Character/", "Elin_Body_Dash.X", "Elin_Head_Dash.X", "Elin_Hair_Dash.X", NULL);
 
 	SetLight();
 }
@@ -116,6 +117,10 @@ void cMainGame::Update()
 
 	if(m_pCamera)
 		m_pCamera->Update(m_pCharController->GetAngle(), m_pCharController->GetPosition());
+
+	//int n = 0;
+	//if (m_pPlayer)
+	//	m_pPlayer->Update(m_pCharController->GetMoveKey());
 
 	// 	if(m_pSkinnedMesh)
 // 	{
@@ -165,9 +170,9 @@ void cMainGame::Render()
 		if(m_pPlayer)
 			m_pPlayer->Render(&m_pCharController->GetWorldTM());
 	
-	if (m_pCharController->GetMoveKey())
-		if (m_pPlayerDash)
-			m_pPlayerDash->Render(&m_pCharController->GetWorldTM());
+	//if (m_pCharController->GetMoveKey())
+	//	if (m_pPlayerDash)
+	//		m_pPlayerDash->Render(&m_pCharController->GetWorldTM());
 
 	g_pD3DDevice->EndScene();
 
@@ -185,12 +190,24 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 	{
 	case WM_KEYDOWN:
 		{
-			if (wParam == VK_SPACE)
-			{
-				static int n = 0;
-				//m_pSkinnedMesh->SetAnimationIndex(++n);
-			}
+			//if (wParam == 'W')
+			//{
+			//	//static int n = 0;
+			//	//m_pSkinnedMesh->SetAnimationIndex(++n);
+			//	if (m_pPlayer)
+			//		m_pPlayer->Update(2);
+			//}
 		}
+		break;
+
+	case WM_KEYUP:
+	{
+		//if (wParam == 'W')
+		//{
+		//	if (m_pPlayer)
+		//		m_pPlayer->Update(1);
+		//}
+	}
 		break;
 	}
 }

@@ -24,6 +24,7 @@ public:
 	D3DXMATRIX					m_matRootTM;
 	D3DXMATRIX					m_matRWeaponTM;
 	D3DXMATRIX					m_matLWeaponTM;
+	D3DXMATRIX					m_matTaliTM;
 
 public:
 	cBody(char* szFolder, char* szFilename);

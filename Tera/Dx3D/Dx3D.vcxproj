@@ -115,6 +115,7 @@
     <ClInclude Include="cSkinnedMeshManager.h" />
     <ClInclude Include="cSkyBox.h" />
     <ClInclude Include="cSokobanChar.h" />
+    <ClInclude Include="cTail.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTimeManager.h" />
     <ClInclude Include="cUIButton.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="cSkinnedMeshManager.cpp" />
     <ClCompile Include="cSkyBox.cpp" />
     <ClCompile Include="cSokobanChar.cpp" />
+    <ClCompile Include="cTail.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTimeManager.cpp" />
     <ClCompile Include="cUIButton.cpp" />

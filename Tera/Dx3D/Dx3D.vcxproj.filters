@@ -201,6 +201,9 @@
     <ClInclude Include="cWeapon.h">
       <Filter>테라\플레이어</Filter>
     </ClInclude>
+    <ClInclude Include="cTail.h">
+      <Filter>테라</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -328,6 +331,9 @@
     </ClCompile>
     <ClCompile Include="cWeapon.cpp">
       <Filter>테라\플레이어</Filter>
+    </ClCompile>
+    <ClCompile Include="cTail.cpp">
+      <Filter>테라</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

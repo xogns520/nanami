@@ -38,7 +38,7 @@ cHair::cHair()
 
 cHair::~cHair(void)
 {
-	Destroy();
+	//Destroy();
 	SAFE_RELEASE(m_pAnimController);
 }
 
