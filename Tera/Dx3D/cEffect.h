@@ -15,6 +15,7 @@ public :
 	void PushEffect(std::string keyName, cSkinnedMesh* effect);
 	cSkinnedMesh* GetEffect(std::string keyName);
 
+	void Destroy();
 private:
 	void LoadEffects();
 
