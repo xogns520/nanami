@@ -20,5 +20,6 @@ public:
 	// iMap override
 	virtual bool GetHeight(IN float x, OUT float& y, IN float z) override;
 	virtual void Render() override;
+	virtual void Render(D3DXMATRIX* pMat) override;
 };
 

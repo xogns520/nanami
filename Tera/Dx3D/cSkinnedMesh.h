@@ -20,6 +20,8 @@ private:
 
 public:
 	cSkinnedMesh(char* szFolder, char* szFilename);
+	cSkinnedMesh(char* szFolder, char* szFilename, char* NOANIMATION);		//temp
+
 	~cSkinnedMesh(void);
 	
 	void UpdateAndRender();

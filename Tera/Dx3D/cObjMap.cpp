@@ -109,3 +109,19 @@ void cObjMap::Render()
 		p->Render();
 	}
 }
+void cObjMap::Render(D3DXMATRIX * pMat)
+{
+	//2016.11.13 - WIJY 
+	//Scaling »èÁ¦
+	/*D3DXMATRIXA16 mat, matT, matS;*/
+	//D3DXMatrixIdentity(&mat);
+	//D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
+	//D3DXMatrixTranslation(&matT, value.x, value.y, value.z);
+	//mat = matT;
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, pMat);
+	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+	for each(auto p in m_vecGroup)
+	{
+		p->Render();
+	}
+}
