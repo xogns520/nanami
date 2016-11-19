@@ -12,5 +12,5 @@ newmtl R_Event_Wit_Dual_01_MI
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka D:\Tera\S1Game\CookedPC\Art_Data\Packages\CH\PC\UmodelExport\PC_Weapons_Event\Texture2D\R_Event_Wit_Dual_01_diff.tga
-	map_Kd D:\Tera\S1Game\CookedPC\Art_Data\Packages\CH\PC\UmodelExport\PC_Weapons_Event\Texture2D\R_Event_Wit_Dual_01_diff.tga
+	map_Ka R_Event_Wit_Dual_01_diff.tga
+	map_Kd R_Event_Wit_Dual_01_diff.tga
