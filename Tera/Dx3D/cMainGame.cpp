@@ -120,8 +120,8 @@ void cMainGame::Update()
 
 	//int n = 0;
 	if (m_pPlayer)
-		//m_pPlayer->Update(m_pCharController->GetMoveKey());
-		m_pPlayer->Update(2);
+		m_pPlayer->Update(m_pCharController->GetMoveKey());
+		//m_pPlayer->Update(2);
 
 	// 	if(m_pSkinnedMesh)
 // 	{
