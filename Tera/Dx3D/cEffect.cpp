@@ -12,3 +12,18 @@ cEffect::cEffect()
 cEffect::~cEffect()
 {
 }
+
+void LoadEffects()
+{
+
+}
+
+void PushEffect(std::string keyName, cSkinnedMesh* effect)
+{
+
+}
+
+cSkinnedMesh* GetEffect(std::string keyName)
+{
+
+}
