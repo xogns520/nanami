@@ -7,7 +7,7 @@ cCharController::cCharController(void)
 	, m_vDirection(0, 0, 1)
 	, m_fAngle(0.0f)
 	, m_fSpeed(0.1f)
-	, m_bMoveKey(false)
+	, m_nMoveKey(false)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
@@ -36,17 +36,17 @@ void cCharController::Update(iMap* pMap)
 	if (GetKeyState('W') & 0x8000)
 	{
 		p = p + m_vDirection * m_fSpeed;
-		m_bMoveKey = true;
+		m_nMoveKey = 2;
 	}
 	if (GetKeyState('S') & 0x8000)
 	{
 		p = p - m_vDirection * m_fSpeed;
-		m_bMoveKey = true;
+		m_nMoveKey = 2;
 	}
 	
 	if (!(GetKeyState('W') & 0x8000) && !(GetKeyState('S') & 0x8000))
 	{
-		m_bMoveKey = false;
+		m_nMoveKey = 1;
 	}
 
 	//if(pMap && pMap->GetHeight(p.x, p.y, p.z))

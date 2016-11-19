@@ -10,7 +10,7 @@ private:
 	float						m_fAngle;
 	float						m_fSpeed;
 	SYNTHESIZE_PASS_BY_REF(D3DXMATRIXA16, m_matWorld, WorldTM);
-	SYNTHESIZE(bool, m_bMoveKey, MoveKey);
+	SYNTHESIZE(int, m_nMoveKey, MoveKey);
 
 public:
 	cCharController(void);

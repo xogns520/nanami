@@ -100,7 +100,7 @@ void cWeapon::Render()
 	D3DXMATRIXA16 mat, matT, matS;
 	//D3DXMatrixIdentity(&mat);
 	//D3DXMatrixScaling(&matS, 0.1f, 0.1f, 0.1f);
-	D3DXMatrixTranslation(&matT, 0, 0, 0);
+	D3DXMatrixTranslation(&matT, -5.0, 0, 0);
 	mat = matT;
 
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);

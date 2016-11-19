@@ -119,8 +119,9 @@ void cMainGame::Update()
 		m_pCamera->Update(m_pCharController->GetAngle(), m_pCharController->GetPosition());
 
 	//int n = 0;
-	//if (m_pPlayer)
-	//	m_pPlayer->Update(m_pCharController->GetMoveKey());
+	if (m_pPlayer)
+		//m_pPlayer->Update(m_pCharController->GetMoveKey());
+		m_pPlayer->Update(2);
 
 	// 	if(m_pSkinnedMesh)
 // 	{
@@ -166,7 +167,7 @@ void cMainGame::Render()
 		p->UpdateAndRender();
 	}
 
-	if(!m_pCharController->GetMoveKey())
+	//if(!m_pCharController->GetMoveKey())
 		if(m_pPlayer)
 			m_pPlayer->Render(&m_pCharController->GetWorldTM());
 	

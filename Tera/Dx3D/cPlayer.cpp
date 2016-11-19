@@ -81,5 +81,6 @@ void cPlayer::Render(D3DXMATRIX* pMat)
 	if (m_pWeapon)
 	{
 		m_pWeapon->Render(&m_pBody->m_matRWeaponTM);
+		//m_pWeapon->Render();
 	}
 }
