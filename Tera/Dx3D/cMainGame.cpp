@@ -78,9 +78,9 @@ void cMainGame::Setup()
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
 		
-	D3DXMatrixTranslation(&mat, 0.0f, -500.0f, 0.0f);
+	D3DXMatrixTranslation(&mat, -50.0f, -30.0f, 50.0f);
 	cObjMap* pMap = new cObjMap;
-	pMap->Load("./Tera/Map/map.object", &mat);
+	pMap->Load("./Tera/Map/map.object", "./Tera/Map/map.object", &mat);
 	m_pField = pMap;
 	//m_pField->
 	
@@ -188,8 +188,8 @@ void cMainGame::Render()
 
 	D3DXMATRIXA16 matT;
 	D3DXMatrixTranslation(&matT, -50.0f, -30.0f, 50.0f);
-	//if (m_pField)
-	//	m_pField->Render(&matT);
+	if (m_pField)
+		m_pField->Render(&matT);
 	
 
 	//D3DXMATRIXA16 matT2;
@@ -215,7 +215,8 @@ void cMainGame::Render()
 
 	//if(!m_pCharController->GetMoveKey())
 
-	
+	if (m_pPlayer)
+		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
 	//2016-11-20 
 	//수정하다 말았음

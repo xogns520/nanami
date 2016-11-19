@@ -6,7 +6,7 @@ cCharController::cCharController(void)
 	: m_vPosition(0, 0, 0)
 	, m_vDirection(0, 0, 1)
 	, m_fAngle(0.0f)
-	, m_fSpeed(0.1f)
+	, m_fSpeed(0.25f)
 	, m_nMoveKey(false)
 {
 	D3DXMatrixIdentity(&m_matWorld);
