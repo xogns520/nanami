@@ -24,6 +24,8 @@ private:
 
 	iMap*						m_pField;
 	iMap*						m_pWall;
+	iMap*						m_pGate1;
+	iMap*						m_pGate2;
 	
 public:
 	cMainGame(void);

@@ -23,6 +23,8 @@ cMainGame::cMainGame(void)
 	, m_pSkyBox(NULL)
 	, m_pField(NULL)
 	, m_pWall(NULL)
+	, m_pGate1(NULL)
+	, m_pGate2(NULL)
 {
 }
 
@@ -37,6 +39,8 @@ cMainGame::~cMainGame(void)
 	SAFE_DELETE(m_pSkyBox);
 	SAFE_DELETE(m_pField);
 	SAFE_DELETE(m_pWall);
+	SAFE_DELETE(m_pGate1);
+	SAFE_DELETE(m_pGate2);
 
 	for each (auto p in m_vecSkinnedMesh)
 	{
@@ -69,16 +73,28 @@ void cMainGame::Setup()
 	D3DXMATRIXA16 mat;
 	D3DXMatrixIdentity(&mat);
 		
+	D3DXMatrixTranslation(&mat, 0.0f, -500.0f, 0.0f);
 	cObjMap* pMap = new cObjMap;
-	pMap->Load("./Tera/Board.object", &mat);
+	pMap->Load("./Tera/Map/map.object", &mat);
 	m_pField = pMap;
+	//m_pField->
 	
 	
-	D3DXMatrixTranslation(&mat, 50.0f, 0.0f, 150.0f);
+	D3DXMatrixTranslation(&mat, 0.0f, -50.0f, 0.0f);
 	cObjMap* pMap2 = new cObjMap;
 	pMap2->Load("./Tera/Wall.object", &mat);
 	m_pWall = pMap2;
-	
+
+	D3DXMatrixTranslation(&mat, 50.0f, 0.0f, 150.0f);
+	cObjMap* pMap3 = new cObjMap;
+	pMap3->Load("./Tera/Map/Pie.object", &mat); 
+	m_pGate1 = pMap3;
+
+	D3DXMatrixTranslation(&mat, 50.0f, 0.0f, 150.0f);
+	cObjMap* pMap4 = new cObjMap;
+	pMap4->Load("./Tera/Map/PE_BD_Gate02_SM.object", &mat);
+	m_pGate2 = pMap4;
+
 
 	for (int x = -20; x <= 20; ++x)
 	{
@@ -150,15 +166,31 @@ void cMainGame::Render()
 	mat._42 = m_pCamera->GetEye().y;
 	mat._43 = m_pCamera->GetEye().z;
 
-	if (m_pSkyBox)
-		m_pSkyBox->Render(&mat);
+	//if (m_pSkyBox)
+	//	m_pSkyBox->Render(&mat);
+	D3DXVECTOR3 tempPos;
+	tempPos.x = 0.0f;
+	tempPos.y = 0.0f;
+	tempPos.z = 0.0f;
 
-	if (m_pField)
-		m_pField->Render();
+	D3DXMATRIXA16 matT;
+	D3DXMatrixTranslation(&matT, -50.0f, -30.0f, 50.0f);
+	//if (m_pField)
+	//	m_pField->Render(&matT);
 
-	if (m_pWall)
-		m_pWall->Render();
+	//D3DXMATRIXA16 matT2;
+	//D3DXMatrixTranslation(&matT2, 0.0f, 0.0f, 0.0f);
+	//if (m_pWall)
+	//	m_pWall->Render(&matT2);
 
+	D3DXMatrixTranslation(&matT, 0.0f, 0.0f, 0.0f);
+
+	if (m_pGate1)
+		m_pGate1->Render(&matT);
+
+	//if (m_pGate2)
+	//	m_pGate2->Render(&matT);
+	
 	if (m_pGrid)
 		m_pGrid->Render();
 
