@@ -1,0 +1,21 @@
+BG 폴더
+
+ANC/ANC_plant.gpk/ANC_TREE_ARG_02_Branch_01_MI
+ASE/Plant_B.gpk/ASE_Foliage_SPR_03_Flower_04_MI
+ASE/Plant_B.gpk/ASE_Foliage_SPR_05_V_Plant_01_MI
+ASE/Plant_B.gpk/ASE_Plant_B_Pumpkin01_SM
+ASE/Plant_B.gpk/ASE_Plant_B_Pumpkin02_SM
+
+ASE/PoraElnu/ASE_PE_BD.gpk
+ASE/PoraElnu/ASE_PE_CON.gpk
+위 두개는 전부다
+
+ITEM/itemFestival.gpk/FV_AUT_Borcoli_SM
+ITEM/itemFestival.gpk/FV_AUT_Carrot_SM
+ITEM/itemFestival.gpk/FV_AUT_Chili_01_SM
+ITEM/itemFestival.gpk/FV_AUT_Corn_02_SM
+ITEM/itemFestival.gpk/FV_AUT_Potato_02_SM
+ITEM/itemFestival.gpk/FV_AUT_Pumpkin_01_SM
+ITEM/itemFestival.gpk/FV_AUT_Pumpkin_SM
+
+ITEM/PumkinPie.gpk 
