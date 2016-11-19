@@ -3,6 +3,7 @@
 #include "cAllocateHierarchy.h"
 #include "cSkinnedMeshManager.h"
 
+
 cSkinnedMesh::cSkinnedMesh(char* szFolder, char* szFilename)
 	: m_pRootFrame(NULL)
 	, m_pAnimController(NULL)
@@ -25,6 +26,31 @@ cSkinnedMesh::cSkinnedMesh(char* szFolder, char* szFilename)
 		pSkinnedMesh->m_pAnimController->GetMaxNumTracks(),
 		pSkinnedMesh->m_pAnimController->GetMaxNumEvents(),
 		&m_pAnimController);
+}
+
+
+cSkinnedMesh::cSkinnedMesh(char* szFolder, char* szFilename, char* NOANIMATION)
+	: m_pRootFrame(NULL)
+	, m_pAnimController(NULL)
+	, m_dwWorkingPaletteSize(0)
+	, m_pmWorkingPalette(NULL)
+	, m_pEffect(NULL)
+	, m_vPosition(0, 0, 0)
+{
+	cSkinnedMesh* pSkinnedMesh = g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
+
+	m_pRootFrame = pSkinnedMesh->m_pRootFrame;
+	m_dwWorkingPaletteSize = pSkinnedMesh->m_dwWorkingPaletteSize;
+	m_pmWorkingPalette = pSkinnedMesh->m_pmWorkingPalette;
+	m_pEffect = pSkinnedMesh->m_pEffect;
+	m_stBoundingSphere = pSkinnedMesh->m_stBoundingSphere;
+
+	//pSkinnedMesh->m_pAnimController->CloneAnimationController(
+	//	pSkinnedMesh->m_pAnimController->GetMaxNumAnimationOutputs(),
+	//	pSkinnedMesh->m_pAnimController->GetMaxNumAnimationSets(),
+	//	pSkinnedMesh->m_pAnimController->GetMaxNumTracks(),
+	//	pSkinnedMesh->m_pAnimController->GetMaxNumEvents(),
+	//	&m_pAnimController);
 }
 
 cSkinnedMesh::cSkinnedMesh()
@@ -137,31 +163,31 @@ void cSkinnedMesh::Render(ST_BONE* pBone /*= NULL*/)
 						(*pBoneMesh->ppBoneMatrixPtrs[ dwMatrixIndex ]);
 				}
 			}
-
+		
 			// set the matrix palette into the effect
 			m_pEffect->SetMatrixArray( "amPalette",
 				m_pmWorkingPalette,
 				pBoneMesh->dwNumPaletteEntries );
-
+		
 			m_pEffect->SetMatrix("g_mViewProj", &matViewProj);
 			m_pEffect->SetVector("vLightDiffuse", &D3DXVECTOR4( 1.0f, 1.0f, 1.0f, 1.0f ) );
 			m_pEffect->SetVector("vWorldLightPos", &D3DXVECTOR4( 500.0f, 500.0f, 500.0f, 1.0f ) );
 			m_pEffect->SetVector("vWorldCameraPos", &D3DXVECTOR4( vEye, 1.0f ) );
 			m_pEffect->SetVector("vMaterialAmbient", &D3DXVECTOR4( 0.53f, 0.53f, 0.53f, 0.53f ) );
 			m_pEffect->SetVector("vMaterialDiffuse", &D3DXVECTOR4( 1.0f, 1.0f, 1.0f, 1.0f ) );
-
+		
 			// we're pretty much ignoring the materials we got from the x-file; just set
 			// the texture here
 			m_pEffect->SetTexture( "g_txScene", pBoneMesh->vecTexture[ pBoneCombos[ dwAttrib ].AttribId ] );
-
+		
 			// set the current number of bones; this tells the effect which shader to use
 			m_pEffect->SetInt( "CurNumBones", pBoneMesh->dwMaxNumFaceInfls - 1 );
-
+		
 			// set the technique we use to draw
 			m_pEffect->SetTechnique( "Skinning20" );
-
+		
 			UINT uiPasses, uiPass;
-
+		
 			// run through each pass and draw
 			m_pEffect->Begin( & uiPasses, 0 );
 			for( uiPass = 0; uiPass < uiPasses; ++ uiPass )

@@ -29,6 +29,8 @@
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 
+using namespace std;
+
 extern HWND	g_hWnd;
 
 #define SAFE_DELETE_ARRAY(p) if (p) { delete [] (p); } (p) = NULL;

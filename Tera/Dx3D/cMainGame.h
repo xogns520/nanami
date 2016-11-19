@@ -8,6 +8,8 @@ class cSkinnedMesh;
 class cPlayer;
 class cSkyBox;
 
+class cEffect;
+
 
 class cMainGame
 {
@@ -26,6 +28,8 @@ private:
 	iMap*						m_pWall;
 	iMap*						m_pGate1;
 	iMap*						m_pGate2;
+	
+	cSkinnedMesh*				m_effectTest;
 	
 public:
 	cMainGame(void);
