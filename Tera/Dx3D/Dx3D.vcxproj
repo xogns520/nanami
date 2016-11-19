@@ -21,7 +21,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -126,6 +126,7 @@
     <ClInclude Include="cUIObject.h" />
     <ClInclude Include="cUITextView.h" />
     <ClInclude Include="cWeapon.h" />
+    <ClInclude Include="cWeaponTest.h" />
     <ClInclude Include="Dx3D.h" />
     <ClInclude Include="iMap.h" />
     <ClInclude Include="Resource.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="cUIObject.cpp" />
     <ClCompile Include="cUITextView.cpp" />
     <ClCompile Include="cWeapon.cpp" />
+    <ClCompile Include="cWeaponTest.cpp" />
     <ClCompile Include="Dx3D.cpp" />
     <ClCompile Include="iMap.cpp" />
     <ClCompile Include="stdafx.cpp">

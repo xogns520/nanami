@@ -5,6 +5,7 @@ class cFace;
 class cHair;
 class cTail;
 class cWeapon;
+class cWeaponTest;
 class iMap;
 
 class cPlayer
@@ -16,6 +17,7 @@ private:
 	cTail* m_pTail;
 	iMap* m_pMap;
 	cWeapon* m_pWeapon;
+	cWeaponTest* m_pT;
 public:
 	cPlayer();
 	~cPlayer();

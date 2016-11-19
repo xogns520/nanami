@@ -58,6 +58,9 @@
     <Filter Include="Main\Effect">
       <UniqueIdentifier>{7580824a-bb75-4fd3-9f7e-7b9b255aab9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="테라\플레이어\무기">
+      <UniqueIdentifier>{f96832f0-593b-4366-92a7-b577c2365c08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -80,15 +83,6 @@
     </ClInclude>
     <ClInclude Include="Dx3D.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cHair.h">
-      <Filter>테라</Filter>
-    </ClInclude>
-    <ClInclude Include="cFace.h">
-      <Filter>테라</Filter>
-    </ClInclude>
-    <ClInclude Include="cBody.h">
-      <Filter>테라</Filter>
     </ClInclude>
     <ClInclude Include="cPlayer.h">
       <Filter>테라\플레이어</Filter>
@@ -201,12 +195,6 @@
     <ClInclude Include="cSkyBox.h">
       <Filter>Main\Map</Filter>
     </ClInclude>
-    <ClInclude Include="cWeapon.h">
-      <Filter>테라\플레이어</Filter>
-    </ClInclude>
-    <ClInclude Include="cTail.h">
-      <Filter>테라</Filter>
-    </ClInclude>
     <ClInclude Include="cTerrain.h">
       <Filter>Main\Map</Filter>
     </ClInclude>
@@ -216,6 +204,24 @@
     <ClInclude Include="cEffect.h">
       <Filter>Main\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="cWeaponTest.h">
+      <Filter>테라\플레이어\무기</Filter>
+    </ClInclude>
+    <ClInclude Include="cWeapon.h">
+      <Filter>테라\플레이어\무기</Filter>
+    </ClInclude>
+    <ClInclude Include="cBody.h">
+      <Filter>테라\플레이어</Filter>
+    </ClInclude>
+    <ClInclude Include="cFace.h">
+      <Filter>테라\플레이어</Filter>
+    </ClInclude>
+    <ClInclude Include="cHair.h">
+      <Filter>테라\플레이어</Filter>
+    </ClInclude>
+    <ClInclude Include="cTail.h">
+      <Filter>테라\플레이어</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -223,15 +229,6 @@
     </ClCompile>
     <ClCompile Include="Dx3D.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cHair.cpp">
-      <Filter>테라</Filter>
-    </ClCompile>
-    <ClCompile Include="cBody.cpp">
-      <Filter>테라</Filter>
-    </ClCompile>
-    <ClCompile Include="cFace.cpp">
-      <Filter>테라</Filter>
     </ClCompile>
     <ClCompile Include="cPlayer.cpp">
       <Filter>테라\플레이어</Filter>
@@ -341,12 +338,6 @@
     <ClCompile Include="cSkyBox.cpp">
       <Filter>Main\Map</Filter>
     </ClCompile>
-    <ClCompile Include="cWeapon.cpp">
-      <Filter>테라\플레이어</Filter>
-    </ClCompile>
-    <ClCompile Include="cTail.cpp">
-      <Filter>테라</Filter>
-    </ClCompile>
     <ClCompile Include="cTerrain.cpp">
       <Filter>Main\Map</Filter>
     </ClCompile>
@@ -355,6 +346,24 @@
     </ClCompile>
     <ClCompile Include="cEffect.cpp">
       <Filter>Main\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cWeaponTest.cpp">
+      <Filter>테라\플레이어\무기</Filter>
+    </ClCompile>
+    <ClCompile Include="cWeapon.cpp">
+      <Filter>테라\플레이어\무기</Filter>
+    </ClCompile>
+    <ClCompile Include="cBody.cpp">
+      <Filter>테라\플레이어</Filter>
+    </ClCompile>
+    <ClCompile Include="cFace.cpp">
+      <Filter>테라\플레이어</Filter>
+    </ClCompile>
+    <ClCompile Include="cHair.cpp">
+      <Filter>테라\플레이어</Filter>
+    </ClCompile>
+    <ClCompile Include="cTail.cpp">
+      <Filter>테라\플레이어</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

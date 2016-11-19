@@ -25,5 +25,5 @@ void PushEffect(std::string keyName, cSkinnedMesh* effect)
 
 cSkinnedMesh* GetEffect(std::string keyName)
 {
-
+	return NULL;
 }

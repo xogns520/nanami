@@ -36,12 +36,12 @@ void cCharController::Update(iMap* pMap)
 	if (GetKeyState('W') & 0x8000)
 	{
 		p = p + m_vDirection * m_fSpeed;
-		m_nMoveKey = 2;
+		m_nMoveKey = 0;
 	}
 	if (GetKeyState('S') & 0x8000)
 	{
 		p = p - m_vDirection * m_fSpeed;
-		m_nMoveKey = 2;
+		m_nMoveKey = 0;
 	}
 	
 	if (!(GetKeyState('W') & 0x8000) && !(GetKeyState('S') & 0x8000))
@@ -49,7 +49,7 @@ void cCharController::Update(iMap* pMap)
 		m_nMoveKey = 1;
 	}
 
-	//if(pMap && pMap->GetHeight(p.x, p.y, p.z))
+	if(pMap && pMap->GetHeight(p.x, p.y, p.z))
 	{
 		m_vPosition = p;
 	}

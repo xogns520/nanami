@@ -70,7 +70,7 @@ void cMainGame::Setup()
 	D3DXMatrixIdentity(&mat);
 		
 	cObjMap* pMap = new cObjMap;
-	pMap->Load("./Tera/Board.object", &mat);
+	pMap->Load("./Tera/Board.object","./Tera/Board.object", &mat);
 	m_pField = pMap;
 	
 	
@@ -99,11 +99,10 @@ void cMainGame::Setup()
 
 	m_pPlayer = new cPlayer;
 	//m_pPlayer->Setup("./Tera/Character/", "Elin_Body_Wait.X", "Elin_Head_Wait.X", "Elin_Hair_Wait.X", NULL);
-	m_pPlayer->Setup("./Tera/Character/", "Elin_Body_WD.X", "Elin_Face_WD.X", "Elin_Hair_WD.X", NULL);
+	m_pPlayer->Setup("./Tera/Character/", "Elin_Body_WD.X", "Elin_Face_WD.X", "Elin_Hair_WD.X", "Elin_Tail_WD.X");
 	
-	
-	m_pPlayerDash = new cPlayer;
-	m_pPlayerDash->Setup("./Tera/Character/", "Elin_Body_Dash.X", "Elin_Head_Dash.X", "Elin_Hair_Dash.X", NULL);
+	//m_pPlayerDash = new cPlayer;
+	//m_pPlayerDash->Setup("./Tera/Character/", "ELin_Body_Wait.X", "ELin_Head_Wait.X", "ELin_Hair_Wait.X", NULL);
 
 	SetLight();
 }
@@ -113,7 +112,7 @@ void cMainGame::Update()
 	g_pTimeManager->Update();
 	
 	if(m_pCharController)
-		m_pCharController->Update(m_pMap);
+		m_pCharController->Update(m_pField);
 
 	if(m_pCamera)
 		m_pCamera->Update(m_pCharController->GetAngle(), m_pCharController->GetPosition());
@@ -121,7 +120,6 @@ void cMainGame::Update()
 	//int n = 0;
 	if (m_pPlayer)
 		m_pPlayer->Update(m_pCharController->GetMoveKey());
-		//m_pPlayer->Update(2);
 
 	// 	if(m_pSkinnedMesh)
 // 	{
@@ -174,6 +172,9 @@ void cMainGame::Render()
 	//if (m_pCharController->GetMoveKey())
 	//	if (m_pPlayerDash)
 	//		m_pPlayerDash->Render(&m_pCharController->GetWorldTM());
+
+	
+
 
 	g_pD3DDevice->EndScene();
 
