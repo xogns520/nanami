@@ -10,6 +10,7 @@
 #include "cObject.h"
 #include "cObjLoader.h"
 #include "cObjMap.h"
+#include "cEffect.h"
 
 
 
@@ -57,7 +58,11 @@ void cMainGame::Setup()
 
 	m_pGrid = new cGrid;
 	m_pGrid->Setup(30);
+
+	//m_effects = new cEffect;
 	
+	
+	//m_mapEffect["fileBall"] = g_pSkinnedMeshManager->GetSkinnedMesh(m_folderNm, "EffectFireball.X");
 
 	LPSTR sky[6] = { "skybox/Top.bmp", "skybox/Front.bmp", "skybox/Back.bmp", "skybox/Right.bmp", "skybox/Left.bmp", "skybox/Bottom.bmp" };
 
@@ -93,6 +98,14 @@ void cMainGame::Setup()
 			m_vecSkinnedMesh.push_back(p);
 		}
 	}
+	
+
+	//m_effectTest = new cSkinnedMesh("./Tera/Effects/", "EffectFireball.X", "NOANIMATION");
+	//m_effectTest = new cSkinnedMesh("./Zealot/", "zealot.X", "NOANIMATION");
+	//m_effectTest->SetPosition(D3DXVECTOR3(0, 0, 0));
+	
+	//2016-11-20
+	//skinnedMesh Render함수 분리 혹은 별도로 사용하도록 수정 필요!!!!!
 	
 
 	m_pCharController = new cCharController;
@@ -155,7 +168,7 @@ void cMainGame::Render()
 
 	if (m_pField)
 		m_pField->Render();
-
+	
 	if (m_pWall)
 		m_pWall->Render();
 
@@ -168,13 +181,22 @@ void cMainGame::Render()
 	}
 
 	//if(!m_pCharController->GetMoveKey())
-		if(m_pPlayer)
-			m_pPlayer->Render(&m_pCharController->GetWorldTM());
+	if(m_pPlayer)
+		m_pPlayer->Render(&m_pCharController->GetWorldTM());
+	
+
+	//2016-11-20 
+	//수정하다 말았음
+	//if (m_effectTest)
+	//	m_effectTest->UpdateAndRender();
 	
 	//if (m_pCharController->GetMoveKey())
 	//	if (m_pPlayerDash)
 	//		m_pPlayerDash->Render(&m_pCharController->GetWorldTM());
 
+
+
+		
 	g_pD3DDevice->EndScene();
 
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
