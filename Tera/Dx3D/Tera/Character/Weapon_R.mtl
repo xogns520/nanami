@@ -12,5 +12,5 @@ newmtl R_Event_Wit_Dual_01_MI
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka R_Event_Wit_Dual_01_diff.tga
-	map_Kd R_Event_Wit_Dual_01_diff.tga
+	map_Ka ./R_Event_Wit_Dual_01_diff.tga
+	map_Kd ./R_Event_Wit_Dual_01_diff.tga
