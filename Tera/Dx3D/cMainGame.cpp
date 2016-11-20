@@ -92,7 +92,8 @@ void cMainGame::Setup()
 
 	D3DXMatrixTranslation(&mat, 50.0f, 0.0f, 150.0f);
 	cObjMap* pMap3 = new cObjMap;
-	pMap3->Load("./Tera/Map/Pie.object", &mat); 
+	//pMap3->Load("./Tera/Map/Pie.object", &mat); 
+	pMap3->Load("./Tera/Map/Pie.object", "./Tera/Map/Pie.mtl", &mat);
 	m_pGate1 = pMap3;
 
 	D3DXMatrixTranslation(&mat, 50.0f, 0.0f, 150.0f);
@@ -107,7 +108,7 @@ void cMainGame::Setup()
 		for (int z = 10; z <= 30; ++z)
 		{
 			if (z > 17 && z < 23) continue;
-			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "zealot.X");
+			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "map01.X");
 			p->SetPosition(D3DXVECTOR3(x, 0, z));
 			p->SetRandomTrackPosition();
 			p->SetAnimationIndex(rand() % 5);
@@ -192,8 +193,8 @@ void cMainGame::Render()
 		m_pField->Render(&matT);
 	
 
-	//D3DXMATRIXA16 matT2;
-	//D3DXMatrixTranslation(&matT2, 0.0f, 0.0f, 0.0f);
+	D3DXMATRIXA16 matT2;
+	D3DXMatrixTranslation(&matT2, 0.0f, 0.0f, 0.0f);
 	//if (m_pWall)
 	//	m_pWall->Render(&matT2);
 
