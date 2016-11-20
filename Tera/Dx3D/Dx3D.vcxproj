@@ -96,6 +96,7 @@
     <ClInclude Include="cCube.h" />
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cEffect.h" />
+    <ClInclude Include="cEffectManager.h" />
     <ClInclude Include="cFace.h" />
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFrame.h" />
@@ -147,6 +148,7 @@
     <ClCompile Include="cCube.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cEffect.cpp" />
+    <ClCompile Include="cEffectManager.cpp" />
     <ClCompile Include="cFace.cpp" />
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFrame.cpp" />
