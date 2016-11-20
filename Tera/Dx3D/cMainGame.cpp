@@ -92,6 +92,7 @@ void cMainGame::Setup()
 
 	D3DXMatrixTranslation(&mat, 50.0f, 0.0f, 150.0f);
 	cObjMap* pMap3 = new cObjMap;
+
 	//pMap3->Load("./Tera/Map/Pie.object", &mat); 
 	pMap3->Load("./Tera/Map/Pie.object", "./Tera/Map/Pie.mtl", &mat);
 	m_pGate1 = pMap3;
@@ -102,13 +103,15 @@ void cMainGame::Setup()
 	m_pGate2 = pMap4;
 
 
-	for (int x = -20; x <= 20; ++x)
+	for (int x = -5; x <= 5; ++x)
 	{
-		if (x > -5 && x < 5) continue;
-		for (int z = 10; z <= 30; ++z)
+
+		//if (x > -5 && x < 5) continue;
+		for (int z = 15; z <= 20; ++z)
 		{
-			if (z > 17 && z < 23) continue;
-			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "map01.X");
+
+			//if (z > 17 && z < 23) continue;
+			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "zealot.X");
 			p->SetPosition(D3DXVECTOR3(x, 0, z));
 			p->SetRandomTrackPosition();
 			p->SetAnimationIndex(rand() % 5);
@@ -144,8 +147,12 @@ void cMainGame::Update()
 	if(m_pCharController)
 		m_pCharController->Update(m_pField);
 
-	if(m_pCamera)
+
+	if (m_pCamera)
+	{
 		m_pCamera->Update(m_pCharController->GetAngle(), m_pCharController->GetPosition());
+		m_pCamera->FrustumUpdate();
+	}
 
 	//int n = 0;
 	if (m_pPlayer)
@@ -193,8 +200,7 @@ void cMainGame::Render()
 		m_pField->Render(&matT);
 	
 
-	D3DXMATRIXA16 matT2;
-	D3DXMatrixTranslation(&matT2, 0.0f, 0.0f, 0.0f);
+
 	//if (m_pWall)
 	//	m_pWall->Render(&matT2);
 
@@ -211,7 +217,9 @@ void cMainGame::Render()
 
 	for each (auto p in m_vecSkinnedMesh)
 	{
-		p->UpdateAndRender();
+		if(m_pCamera->IsIn(p->GetBoundingSphere()))
+			if(m_pField->GetHeight(p->GetPosition()->x, p->GetPosition()->y, p->GetPosition()->z))
+			p->UpdateAndRender();
 	}
 
 	//if(!m_pCharController->GetMoveKey())
@@ -229,6 +237,12 @@ void cMainGame::Render()
 	//		m_pPlayerDash->Render(&m_pCharController->GetWorldTM());
 
 
+	LPD3DXFONT pFont = g_pFontManager->GetFont(cFontManager::E_CHAT);
+	char szTemp[1024];
+	RECT rc;
+	SetRect(&rc, 10, 10, 11, 11);
+	sprintf(szTemp, "FPS : %d", g_pTimeManager->GetFPS());
+	pFont->DrawTextA(NULL, szTemp, strlen(szTemp), &rc, DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 		
 	g_pD3DDevice->EndScene();

@@ -3,6 +3,7 @@
 #include "cAllocateHierarchy.h"
 #include "cSkinnedMeshManager.h"
 
+static LPD3DXMESH			pBoundingSphereMesh;
 
 cSkinnedMesh::cSkinnedMesh(char* szFolder, char* szFilename)
 	: m_pRootFrame(NULL)
@@ -66,6 +67,7 @@ cSkinnedMesh::~cSkinnedMesh(void)
 {
 	SAFE_RELEASE(m_pEffect);
 	SAFE_RELEASE(m_pAnimController);
+	SAFE_RELEASE(pBoundingSphereMesh);
 }
 
 void cSkinnedMesh::Load( char* szDirectory, char* szFilename )
@@ -79,9 +81,6 @@ void cSkinnedMesh::Load( char* szDirectory, char* szFilename )
 	ah.SetDirectory(szDirectory);
 	ah.SetDefaultPaletteSize(nPaletteSize);
 	
-	m_stBoundingSphere.vCenter = (ah.GetMin() + ah.GetMax()) / 2.0f;
-	m_stBoundingSphere.fRadius = D3DXVec3Length( &(ah.GetMin() - ah.GetMax()) );
-
 	std::string sFullPath(szDirectory);
 	sFullPath += std::string(szFilename);
 
@@ -92,6 +91,18 @@ void cSkinnedMesh::Load( char* szDirectory, char* szFilename )
 		NULL,
 		(LPD3DXFRAME*)&m_pRootFrame,
 		&m_pAnimController);
+
+	m_stBoundingSphere = ah.GetBoundingSphere();
+
+	//if (pBoundingSphereMesh == NULL)
+	//{
+	//	D3DXCreateSphere(g_pD3DDevice,
+	//		m_stBoundingSphere.fRadius,
+	//		20,
+	//		20,
+	//		&pBoundingSphereMesh,
+	//		NULL);
+	//}
 
 	if( m_pmWorkingPalette )
 		delete [] m_pmWorkingPalette;
@@ -107,7 +118,7 @@ void cSkinnedMesh::Load( char* szDirectory, char* szFilename )
 		SetupBoneMatrixPtrs(m_pRootFrame);
 }
 
-void cSkinnedMesh::UpdateAndRender()
+void cSkinnedMesh::UpdateAndRender(D3DXMATRIXA16* pmat)
 {
 	if(m_pAnimController)
 	{
@@ -117,10 +128,28 @@ void cSkinnedMesh::UpdateAndRender()
 	if(m_pRootFrame)
 	{
 		D3DXMATRIXA16 mat;
-		D3DXMatrixTranslation(&mat, m_vPosition.x, m_vPosition.y, m_vPosition.z);
+		if (pmat)
+		{
+			mat = *pmat;
+		}
+		else
+		{
+			D3DXMatrixTranslation(&mat, m_vPosition.x, m_vPosition.y, m_vPosition.z);
+		}
 
 		Update(m_pRootFrame, &mat);
 		Render(m_pRootFrame);
+		//if (pBoundingSphereMesh)
+		//{
+		//	D3DXMatrixTranslation(&mat,
+		//		m_stBoundingSphere.vCenter.x,
+		//		m_stBoundingSphere.vCenter.y,
+		//		m_stBoundingSphere.vCenter.z);
+		//	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+		//	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		//	pBoundingSphereMesh->DrawSubset(0);
+		//	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		//}
 	}
 }
 

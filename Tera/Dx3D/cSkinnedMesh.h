@@ -24,14 +24,18 @@ public:
 
 	~cSkinnedMesh(void);
 	
-	void UpdateAndRender();
+	void UpdateAndRender(D3DXMATRIXA16* pmat = NULL);
 	void SetAnimationIndex(int nIndex);
 
 	void SetRandomTrackPosition(); // 테스트용
 	void SetPosition(D3DXVECTOR3 v)
 	{
 		m_vPosition = v;
-		m_stBoundingSphere.vCenter = v;
+		m_stBoundingSphere.vCenter += v;
+	}
+	D3DXVECTOR3* GetPosition()
+	{
+		return &m_vPosition;
 	}
 	ST_SPHERE* GetBoundingSphere()
 	{
