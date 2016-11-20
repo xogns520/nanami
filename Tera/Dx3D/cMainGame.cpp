@@ -101,12 +101,12 @@ void cMainGame::Setup()
 	m_pGate2 = pMap4;
 
 
-	for (int x = -20; x <= 20; ++x)
+	for (int x = -5; x <= 5; ++x)
 	{
-		if (x > -5 && x < 5) continue;
-		for (int z = 10; z <= 30; ++z)
+		//if (x > -5 && x < 5) continue;
+		for (int z = 15; z <= 20; ++z)
 		{
-			if (z > 17 && z < 23) continue;
+			//if (z > 17 && z < 23) continue;
 			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "zealot.X");
 			p->SetPosition(D3DXVECTOR3(x, 0, z));
 			p->SetRandomTrackPosition();
@@ -214,6 +214,7 @@ void cMainGame::Render()
 	for each (auto p in m_vecSkinnedMesh)
 	{
 		if(m_pCamera->IsIn(p->GetBoundingSphere()))
+			if(m_pField->GetHeight(p->GetPosition()->x, p->GetPosition()->y, p->GetPosition()->z))
 			p->UpdateAndRender();
 	}
 

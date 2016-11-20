@@ -85,6 +85,7 @@ bool cObjMap::GetHeight( IN float x, OUT float& y, IN float z )
 			&vRayPos,
 			&vRayDir,
 			&u, &v, &d))
+		//if(D3DXIntersect())
 		{
 			y = 1000 - d;
 			return true;

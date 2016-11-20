@@ -17,7 +17,6 @@ private:
 	// 객체마다 생성
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXVECTOR3					m_vPosition;
-	ID3DXMesh*					m_Sphere;
 
 public:
 	cSkinnedMesh(char* szFolder, char* szFilename);
@@ -25,7 +24,7 @@ public:
 
 	~cSkinnedMesh(void);
 	
-	void UpdateAndRender();
+	void UpdateAndRender(D3DXMATRIXA16* pmat = NULL);
 	void SetAnimationIndex(int nIndex);
 
 	void SetRandomTrackPosition(); // 테스트용
@@ -33,6 +32,10 @@ public:
 	{
 		m_vPosition = v;
 		m_stBoundingSphere.vCenter += v;
+	}
+	D3DXVECTOR3* GetPosition()
+	{
+		return &m_vPosition;
 	}
 	ST_SPHERE* GetBoundingSphere()
 	{
