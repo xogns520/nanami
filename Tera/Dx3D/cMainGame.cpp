@@ -143,8 +143,11 @@ void cMainGame::Update()
 	if(m_pCharController)
 		m_pCharController->Update(m_pField);
 
-	if(m_pCamera)
+	if (m_pCamera)
+	{
 		m_pCamera->Update(m_pCharController->GetAngle(), m_pCharController->GetPosition());
+		m_pCamera->FrustumUpdate();
+	}
 
 	//int n = 0;
 	if (m_pPlayer)
@@ -210,7 +213,8 @@ void cMainGame::Render()
 
 	for each (auto p in m_vecSkinnedMesh)
 	{
-		p->UpdateAndRender();
+		if(m_pCamera->IsIn(p->GetBoundingSphere()))
+			p->UpdateAndRender();
 	}
 
 	//if(!m_pCharController->GetMoveKey())

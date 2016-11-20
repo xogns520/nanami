@@ -17,6 +17,7 @@ private:
 	// 객체마다 생성
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXVECTOR3					m_vPosition;
+	ID3DXMesh*					m_Sphere;
 
 public:
 	cSkinnedMesh(char* szFolder, char* szFilename);
@@ -31,7 +32,7 @@ public:
 	void SetPosition(D3DXVECTOR3 v)
 	{
 		m_vPosition = v;
-		m_stBoundingSphere.vCenter = v;
+		m_stBoundingSphere.vCenter += v;
 	}
 	ST_SPHERE* GetBoundingSphere()
 	{

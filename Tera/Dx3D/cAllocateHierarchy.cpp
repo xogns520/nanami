@@ -92,13 +92,18 @@ STDMETHODIMP cAllocateHierarchy::CreateMeshContainer( THIS_ LPCSTR Name,
 
 		LPVOID pV = NULL;
 		pMeshData->pMesh->LockVertexBuffer(0, &pV);
-		D3DXComputeBoundingBox((D3DXVECTOR3*)pV,
+		D3DXComputeBoundingSphere((D3DXVECTOR3*)pV,
 			pMeshData->pMesh->GetNumVertices(),
 			D3DXGetFVFVertexSize(pMeshData->pMesh->GetFVF()),
-			&vMin,
-			&vMax);
-		D3DXVec3Minimize(&m_vMin, &m_vMin, &vMin);
-		D3DXVec3Maximize(&m_vMax, &m_vMax, &vMax);
+			&m_vCenter,
+			&m_fRadius);
+		//D3DXComputeBoundingBox((D3DXVECTOR3*)pV,
+		//	pMeshData->pMesh->GetNumVertices(),
+		//	D3DXGetFVFVertexSize(pMeshData->pMesh->GetFVF()),
+		//	&vMin,
+		//	&vMax);
+		//D3DXVec3Minimize(&m_vMin, &m_vMin, &vMin);
+		//D3DXVec3Maximize(&m_vMax, &m_vMax, &vMax);
 		pMeshData->pMesh->UnlockVertexBuffer();
 		
 		pMeshData->pMesh->CloneMeshFVF(

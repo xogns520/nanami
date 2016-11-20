@@ -11,6 +11,7 @@ cSkinnedMesh::cSkinnedMesh(char* szFolder, char* szFilename)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
+	, m_Sphere(NULL)
 {
 	cSkinnedMesh* pSkinnedMesh =  g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
 	
@@ -36,6 +37,7 @@ cSkinnedMesh::cSkinnedMesh(char* szFolder, char* szFilename, char* NOANIMATION)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
+	, m_Sphere(NULL)
 {
 	cSkinnedMesh* pSkinnedMesh = g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
 
@@ -59,11 +61,13 @@ cSkinnedMesh::cSkinnedMesh()
 	, m_dwWorkingPaletteSize(0)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
+	, m_Sphere(NULL)
 {
 }
 
 cSkinnedMesh::~cSkinnedMesh(void)
 {
+	SAFE_RELEASE(m_Sphere);
 	SAFE_RELEASE(m_pEffect);
 	SAFE_RELEASE(m_pAnimController);
 }
@@ -79,9 +83,6 @@ void cSkinnedMesh::Load( char* szDirectory, char* szFilename )
 	ah.SetDirectory(szDirectory);
 	ah.SetDefaultPaletteSize(nPaletteSize);
 	
-	m_stBoundingSphere.vCenter = (ah.GetMin() + ah.GetMax()) / 2.0f;
-	m_stBoundingSphere.fRadius = D3DXVec3Length( &(ah.GetMin() - ah.GetMax()) );
-
 	std::string sFullPath(szDirectory);
 	sFullPath += std::string(szFilename);
 
@@ -105,6 +106,12 @@ void cSkinnedMesh::Load( char* szDirectory, char* szFilename )
 
 	if(m_pRootFrame)
 		SetupBoneMatrixPtrs(m_pRootFrame);
+
+	m_stBoundingSphere.vCenter = ah.GetSphereCenter();
+	m_stBoundingSphere.fRadius = ah.GetSphereRadius();
+
+	//스피어 손봐야함
+	D3DXCreateSphere(g_pD3DDevice, m_stBoundingSphere.fRadius, 20, 20, &m_Sphere, 0);
 }
 
 void cSkinnedMesh::UpdateAndRender()
@@ -121,6 +128,15 @@ void cSkinnedMesh::UpdateAndRender()
 
 		Update(m_pRootFrame, &mat);
 		Render(m_pRootFrame);
+
+		if (m_Sphere)
+		{
+			D3DXMatrixTranslation(&mat, m_stBoundingSphere.vCenter.x, m_stBoundingSphere.vCenter.y, m_stBoundingSphere.vCenter.z);
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+			g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+			m_Sphere->DrawSubset(0);
+			g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		}
 	}
 }
 

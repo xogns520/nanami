@@ -151,6 +151,28 @@ struct ST_SIZE
 	ST_SIZE(float _w, float _h) : fWidth(_w), fHeight(_h) {}
 };
 
+enum tagBox
+{
+	FLT,
+	FRT,
+	FLB,
+	FRB,
+	BLT,
+	BRT,
+	BLB,
+	BRB
+};
+
+enum tagPlane
+{
+	PFront,
+	PLeft,
+	PRight,
+	PUp,
+	PDown,
+	PBack
+};
+
 #include "cDeviceManager.h"
 #include "cTimeManager.h"
 #include "cTextureManager.h"

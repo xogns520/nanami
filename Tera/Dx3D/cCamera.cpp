@@ -129,3 +129,46 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		break;
 	}
 }
+
+void cCamera::FrustumUpdate()
+{
+	float x = 1, y = 1, z = 1;
+	
+	m_arrBox[0] = D3DXVECTOR3(-x, y, 0);
+	m_arrBox[1] = D3DXVECTOR3(x, y, 0);
+	m_arrBox[2] = D3DXVECTOR3(-x, -y, 0);
+	m_arrBox[3] = D3DXVECTOR3(x, -y, 0);
+	m_arrBox[4] = D3DXVECTOR3(-x, y, z);
+	m_arrBox[5] = D3DXVECTOR3(x, y, z);
+	m_arrBox[6] = D3DXVECTOR3(-x, -y, z);
+	m_arrBox[7] = D3DXVECTOR3(x, -y, z);
+
+	D3DXMATRIX projMat, projInvMat, viewMat, viewInvMat;
+	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &projMat);
+	D3DXMatrixInverse(&projInvMat, 0, &projMat);
+	g_pD3DDevice->GetTransform(D3DTS_VIEW, &viewMat);
+	D3DXMatrixInverse(&viewInvMat, 0, &viewMat);
+
+	for (int i = 0; i < 8; i++)
+	{
+		D3DXVec3TransformCoord(&m_arrBox[i], &m_arrBox[i], &projInvMat);
+		D3DXVec3TransformCoord(&m_arrBox[i], &m_arrBox[i], &viewInvMat);
+	}
+
+	D3DXPlaneFromPoints(&m_arrPlane[PFront], &m_arrBox[FLT], &m_arrBox[FRT], &m_arrBox[FLB]);
+	D3DXPlaneFromPoints(&m_arrPlane[PBack], &m_arrBox[BRT], &m_arrBox[BLT], &m_arrBox[BRB]);
+	D3DXPlaneFromPoints(&m_arrPlane[PLeft], &m_arrBox[BLT], &m_arrBox[FLT], &m_arrBox[BLB]);
+	D3DXPlaneFromPoints(&m_arrPlane[PRight], &m_arrBox[FRT], &m_arrBox[BRT], &m_arrBox[FRB]);
+	D3DXPlaneFromPoints(&m_arrPlane[PUp], &m_arrBox[BLT], &m_arrBox[BRT], &m_arrBox[FLT]);
+	D3DXPlaneFromPoints(&m_arrPlane[PDown], &m_arrBox[FLB], &m_arrBox[FRB], &m_arrBox[BLB]);
+}
+
+bool cCamera::IsIn(ST_SPHERE * sphere)
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if (D3DXPlaneDotCoord(&m_arrPlane[i], &sphere->vCenter) >= sphere->fRadius)
+			return false;
+	}
+	return true;
+}

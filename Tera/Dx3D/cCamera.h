@@ -12,6 +12,8 @@ private:
 	float			m_fAngleY;
 	float			m_fDistance;
 
+	D3DXPLANE		m_arrPlane[6];
+	D3DXVECTOR3     m_arrBox[8];
 public:
 	cCamera(void);
 	~cCamera(void);
@@ -22,5 +24,8 @@ public:
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	D3DXVECTOR3 GetEye() { return m_vEye; }
+
+	void FrustumUpdate();
+	bool IsIn(ST_SPHERE* sphere);
 };
 
