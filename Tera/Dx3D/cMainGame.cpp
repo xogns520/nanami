@@ -233,6 +233,12 @@ void cMainGame::Render()
 	//		m_pPlayerDash->Render(&m_pCharController->GetWorldTM());
 
 
+	LPD3DXFONT pFont = g_pFontManager->GetFont(cFontManager::E_CHAT);
+	char szTemp[1024];
+	RECT rc;
+	SetRect(&rc, 10, 10, 11, 11);
+	sprintf(szTemp, "FPS : %d", g_pTimeManager->GetFPS());
+	pFont->DrawTextA(NULL, szTemp, strlen(szTemp), &rc, DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 		
 	g_pD3DDevice->EndScene();
