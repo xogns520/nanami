@@ -111,7 +111,7 @@ void cMainGame::Setup()
 		{
 
 			//if (z > 17 && z < 23) continue;
-			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "zealot.X");
+			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "Potion.X");
 			p->SetPosition(D3DXVECTOR3(x, 0, z));
 			p->SetRandomTrackPosition();
 			p->SetAnimationIndex(rand() % 5);
