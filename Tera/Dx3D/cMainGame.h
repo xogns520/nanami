@@ -31,7 +31,7 @@ private:
 	iMap*						m_pGate1;
 	iMap*						m_pGate2;
 	
-	cSkinnedMesh*				m_effectTest;
+	iMap*						m_effectTest;
 
 	cMap*						m_RealMap;
 	
