@@ -105,6 +105,9 @@
     <ClInclude Include="cGroup.h" />
     <ClInclude Include="cHair.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cMap.h" />
+    <ClInclude Include="cMapAllocateHierarchy.h" />
+    <ClInclude Include="cMapSkinnedMesh.h" />
     <ClInclude Include="cMtlTex.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cObjectPool.h" />
@@ -157,6 +160,9 @@
     <ClCompile Include="cGroup.cpp" />
     <ClCompile Include="cHair.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cMap.cpp" />
+    <ClCompile Include="cMapAllocateHierarchy.cpp" />
+    <ClCompile Include="cMapSkinnedMesh.cpp" />
     <ClCompile Include="cMtlTex.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cObjectPool.cpp" />

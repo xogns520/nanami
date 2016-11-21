@@ -11,7 +11,8 @@
 #include "cObjLoader.h"
 #include "cObjMap.h"
 #include "cEffect.h"
-
+#include "cMap.h"
+#include "cMapSkinnedMesh.h"
 
 
 cMainGame::cMainGame(void)
@@ -26,6 +27,7 @@ cMainGame::cMainGame(void)
 	, m_pWall(NULL)
 	, m_pGate1(NULL)
 	, m_pGate2(NULL)
+	, m_RealMap(NULL)
 {
 }
 
@@ -42,6 +44,7 @@ cMainGame::~cMainGame(void)
 	SAFE_DELETE(m_pWall);
 	SAFE_DELETE(m_pGate1);
 	SAFE_DELETE(m_pGate2);
+	SAFE_DELETE(m_RealMap);
 
 	for each (auto p in m_vecSkinnedMesh)
 	{
@@ -74,51 +77,10 @@ void cMainGame::Setup()
 	m_pSkyBox = new cSkyBox;
 	m_pSkyBox->Setup(sky);
 
-	//map
-	D3DXMATRIXA16 mat;
-	D3DXMatrixIdentity(&mat);
-		
-	D3DXMatrixTranslation(&mat, -50.0f, -30.0f, 50.0f);
-	cObjMap* pMap = new cObjMap;
-	pMap->Load("./Tera/Map/map.object", "./Tera/Map/map.object", &mat);
-	m_pField = pMap;
-	//m_pField->
-	
-	
-	D3DXMatrixTranslation(&mat, 0.0f, -50.0f, 0.0f);
-	cObjMap* pMap2 = new cObjMap;
-	pMap2->Load("./Tera/Wall.object", &mat);
-	m_pWall = pMap2;
-
-	D3DXMatrixTranslation(&mat, 50.0f, 0.0f, 150.0f);
-	cObjMap* pMap3 = new cObjMap;
-
-	//pMap3->Load("./Tera/Map/Pie.object", &mat); 
-	pMap3->Load("./Tera/Map/Pie.object", "./Tera/Map/Pie.mtl", &mat);
-	m_pGate1 = pMap3;
-
-	D3DXMatrixTranslation(&mat, 50.0f, 0.0f, 150.0f);
-	cObjMap* pMap4 = new cObjMap;
-	pMap4->Load("./Tera/Map/PE_BD_Gate02_SM.object", &mat);
-	m_pGate2 = pMap4;
+	m_RealMap = new cMap;
+	m_RealMap->Setup();
 
 
-	for (int x = -5; x <= 5; ++x)
-	{
-
-		//if (x > -5 && x < 5) continue;
-		for (int z = 15; z <= 20; ++z)
-		{
-
-			//if (z > 17 && z < 23) continue;
-			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "Potion.X");
-			p->SetPosition(D3DXVECTOR3(x, 0, z));
-			p->SetRandomTrackPosition();
-			p->SetAnimationIndex(rand() % 5);
-			m_vecSkinnedMesh.push_back(p);
-		}
-	}
-	
 
 	//m_effectTest = new cSkinnedMesh("./Tera/Effects/", "EffectFireball.X", "NOANIMATION");
 	//m_effectTest = new cSkinnedMesh("./Zealot/", "zealot.X", "NOANIMATION");
@@ -158,6 +120,9 @@ void cMainGame::Update()
 	if (m_pPlayer)
 		m_pPlayer->Update(m_pCharController->GetMoveKey());
 
+	if (m_RealMap)
+		m_RealMap->Update();
+
 	// 	if(m_pSkinnedMesh)
 // 	{
 // 		D3DXMATRIXA16 mat;
@@ -188,26 +153,26 @@ void cMainGame::Render()
 
 	//if (m_pSkyBox)
 	//	m_pSkyBox->Render(&mat);
-	D3DXVECTOR3 tempPos;
-	tempPos.x = 0.0f;
-	tempPos.y = 0.0f;
-	tempPos.z = 0.0f;
+	//D3DXVECTOR3 tempPos;
+	//tempPos.x = 0.0f;
+	//tempPos.y = 0.0f;
+	//tempPos.z = 0.0f;
 
 
-	D3DXMATRIXA16 matT;
-	D3DXMatrixTranslation(&matT, -50.0f, -30.0f, 50.0f);
-	if (m_pField)
-		m_pField->Render(&matT);
+	//D3DXMATRIXA16 matT;
+	//D3DXMatrixTranslation(&matT, -50.0f, -30.0f, 50.0f);
+	//if (m_pField)
+	//	m_pField->Render(&matT);
 	
 
 
 	//if (m_pWall)
 	//	m_pWall->Render(&matT2);
 
-	D3DXMatrixTranslation(&matT, 0.0f, 0.0f, 0.0f);
+	/*D3DXMatrixTranslation(&matT, 0.0f, 0.0f, 0.0f);*/
 
-	if (m_pGate1)
-		m_pGate1->Render(&matT);
+	//if (m_pGate1)
+	//	m_pGate1->Render(&matT);
 
 	//if (m_pGate2)
 	//	m_pGate2->Render(&matT);
@@ -226,6 +191,9 @@ void cMainGame::Render()
 
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
+
+	if (m_RealMap)
+		m_RealMap->Render();
 
 	//2016-11-20 
 	//수정하다 말았음
