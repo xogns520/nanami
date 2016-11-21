@@ -127,7 +127,7 @@ void cMapSkinnedMesh::Render(MAP_ST_BONE* pFrame)
 
 bool cMapSkinnedMesh::GetHeight(IN float x, OUT float& y, IN float z)
 {
-	D3DXVECTOR3 vRayPos(x, 100000, z);
+	D3DXVECTOR3 vRayPos(x, 20000, z);
 	D3DXVECTOR3 vRayDir(0, -1, 0);
 	//LPBOOL Hit;
 	//MAP_ST_BONE_MESH* pBoneMesh = (MAP_ST_BONE_MESH*)mesh.m_pRoot->pMeshContainer;
@@ -147,7 +147,7 @@ bool cMapSkinnedMesh::GetHeight(IN float x, OUT float& y, IN float z)
 
 		if(Hit)
 		{
-			y = 100000 - d;
+			y = 20000 - d;
 			return true;
 		}
 		else return false;

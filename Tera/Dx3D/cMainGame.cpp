@@ -77,16 +77,8 @@ void cMainGame::Setup()
 	m_pSkyBox = new cSkyBox;
 	m_pSkyBox->Setup(sky);
 
-	m_RealMap = new cMap;
-	m_RealMap->Setup();
-
-	//obj맵
-	//D3DXMATRIXA16 mat;
-	//D3DXMatrixTranslation(&mat, -50.0f, -30.0f, 50.0f);
-	//cObjMap* pMap = new cObjMap;
-	////pMap->Load("./Tera/Map/map.object", "./Tera/Map/map.object", &mat);
-	//pMap->Load("./Tera/Map/map10.object", "./Tera/Map/map10.object", &mat);
-	//m_pField = pMap;
+	//m_RealMap = new cMap;
+	//m_RealMap->Setup();
 
 	//m_effectTest = new cSkinnedMesh("./Tera/Effects/", "EffectFireball.X", "NOANIMATION");
 	//m_effectTest = new cSkinnedMesh("./Zealot/", "zealot.X", "NOANIMATION");
@@ -95,8 +87,24 @@ void cMainGame::Setup()
 	//2016-11-20
 	//skinnedMesh Render함수 분리 혹은 별도로 사용하도록 수정 필요!!!!!
 	
+	for (int x = -20; x < -10; ++x)
+	{
+		//if (x > -15 && x < 10) continue;
+		for (int z = 10; z < 20; ++z)
+		{
+			//if (z > 17 && z < 23) continue;
+			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "zealot.X");
+			p->SetPosition(D3DXVECTOR3(x, 0, z));
+			p->SetRandomTrackPosition();
+			p->SetAnimationIndex(rand() % 5);
+			m_vecSkinnedMesh.push_back(p);
+		}
+	}
 
+	//D3DXMATRIXA16 matT;
+	//D3DXMatrixTranslation(&matT, -10.0f, 0.0f, 10.0f);
 	m_pCharController = new cCharController;
+	m_pCharController->SetPosition(&D3DXVECTOR3(-10.0f, 0.0f, 10.0f));
 
 	m_pPlayer = new cPlayer;
 	//m_pPlayer->Setup("./Tera/Character/", "Elin_Body_Wait.X", "Elin_Head_Wait.X", "Elin_Hair_Wait.X", NULL);
@@ -104,6 +112,14 @@ void cMainGame::Setup()
 	
 	//m_pPlayerDash = new cPlayer;
 	//m_pPlayerDash->Setup("./Tera/Character/", "ELin_Body_Wait.X", "ELin_Head_Wait.X", "ELin_Hair_Wait.X", NULL);
+
+	//지형
+	m_pTerrain = new cMapSkinnedMesh;
+	m_pTerrain->Load("Tera/Map", "map00.X");
+	//m_pTerrain->SetPosition(D3DXVECTOR3(50.0f, -30.0f, -50.0f));
+	m_pTerrain->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	//m_pTerrain->GetHeight(m_pCharController->GetPosition()->x, m_pCharController->GetPosition()->y, m_pCharController->GetPosition()->z);
 
 	SetLight();
 }
@@ -113,7 +129,8 @@ void cMainGame::Update()
 	g_pTimeManager->Update();
 	
 	if(m_pCharController)
-		m_pCharController->Update(m_pField);
+		//m_pCharController->Update(m_pField);
+		m_pCharController->Update(m_pTerrain);
 
 
 	if (m_pCamera)
@@ -122,12 +139,14 @@ void cMainGame::Update()
 		m_pCamera->FrustumUpdate();
 	}
 
-	//int n = 0;
 	if (m_pPlayer)
 		m_pPlayer->Update(m_pCharController->GetMoveKey());
 
-	if (m_RealMap)
-		m_RealMap->Update();
+	//if (m_RealMap)
+	//	m_RealMap->Update();
+
+	if (m_pTerrain)
+		m_pTerrain->Update();
 
 	// 	if(m_pSkinnedMesh)
 // 	{
@@ -164,14 +183,6 @@ void cMainGame::Render()
 	//tempPos.y = 0.0f;
 	//tempPos.z = 0.0f;
 
-	//obj맵 랜더
-	//D3DXMATRIXA16 matT;
-	//D3DXMatrixTranslation(&matT, -50.0f, -30.0f, 50.0f);
-	//if (m_pField)
-	//	m_pField->Render(&matT);
-	
-
-
 	//if (m_pWall)
 	//	m_pWall->Render(&matT2);
 
@@ -188,9 +199,14 @@ void cMainGame::Render()
 
 	for each (auto p in m_vecSkinnedMesh)
 	{
-		if(m_pCamera->IsIn(p->GetBoundingSphere()))
-			if(m_pField->GetHeight(p->GetPosition()->x, p->GetPosition()->y, p->GetPosition()->z))
-			p->UpdateAndRender();
+		if (m_pTerrain->GetHeight(p->GetPosition()->x, p->GetPosition()->y, p->GetPosition()->z))
+		{
+			m_pTerrain->GetHeight(p->GetPosition()->x, p->GetBoundingSphere()->vCenter.y, p->GetPosition()->z);
+			if (m_pCamera->IsIn(p->GetBoundingSphere()))
+			{
+				p->UpdateAndRender();
+			}
+		}
 	}
 
 	//if(!m_pCharController->GetMoveKey())
@@ -198,8 +214,11 @@ void cMainGame::Render()
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
-	if (m_RealMap)
-		m_RealMap->Render();
+	//if (m_RealMap)
+	//	m_RealMap->Render();
+
+	if (m_pTerrain)
+		m_pTerrain->Render();
 
 	//2016-11-20 
 	//수정하다 말았음

@@ -11,6 +11,7 @@ class cSkyBox;
 class cEffect;
 
 class cMap;
+class cMapSkinnedMesh;
 
 
 class cMainGame
@@ -34,6 +35,7 @@ private:
 	iMap*						m_effectTest;
 
 	cMap*						m_RealMap;
+	cMapSkinnedMesh*			m_pTerrain;
 	
 public:
 	cMainGame(void);
