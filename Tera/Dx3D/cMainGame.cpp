@@ -84,6 +84,7 @@ void cMainGame::Setup()
 	D3DXMatrixTranslation(&mat, -50.0f, -30.0f, 50.0f);
 	cObjMap* pMap = new cObjMap;
 	pMap->Load("./Tera/Map/map.object", "./Tera/Map/map.object", &mat);
+	//pMap->Load("./Tera/Map/FullMap.object", "./Tera/Map/FullMap.object", &mat);
 	m_pField = pMap;
 
 	//m_effectTest = new cSkinnedMesh("./Tera/Effects/", "EffectFireball.X", "NOANIMATION");
