@@ -225,6 +225,15 @@
     <ClInclude Include="cEffectManager.h">
       <Filter>Main\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="cMap.h">
+      <Filter>Main\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="cMapSkinnedMesh.h">
+      <Filter>Main\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="cMapAllocateHierarchy.h">
+      <Filter>Main\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -370,6 +379,15 @@
     </ClCompile>
     <ClCompile Include="cEffectManager.cpp">
       <Filter>Main\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="cMap.cpp">
+      <Filter>Main\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="cMapSkinnedMesh.cpp">
+      <Filter>Main\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="cMapAllocateHierarchy.cpp">
+      <Filter>Main\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

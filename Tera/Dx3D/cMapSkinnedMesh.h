@@ -1,10 +1,10 @@
 #pragma once
-#include "cAllocateHierarchy.h"
+#include "cMapAllocateHierarchy.h"
 
 class cMapSkinnedMesh
 {
 private:
-	ST_BONE*					m_pRoot;
+	MAP_ST_BONE*				m_pRoot;
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXVECTOR3					m_vPosition;
 	ST_SPHERE					m_stBoundingSphere;
@@ -28,10 +28,10 @@ public:
 	}
 
 protected:
-	virtual void Update(ST_BONE* pFrame, ST_BONE* pParent);
-	virtual void Update2(ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent);
-	virtual void Render(ST_BONE* pFrame);
-	virtual void SetupBoneMatrixPtrs(ST_BONE* pFrame);
-	virtual void UpdateSkinnedMesh(ST_BONE* pFrame);
+	virtual void Update(MAP_ST_BONE* pFrame, MAP_ST_BONE* pParent);
+	virtual void Update2(MAP_ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent);
+	virtual void Render(MAP_ST_BONE* pFrame);
+	virtual void SetupBoneMatrixPtrs(MAP_ST_BONE* pFrame);
+	virtual void UpdateSkinnedMesh(MAP_ST_BONE* pFrame);
 };
 

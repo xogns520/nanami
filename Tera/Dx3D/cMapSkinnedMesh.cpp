@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "cMapSkinnedMesh.h"
-#include "cAllocateHierarchy.h"
+#include "cMapAllocateHierarchy.h"
 #include "cMtlTex.h"
 
 cMapSkinnedMesh::cMapSkinnedMesh(void)
@@ -12,7 +12,7 @@ cMapSkinnedMesh::cMapSkinnedMesh(void)
 
 cMapSkinnedMesh::~cMapSkinnedMesh(void)
 {
-	cAllocateHierarchy alloc;
+	cMapAllocateHierarchy alloc;
 	D3DXFrameDestroy((LPD3DXFRAME)m_pRoot, &alloc);
 	SAFE_RELEASE(m_pAnimController);
 }
@@ -23,7 +23,7 @@ void cMapSkinnedMesh::Load(char* szFolder, char* szFile)
 	std::string sFile(szFile);
 	std::string sFullPath = sFolder + "/" + sFile;
 
-	cAllocateHierarchy alloc;
+	cMapAllocateHierarchy alloc;
 	alloc.SetFolder(sFolder);
 
 	D3DXLoadMeshHierarchyFromX(
@@ -48,7 +48,7 @@ void cMapSkinnedMesh::Update()
 	//Update(m_pRoot, NULL);
 }
 
-void cMapSkinnedMesh::Update(ST_BONE* pFrame, ST_BONE* pParent)
+void cMapSkinnedMesh::Update(MAP_ST_BONE* pFrame, MAP_ST_BONE* pParent)
 {
 	pFrame->CombinedTransformationMatrix = pFrame->TransformationMatrix;
 	if (pParent)
@@ -59,16 +59,16 @@ void cMapSkinnedMesh::Update(ST_BONE* pFrame, ST_BONE* pParent)
 
 	if (pFrame->pFrameFirstChild)
 	{
-		Update((ST_BONE*)pFrame->pFrameFirstChild, (ST_BONE*)pFrame);
+		Update((MAP_ST_BONE*)pFrame->pFrameFirstChild, (MAP_ST_BONE*)pFrame);
 	}
 
 	if (pFrame->pFrameSibling)
 	{
-		Update((ST_BONE*)pFrame->pFrameSibling, (ST_BONE*)pParent);
+		Update((MAP_ST_BONE*)pFrame->pFrameSibling, (MAP_ST_BONE*)pParent);
 	}
 }
 
-void cMapSkinnedMesh::Update2(ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent)
+void cMapSkinnedMesh::Update2(MAP_ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent)
 {
 	pCurrent->CombinedTransformationMatrix = pCurrent->TransformationMatrix;
 	if (pmatParent)
@@ -79,12 +79,12 @@ void cMapSkinnedMesh::Update2(ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent)
 
 	if (pCurrent->pFrameSibling)
 	{
-		Update2((ST_BONE*)pCurrent->pFrameSibling, pmatParent);
+		Update2((MAP_ST_BONE*)pCurrent->pFrameSibling, pmatParent);
 	}
 
 	if (pCurrent->pFrameFirstChild)
 	{
-		Update2((ST_BONE*)pCurrent->pFrameFirstChild, &(pCurrent->CombinedTransformationMatrix));
+		Update2((MAP_ST_BONE*)pCurrent->pFrameFirstChild, &(pCurrent->CombinedTransformationMatrix));
 	}
 }
 
@@ -95,13 +95,13 @@ void cMapSkinnedMesh::Render()
 	Render(m_pRoot);
 }
 
-void cMapSkinnedMesh::Render(ST_BONE* pFrame)
+void cMapSkinnedMesh::Render(MAP_ST_BONE* pFrame)
 {
 
 	if (pFrame)
 	{
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &pFrame->CombinedTransformationMatrix);
-		ST_BONE_MESH* pBoneMesh = (ST_BONE_MESH*)pFrame->pMeshContainer;
+		MAP_ST_BONE_MESH* pBoneMesh = (MAP_ST_BONE_MESH*)pFrame->pMeshContainer;
 		while (pBoneMesh)
 		{
 			for (size_t i = 0; i < pBoneMesh->vecMtlTex.size(); ++i)
@@ -110,22 +110,22 @@ void cMapSkinnedMesh::Render(ST_BONE* pFrame)
 				g_pD3DDevice->SetTexture(0, pBoneMesh->vecMtlTex[i]->GetTexture());
 				pBoneMesh->pOrgMesh->DrawSubset(i);
 			}
-			pBoneMesh = (ST_BONE_MESH*)pBoneMesh->pNextMeshContainer;
+			pBoneMesh = (MAP_ST_BONE_MESH*)pBoneMesh->pNextMeshContainer;
 		}
 	}
 
 	if (pFrame->pFrameFirstChild)
 	{
-		Render((ST_BONE*)pFrame->pFrameFirstChild);
+		Render((MAP_ST_BONE*)pFrame->pFrameFirstChild);
 	}
 
 	if (pFrame->pFrameSibling)
 	{
-		Render((ST_BONE*)pFrame->pFrameSibling);
+		Render((MAP_ST_BONE*)pFrame->pFrameSibling);
 	}
 }
 
-void cMapSkinnedMesh::UpdateSkinnedMesh(ST_BONE* pFrame)
+void cMapSkinnedMesh::UpdateSkinnedMesh(MAP_ST_BONE* pFrame)
 {
 	// pCurrentBoneMatrices 를 계산하시오
 	// pCurrentBoneMatrices = pBoneOffsetMatrices * ppBoneMatrixPtrs 
@@ -148,7 +148,7 @@ void cMapSkinnedMesh::UpdateSkinnedMesh(ST_BONE* pFrame)
 	//재귀적으로 모든 프레임에 대해서 실행.
 }
 
-void cMapSkinnedMesh::SetupBoneMatrixPtrs(ST_BONE* pFrame)
+void cMapSkinnedMesh::SetupBoneMatrixPtrs(MAP_ST_BONE* pFrame)
 {
 	// 각 프레임의 메시 컨테이너에 있는 pSkinInfo를 이용하여 영향받는 모든 
 	// 프레임의 매트릭스를 ppBoneMatrixPtrs에 연결한다.

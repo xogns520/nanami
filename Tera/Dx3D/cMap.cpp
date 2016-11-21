@@ -25,8 +25,8 @@ void cMap::Setup()
 
 	//ÁöÇü
 	m_pTerrain = new cMapSkinnedMesh;
-	m_pTerrain->Load("Tera/Map", "Map.X");
-	m_pTerrain->SetPosition(D3DXVECTOR3(50.0f, -70.0f, -50.0f));
+	m_pTerrain->Load("Tera/Map", "map00.X");
+	m_pTerrain->SetPosition(D3DXVECTOR3(50.0f, -30.0f, -50.0f));
 
 	//Item
 	m_pPotion = new cMapSkinnedMesh;
