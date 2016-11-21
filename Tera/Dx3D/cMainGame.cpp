@@ -103,6 +103,14 @@ void cMainGame::Setup()
 	m_pGate2 = pMap4;
 
 
+	D3DXMatrixIdentity(&mat);
+	cObjMap* l = new cObjMap;
+	l->Load("./Tera/Effects/PlasmaBall.object", &mat);
+	m_effectTest = l;
+
+	//m_effectTest
+
+
 	for (int x = -5; x <= 5; ++x)
 	{
 
@@ -211,6 +219,9 @@ void cMainGame::Render()
 
 	//if (m_pGate2)
 	//	m_pGate2->Render(&matT);
+
+	if (m_effectTest)
+		m_effectTest->Render();
 	
 	if (m_pGrid)
 		m_pGrid->Render();
