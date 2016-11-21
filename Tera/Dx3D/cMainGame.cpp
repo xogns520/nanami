@@ -77,15 +77,16 @@ void cMainGame::Setup()
 	m_pSkyBox = new cSkyBox;
 	m_pSkyBox->Setup(sky);
 
-	//m_RealMap = new cMap;
-	//m_RealMap->Setup();
+	m_RealMap = new cMap;
+	m_RealMap->Setup();
 
-	D3DXMATRIXA16 mat;
-	D3DXMatrixTranslation(&mat, -50.0f, -30.0f, 50.0f);
-	cObjMap* pMap = new cObjMap;
-	//pMap->Load("./Tera/Map/map.object", "./Tera/Map/map.object", &mat);
-	pMap->Load("./Tera/Map/map10.object", "./Tera/Map/map10.object", &mat);
-	m_pField = pMap;
+	//obj맵
+	//D3DXMATRIXA16 mat;
+	//D3DXMatrixTranslation(&mat, -50.0f, -30.0f, 50.0f);
+	//cObjMap* pMap = new cObjMap;
+	////pMap->Load("./Tera/Map/map.object", "./Tera/Map/map.object", &mat);
+	//pMap->Load("./Tera/Map/map10.object", "./Tera/Map/map10.object", &mat);
+	//m_pField = pMap;
 
 	//m_effectTest = new cSkinnedMesh("./Tera/Effects/", "EffectFireball.X", "NOANIMATION");
 	//m_effectTest = new cSkinnedMesh("./Zealot/", "zealot.X", "NOANIMATION");
@@ -125,8 +126,8 @@ void cMainGame::Update()
 	if (m_pPlayer)
 		m_pPlayer->Update(m_pCharController->GetMoveKey());
 
-	//if (m_RealMap)
-	//	m_RealMap->Update();
+	if (m_RealMap)
+		m_RealMap->Update();
 
 	// 	if(m_pSkinnedMesh)
 // 	{
@@ -163,11 +164,11 @@ void cMainGame::Render()
 	//tempPos.y = 0.0f;
 	//tempPos.z = 0.0f;
 
-
-	D3DXMATRIXA16 matT;
-	D3DXMatrixTranslation(&matT, -50.0f, -30.0f, 50.0f);
-	if (m_pField)
-		m_pField->Render(&matT);
+	//obj맵 랜더
+	//D3DXMATRIXA16 matT;
+	//D3DXMatrixTranslation(&matT, -50.0f, -30.0f, 50.0f);
+	//if (m_pField)
+	//	m_pField->Render(&matT);
 	
 
 
@@ -197,8 +198,8 @@ void cMainGame::Render()
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
-	//if (m_RealMap)
-	//	m_RealMap->Render();
+	if (m_RealMap)
+		m_RealMap->Render();
 
 	//2016-11-20 
 	//수정하다 말았음
