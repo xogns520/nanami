@@ -26,11 +26,12 @@ public:
 	{
 		return &m_vPosition;
 	}
-
+	bool GetHeight(IN float x, OUT float & y, IN float z, IN cMapSkinnedMesh mesh);
 protected:
 	virtual void Update(MAP_ST_BONE* pFrame, MAP_ST_BONE* pParent);
 	virtual void Update2(MAP_ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent);
 	virtual void Render(MAP_ST_BONE* pFrame);
+	
 	virtual void SetupBoneMatrixPtrs(MAP_ST_BONE* pFrame);
 	virtual void UpdateSkinnedMesh(MAP_ST_BONE* pFrame);
 };
