@@ -142,6 +142,11 @@ struct ST_SPHERE
 	float		fRadius;
 	D3DXVECTOR3 vCenter;
 };
+struct ST_BOX
+{
+	D3DXVECTOR3 vMin;
+	D3DXVECTOR3 vMax;
+};
 
 struct ST_SIZE
 {

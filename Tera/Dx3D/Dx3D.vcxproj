@@ -109,6 +109,7 @@
     <ClInclude Include="cMapAllocateHierarchy.h" />
     <ClInclude Include="cMapSkinnedMesh.h" />
     <ClInclude Include="cMtlTex.h" />
+    <ClInclude Include="cOBB.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cObjectPool.h" />
     <ClInclude Include="cObjLoader.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="cMapAllocateHierarchy.cpp" />
     <ClCompile Include="cMapSkinnedMesh.cpp" />
     <ClCompile Include="cMtlTex.cpp" />
+    <ClCompile Include="cOBB.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cObjectPool.cpp" />
     <ClCompile Include="cObjLoader.cpp" />

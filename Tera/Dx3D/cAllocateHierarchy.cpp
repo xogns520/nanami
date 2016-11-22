@@ -103,8 +103,8 @@ STDMETHODIMP cAllocateHierarchy::CreateMeshContainer( THIS_ LPCSTR Name,
 			D3DXGetFVFVertexSize(pMeshData->pMesh->GetFVF()),
 			&vMin,
 			&vMax);
-		D3DXVec3Minimize(&m_vMin, &m_vMin, &vMin);
-		D3DXVec3Maximize(&m_vMax, &m_vMax, &vMax);
+		D3DXVec3Minimize(&m_stBox.vMin, &m_stBox.vMin, &vMin);
+		D3DXVec3Maximize(&m_stBox.vMax, &m_stBox.vMax, &vMax);
 		pMeshData->pMesh->UnlockVertexBuffer();
 		
 		pMeshData->pMesh->CloneMeshFVF(
