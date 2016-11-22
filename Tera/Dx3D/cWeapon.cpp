@@ -68,8 +68,9 @@ void cWeapon::Load(char* szMap, char* szSurface, D3DXMATRIXA16* pmat)
 void cWeapon::Load(char* szMap, D3DXMATRIXA16* pmat)
 {
 	cObjLoader l;
-bool isFlipUv = true;		//20161122 UV Flip여부 추가l.Load(szMap, m_vecGroup, isFlipUv);}
-
+	bool isFlipUv = true;		//20161122 UV Flip여부 추가l.Load(szMap, m_vecGroup, isFlipUv);}
+	l.Load(szMap, m_vecGroup, isFlipUv ,pmat);
+}
 
 bool cWeapon::GetHeight(IN float x, OUT float& y, IN float z)
 {
