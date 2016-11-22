@@ -18,6 +18,7 @@ cFace::cFace(char* szFolder, char* szFilename)
 	m_pmWorkingPalette = pSkinnedMesh->m_pmWorkingPalette;
 	m_pEffect = pSkinnedMesh->m_pEffect;
 	m_stBoundingSphere = pSkinnedMesh->m_stBoundingSphere;
+	m_stBoundingBox = pSkinnedMesh->m_stBoundingBox;
 
 	pSkinnedMesh->m_pAnimController->CloneAnimationController(
 		pSkinnedMesh->m_pAnimController->GetMaxNumAnimationOutputs(),
@@ -53,8 +54,7 @@ void cFace::Load(char* szDirectory, char* szFilename)
 	ah.SetDirectory(szDirectory);
 	ah.SetDefaultPaletteSize(nPaletteSize);
 
-	m_stBoundingSphere.vCenter = (ah.GetMin() + ah.GetMax()) / 2.0f;
-	m_stBoundingSphere.fRadius = D3DXVec3Length(&(ah.GetMin() - ah.GetMax()));
+	
 
 	std::string sFullPath(szDirectory);
 	sFullPath += std::string(szFilename);
@@ -79,6 +79,12 @@ void cFace::Load(char* szDirectory, char* szFilename)
 
 	if (m_pRootFrame)
 		SetupBoneMatrixPtrs(m_pRootFrame);
+
+	m_stBoundingSphere = ah.GetBoundingSphere();
+	m_stBoundingBox = ah.GetBoundingBox();
+
+	//m_stBoundingSphere.vCenter = (ah.GetMin() + ah.GetMax()) / 2.0f;
+	//m_stBoundingSphere.fRadius = D3DXVec3Length(&(ah.GetMin() - ah.GetMax()));
 }
 
 void cFace::UpdateAndRender()

@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 14.11.2016 14:12:51
+# File Created: 22.11.2016 18:35:01
 
 newmtl R_Event_Wit_Dual_01_MI
 	Ns 10.0000
@@ -12,5 +12,5 @@ newmtl R_Event_Wit_Dual_01_MI
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka .\Tera\Character\R_Event_Wit_Dual_01_diff.tga
-	map_Kd .\Tera\Character\R_Event_Wit_Dual_01_diff.tga
+	map_Ka .\Tera\Character\R_Event_Wit_Dual_01_spec.tga
+	map_Kd .\Tera\Character\R_Event_Wit_Dual_01_spec.tga

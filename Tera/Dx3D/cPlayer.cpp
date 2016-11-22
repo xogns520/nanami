@@ -12,7 +12,8 @@ cPlayer::cPlayer()
 	, m_pFace(NULL)
 	, m_pHair(NULL)
 	, m_pTail(NULL)
-	, m_pWeapon(NULL)
+	, m_pRWeapon(NULL)
+	, m_pLWeapon(NULL)
 	, m_pT(NULL)
 {
 }
@@ -24,7 +25,8 @@ cPlayer::~cPlayer()
 	SAFE_DELETE(m_pFace);
 	SAFE_DELETE(m_pHair);
 	SAFE_DELETE(m_pTail);
-	SAFE_DELETE(m_pWeapon);
+	SAFE_DELETE(m_pRWeapon);
+	SAFE_DELETE(m_pLWeapon);
 	SAFE_DELETE(m_pT);
 }
 
@@ -47,8 +49,24 @@ void cPlayer::Setup(char * Directory, char * PathBody, char * PathFace, char * P
 	//pW->Load("./Tera/Character/Weapon_R.obj", &mat);
 	//m_pMap = pW;
 
-	m_pWeapon = new cWeapon;
-	m_pWeapon->Load("./Tera/Character/Weapon_R.object", &mat);
+	D3DXMATRIXA16 matT, matYR, matXR;
+	D3DXMatrixRotationY(&matYR, -1.75f);
+	D3DXMatrixRotationX(&matXR, 0.25f);
+	D3DXMatrixTranslation(&matT, -0.01f, 0.0f, 0.03f);
+
+	mat = matXR * matT;
+
+	m_pRWeapon = new cWeapon;
+	m_pRWeapon->Load("./Tera/Character/Weapon_R.object", &mat);
+
+	D3DXMatrixRotationY(&matYR, -1.75f);
+	D3DXMatrixRotationX(&matXR, 3.25f);
+	D3DXMatrixRotationZ(&matXR, -2.75f);
+	D3DXMatrixTranslation(&matT, 0.01f, 0.0f, -0.0075f);
+	mat = matYR * matXR * matT;
+
+	m_pLWeapon = new cWeapon;
+	m_pLWeapon->Load("./Tera/Character/Weapon_L.object", &mat);
 
 	//m_pT = new cWeaponTest(Directory, "Weapon_R.X");
 
@@ -91,9 +109,14 @@ void cPlayer::Render(D3DXMATRIX* pMat)
 		m_pTail->UpdateAndRender();
 	}
 
-	if (m_pWeapon)
+	if (m_pRWeapon)
 	{
-		m_pWeapon->Render(&m_pBody->m_matRWeaponTM);
+		m_pRWeapon->Render(&m_pBody->m_matRWeaponTM);
+		//m_pWeapon->Render();
+	}
+	if (m_pLWeapon)
+	{
+		m_pLWeapon->Render(&m_pBody->m_matLWeaponTM);
 		//m_pWeapon->Render();
 	}
 	//if (m_pT)

@@ -18,15 +18,17 @@ cMap::~cMap()
 
 void cMap::Setup()
 {
-	//TEST
-	m_pTest = new cMapSkinnedMesh;
-	m_pTest->Load("Zealot", "zealot.X");
-	m_pTest->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	//ÁöÇü
 	m_pTerrain = new cMapSkinnedMesh;
 	m_pTerrain->Load("Tera/Map", "map00.X");
-	m_pTerrain->SetPosition(D3DXVECTOR3(50.0f, -30.0f, -50.0f));
+	//m_pTerrain->SetPosition(D3DXVECTOR3(50.0f, -30.0f, -50.0f));
+	m_pTerrain->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	//TEST
+	m_pTest = new cMapSkinnedMesh;
+	m_pTest->Load("Zealot", "zealot.X");
+	m_pTest->SetPosition(D3DXVECTOR3(-10.0f, 0.0f, 10.0f));
 
 	//Item
 	m_pPotion = new cMapSkinnedMesh;
@@ -36,11 +38,11 @@ void cMap::Setup()
 
 void cMap::Update()
 {
-	if (m_pTest)
-		m_pTest->Update();
-
 	if (m_pTerrain)
 		m_pTerrain->Update();
+
+	if (m_pTest)
+		m_pTest->Update();
 
 	if (m_pPotion)
 		m_pPotion->Update();
@@ -48,12 +50,17 @@ void cMap::Update()
 
 void cMap::Render()
 {
-
-	if (m_pTest)
-		m_pTest->Render();
-
 	if (m_pTerrain)
 		m_pTerrain->Render();
+
+	float tempy = 0;
+	if (m_pTest)
+		if(m_pTerrain->GetHeight(m_pTest->GetPosition()->x, tempy, m_pTest->GetPosition()->z));
+	{
+		m_pTest->SetPosition(D3DXVECTOR3(m_pTest->GetPosition()->x, tempy, m_pTest->GetPosition()->z));
+		//float y = tempy;
+		m_pTest->Render();
+	}
 
 	if (m_pPotion)
 		m_pPotion->Render();

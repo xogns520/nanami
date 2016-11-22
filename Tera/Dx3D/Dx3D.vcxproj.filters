@@ -61,6 +61,9 @@
     <Filter Include="테라\플레이어\무기">
       <UniqueIdentifier>{f96832f0-593b-4366-92a7-b577c2365c08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="테라\OBB">
+      <UniqueIdentifier>{f4820fdd-5d7d-48bf-b3dc-90411379ca4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -234,6 +237,9 @@
     <ClInclude Include="cMapAllocateHierarchy.h">
       <Filter>Main\Map</Filter>
     </ClInclude>
+    <ClInclude Include="cOBB.h">
+      <Filter>테라\OBB</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -388,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="cMapAllocateHierarchy.cpp">
       <Filter>Main\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="cOBB.cpp">
+      <Filter>테라\OBB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

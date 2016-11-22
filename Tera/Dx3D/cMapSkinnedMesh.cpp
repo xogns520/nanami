@@ -125,6 +125,36 @@ void cMapSkinnedMesh::Render(MAP_ST_BONE* pFrame)
 	}
 }
 
+bool cMapSkinnedMesh::GetHeight(IN float x, OUT float& y, IN float z)
+{
+	D3DXVECTOR3 vRayPos(x, 20000, z);
+	D3DXVECTOR3 vRayDir(0, -1, 0);
+	//LPBOOL Hit;
+	//MAP_ST_BONE_MESH* pBoneMesh = (MAP_ST_BONE_MESH*)mesh.m_pRoot->pMeshContainer;
+	MAP_ST_BONE_MESH* pBoneMesh = (MAP_ST_BONE_MESH*)m_pRoot->pMeshContainer;
+	//for (size_t i = 0; i < m_vecSurface.size(); i += 3)
+	{
+		//float u, v, d;
+		float d;
+		BOOL Hit;
+		//if (D3DXIntersectTri(&m_vecSurface[i + 0],
+		//	&m_vecSurface[i + 1],
+		//	&m_vecSurface[i + 2],
+		//	&vRayPos,
+		//	&vRayDir,
+		//	&u, &v, &d))
+		D3DXIntersect(pBoneMesh->pOrgMesh, &vRayPos, &vRayDir, &Hit, NULL, NULL, NULL, &d, NULL, NULL);
+
+		if(Hit)
+		{
+			y = 20000 - d;
+			return true;
+		}
+		else return false;
+	}
+	//return false;
+}
+
 void cMapSkinnedMesh::UpdateSkinnedMesh(MAP_ST_BONE* pFrame)
 {
 	// pCurrentBoneMatrices 를 계산하시오

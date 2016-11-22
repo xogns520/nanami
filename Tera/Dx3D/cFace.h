@@ -17,6 +17,7 @@ private:
 	// 객체마다 생성
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXVECTOR3					m_vPosition;
+	ST_BOX						m_stBoundingBox;
 
 public:
 	D3DXMATRIX					m_matNeckTM;

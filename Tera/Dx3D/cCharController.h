@@ -1,6 +1,7 @@
 #pragma once
 
 class iMap;
+class cMapSkinnedMesh;
 
 class cCharController
 {
@@ -17,6 +18,12 @@ public:
 	~cCharController(void);
 
 	void Update(iMap* pMap = NULL);
+	void Update(cMapSkinnedMesh* pMap = NULL);
+	
+	void SetPosition(D3DXVECTOR3* Pos)
+	{
+		m_vPosition = *Pos;
+	}
 
 	D3DXVECTOR3* GetPosition()
 	{
