@@ -19,7 +19,8 @@ cWeapon::~cWeapon(void)
 void cWeapon::Load(char* szMap, char* szSurface, D3DXMATRIXA16* pmat)
 {
 	cObjLoader l;
-	l.Load(szMap, m_vecGroup);
+	bool isFlipUv = true;		//20161122 UV Flip여부 추가
+	l.Load(szMap, m_vecGroup, isFlipUv);
 
 	std::vector<D3DXVECTOR3> vecV;
 
@@ -67,7 +68,8 @@ void cWeapon::Load(char* szMap, char* szSurface, D3DXMATRIXA16* pmat)
 void cWeapon::Load(char* szMap, D3DXMATRIXA16* pmat)
 {
 	cObjLoader l;
-	l.Load(szMap, m_vecGroup);
+	bool isFlipUv = true;		//20161122 UV Flip여부 추가
+	l.Load(szMap, m_vecGroup, isFlipUv);
 }
 
 

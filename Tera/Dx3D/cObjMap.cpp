@@ -16,10 +16,10 @@ cObjMap::~cObjMap(void)
 	}
 }
 
-void cObjMap::Load( char* szMap, char* szSurface, D3DXMATRIXA16* pmat )
+void cObjMap::Load(char* szMap, char* szSurface, D3DXMATRIXA16* pmat, bool isFlipUv)
 {
 	cObjLoader l;
-	l.Load(szMap, m_vecGroup);
+	l.Load(szMap, m_vecGroup, isFlipUv);
 
 	std::vector<D3DXVECTOR3> vecV;
 
@@ -64,10 +64,10 @@ void cObjMap::Load( char* szMap, char* szSurface, D3DXMATRIXA16* pmat )
 	fclose(fp);
 }
 
-void cObjMap::Load(char* szMap, D3DXMATRIXA16* pmat)
+void cObjMap::Load(char* szMap, D3DXMATRIXA16* pmat, bool isFlipUv)
 {
 	cObjLoader l;
-	l.Load(szMap, m_vecGroup);
+	l.Load(szMap, m_vecGroup, isFlipUv);
 }
 
 

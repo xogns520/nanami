@@ -14,8 +14,8 @@ public:
 	cObjMap(void);
 	virtual ~cObjMap(void);
 
-	void Load(char* szMap, D3DXMATRIXA16* pmat);
-	virtual void Load(char* szMap, char* szSurface, D3DXMATRIXA16* pmat);
+	void Load(char* szMap, D3DXMATRIXA16* pmat, bool isFlipUv);
+	virtual void Load(char* szMap, char* szSurface, D3DXMATRIXA16* pmat, bool isFlipUv);
 
 	// iMap override
 	virtual bool GetHeight(IN float x, OUT float& y, IN float z) override;

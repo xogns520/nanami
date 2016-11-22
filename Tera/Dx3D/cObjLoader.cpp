@@ -11,7 +11,7 @@ cObjLoader::~cObjLoader(void)
 {
 }
 
-void cObjLoader::Load( IN char* szFilename, OUT std::vector<cGroup*>& vecGroup, IN D3DXMATRIXA16* pmat )
+void cObjLoader::Load(IN char* szFilename, OUT std::vector<cGroup*>& vecGroup, IN bool isUvFlip, IN D3DXMATRIXA16* pmat)
 {
 	m_mapMtlTex.clear();
 
@@ -59,7 +59,12 @@ void cObjLoader::Load( IN char* szFilename, OUT std::vector<cGroup*>& vecGroup, 
 			{
 				float u, v;
 				sscanf_s(szBuf, "%*s %f %f %*f", &u, &v);
-				vecVT.push_back(D3DXVECTOR2(u, v));
+				if (isUvFlip) {
+					vecVT.push_back(D3DXVECTOR2(u, 1 - v));
+				}
+				else {
+					vecVT.push_back(D3DXVECTOR2(u, v));
+				}
 			}
 			else if (szBuf[1] == 'n')
 			{
@@ -122,7 +127,7 @@ void cObjLoader::Load( IN char* szFilename, OUT std::vector<cGroup*>& vecGroup, 
 	}
 }
 
-LPD3DXMESH cObjLoader::Load( IN char* szFilename, OUT std::vector<cMtlTex*>& vecMtlTex, IN D3DXMATRIXA16* pmat /*= NULL*/ )
+LPD3DXMESH cObjLoader::Load(IN char* szFilename, OUT std::vector<cMtlTex*>& vecMtlTex, IN bool isUvFlip, IN D3DXMATRIXA16* pmat /*= NULL*/)
 {
 	m_mapMtlTex.clear();
 
@@ -163,7 +168,12 @@ LPD3DXMESH cObjLoader::Load( IN char* szFilename, OUT std::vector<cMtlTex*>& vec
 			{
 				float u, v;
 				sscanf_s(szBuf, "%*s %f %f %*f", &u, &v);
-				vecVT.push_back(D3DXVECTOR2(u, v));
+				if (isUvFlip) {
+					vecVT.push_back(D3DXVECTOR2(u, 1 - v));
+				}
+				else {
+					vecVT.push_back(D3DXVECTOR2(u, v));
+				}
 			}
 			else if (szBuf[1] == 'n')
 			{
