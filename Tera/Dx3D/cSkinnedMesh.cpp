@@ -20,6 +20,7 @@ cSkinnedMesh::cSkinnedMesh(char* szFolder, char* szFilename)
 	m_pmWorkingPalette = pSkinnedMesh->m_pmWorkingPalette;
 	m_pEffect = pSkinnedMesh->m_pEffect;
 	m_stBoundingSphere = pSkinnedMesh->m_stBoundingSphere;
+	m_stBoundingBox = pSkinnedMesh->m_stBoundingBox;
 
 	pSkinnedMesh->m_pAnimController->CloneAnimationController(
 		pSkinnedMesh->m_pAnimController->GetMaxNumAnimationOutputs(),
@@ -93,6 +94,7 @@ void cSkinnedMesh::Load( char* szDirectory, char* szFilename )
 		&m_pAnimController);
 
 	m_stBoundingSphere = ah.GetBoundingSphere();
+	m_stBoundingBox = ah.GetBoundingBox();
 
 	//if (pBoundingSphereMesh == NULL)
 	//{

@@ -17,6 +17,7 @@ private:
 	// 객체마다 생성
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXVECTOR3					m_vPosition;
+	ST_BOX						m_stBoundingBox;
 
 public:
 	cSkinnedMesh(char* szFolder, char* szFilename);
@@ -40,6 +41,10 @@ public:
 	ST_SPHERE* GetBoundingSphere()
 	{
 		return &m_stBoundingSphere;
+	}
+	ST_BOX* GetBoundingBox()
+	{
+		return &m_stBoundingBox;
 	}
 private:
 	cSkinnedMesh();
