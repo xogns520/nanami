@@ -45,16 +45,25 @@ void cBody::GetNeckWorld(D3DXFRAME * pFrame, D3DXMATRIX * pParentTM)
 		m_matHairTM = pBone->CombinedTransformationMatrix;
 		//D3DXMatrixRotationX(&m_matNeckTM, D3DXToRadian(90));
 	}
-	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("L_Sword"))
+	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("Bip01-L-Hand"))
 	{
 		pBone->CombinedTransformationMatrix = pBone->TransformationMatrix * (*pParentTM);
-		m_matLWeaponTM = pBone->CombinedTransformationMatrix;
+		D3DXMATRIXA16 matT, matYR, matXR;
+		D3DXMatrixRotationY(&matYR, -1.75f);
+		D3DXMatrixRotationX(&matXR, 0.25f);
+		D3DXMatrixTranslation(&matT, -0.01f, 0.0f, 0.03f);
+		m_matLWeaponTM = matYR * matXR * matT * pBone->CombinedTransformationMatrix;
 		//D3DXMatrixRotationX(&m_matNeckTM, D3DXToRadian(90));
 	}
-	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("R_Sword"))
+	//R_Sword or Bip01-R-Hand or Bip01-R-Finger3Nub
+	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("Bip01-R-Hand"))
 	{
 		pBone->CombinedTransformationMatrix = pBone->TransformationMatrix * (*pParentTM);
-		m_matRWeaponTM = pBone->CombinedTransformationMatrix;
+		D3DXMATRIXA16 matT, matYR, matXR;
+		D3DXMatrixRotationY(&matYR, -1.75f);
+		D3DXMatrixRotationX(&matXR, 0.25f);
+		D3DXMatrixTranslation(&matT, -0.01f, 0.0f, 0.03f);
+		m_matRWeaponTM = /*matYR * matXR * matT * */pBone->CombinedTransformationMatrix;
 		//D3DXMatrixRotationX(&m_matNeckTM, D3DXToRadian(90));
 	}
 	//Bip01-Pelvis or Bip01-Spine

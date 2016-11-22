@@ -67,7 +67,7 @@ void cWeapon::Load(char* szMap, char* szSurface, D3DXMATRIXA16* pmat)
 void cWeapon::Load(char* szMap, D3DXMATRIXA16* pmat)
 {
 	cObjLoader l;
-	l.Load(szMap, m_vecGroup);
+	l.Load(szMap, m_vecGroup, pmat);
 }
 
 

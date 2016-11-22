@@ -16,7 +16,8 @@ private:
 	cHair* m_pHair;
 	cTail* m_pTail;
 	iMap* m_pMap;
-	cWeapon* m_pWeapon;
+	cWeapon* m_pRWeapon;
+	cWeapon* m_pLWeapon;
 	cWeaponTest* m_pT;
 public:
 	cPlayer();
