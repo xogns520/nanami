@@ -19,6 +19,7 @@ private:
 	D3DXVECTOR3					m_vDirection;
 	float						m_fAngle;
 	float						m_fSpeed;
+	bool						m_bAtt;
 	SYNTHESIZE_PASS_BY_REF(D3DXMATRIXA16, m_matWorld, WorldTM);
 	SYNTHESIZE(int, m_nMoveKey, MoveKey);
 	PlayerState					m_state;
