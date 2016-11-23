@@ -130,3 +130,7 @@ void cCharController::Update(cMapSkinnedMesh* pMap)
 	// 	g_pD3DDevice->SetLight(1, &stLight);
 	// 	g_pD3DDevice->LightEnable(1, true);
 }
+
+void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
+{
+}

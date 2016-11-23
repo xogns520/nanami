@@ -104,6 +104,7 @@
     <ClInclude Include="cGrid.h" />
     <ClInclude Include="cGroup.h" />
     <ClInclude Include="cHair.h" />
+    <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cMap.h" />
     <ClInclude Include="cMapAllocateHierarchy.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="cGrid.cpp" />
     <ClCompile Include="cGroup.cpp" />
     <ClCompile Include="cHair.cpp" />
+    <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cMap.cpp" />
     <ClCompile Include="cMapAllocateHierarchy.cpp" />

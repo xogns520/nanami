@@ -2,6 +2,15 @@
 
 class iMap;
 class cMapSkinnedMesh;
+class cPlayer;
+
+enum PlayerState
+{
+	Pempty,
+	idle,
+	run,
+	attack
+};
 
 class cCharController
 {
@@ -12,6 +21,7 @@ private:
 	float						m_fSpeed;
 	SYNTHESIZE_PASS_BY_REF(D3DXMATRIXA16, m_matWorld, WorldTM);
 	SYNTHESIZE(int, m_nMoveKey, MoveKey);
+	PlayerState					m_state;
 
 public:
 	cCharController(void);
@@ -19,6 +29,7 @@ public:
 
 	void Update(iMap* pMap = NULL);
 	void Update(cMapSkinnedMesh* pMap = NULL);
+	void Update(cMapSkinnedMesh* pMap, cPlayer* pPlayer);
 	
 	void SetPosition(D3DXVECTOR3* Pos)
 	{

@@ -51,6 +51,7 @@ cMainGame::~cMainGame(void)
 		SAFE_DELETE(p);
 	}
 
+	g_pKeyManager->Destroy();
 	g_pFontManager->Destroy();
 	g_pTextureManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();

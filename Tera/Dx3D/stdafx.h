@@ -182,6 +182,7 @@ enum tagPlane
 #include "cTimeManager.h"
 #include "cTextureManager.h"
 #include "cFontManager.h"
+#include "cKeyManager.h"
 
 #include "cObject.h"
 #include "cUIObject.h"
