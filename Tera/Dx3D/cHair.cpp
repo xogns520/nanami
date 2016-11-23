@@ -10,6 +10,8 @@ cHair::cHair(char* szFolder, char* szFilename)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
+	, m_fPassedAnimBlendTime(0.0f)
+	, m_fAnimBlendTime(0.3f)
 {
 	cHair* pSkinnedMesh = (cHair*)g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
 
@@ -92,6 +94,24 @@ void cHair::UpdateAndRender()
 	if (m_pAnimController)
 	{
 		m_pAnimController->AdvanceTime(g_pTimeManager->GetDeltaTime(), NULL);
+		m_fPassedAnimBlendTime += g_pTimeManager->GetDeltaTime();
+
+		if (m_fPassedAnimBlendTime < m_fAnimBlendTime)
+		{
+			m_fPassedAnimBlendTime += g_pTimeManager->GetDeltaTime(); //블랜딩 시작
+																	  //m_pAnimController->ResetTime();
+			if (m_fPassedAnimBlendTime > m_fAnimBlendTime) //블랜딩 시간이 끝나면
+			{
+				m_pAnimController->SetTrackWeight(0, 1.0f); //0번의 웨이트 고정
+				m_pAnimController->SetTrackEnable(1, false); //1번 트랙은 꺼줌
+			}
+			else
+			{
+				float f = m_fPassedAnimBlendTime / m_fAnimBlendTime; //비율을 구해서
+				m_pAnimController->SetTrackWeight(0, f);      //0번 트랙의 가중치를 0->1로
+				m_pAnimController->SetTrackWeight(1, 1 - f);  //1번 트랙의 가중치를 1->0으로
+			}
+		}
 	}
 
 	if (m_pRootFrame)
@@ -312,10 +332,33 @@ void cHair::SetAnimationIndex(int nIndex)
 {
 	if (!m_pAnimController)
 		return;
-	LPD3DXANIMATIONSET pAnimSet = NULL;
-	m_pAnimController->GetAnimationSet(nIndex, &pAnimSet);
-	m_pAnimController->SetTrackAnimationSet(0, pAnimSet);
-	SAFE_RELEASE(pAnimSet);
+	//LPD3DXANIMATIONSET pAnimSet = NULL;
+	//m_pAnimController->GetAnimationSet(nIndex, &pAnimSet);
+	//m_pAnimController->SetTrackAnimationSet(0, pAnimSet);
+	//SAFE_RELEASE(pAnimSet);
+
+	//애니메이션 세트를 준비 함
+	LPD3DXANIMATIONSET pPrevAnimSet = NULL; //이전 애니메이션
+	LPD3DXANIMATIONSET pNextAnimSet = NULL; //다음 애니메이션
+
+	m_pAnimController->GetTrackAnimationSet(0, &pPrevAnimSet); //현재 0번 트랙의 애니메이션을 이전 애니메이션세트로
+	m_pAnimController->GetAnimationSet(nIndex, &pNextAnimSet); //인자로 받은 애니메이션세트를 다음 애니메이션세트로
+
+	D3DXTRACK_DESC stTrackDest;
+	m_pAnimController->GetTrackDesc(0, &stTrackDest); //0번 트랙의 설정을 받아와서
+	m_pAnimController->SetTrackDesc(1, &stTrackDest); //1번 트랙으로 옮겨줌 (스왚)
+
+	m_pAnimController->SetTrackAnimationSet(0, pNextAnimSet); //0번 트랙에 다음 애니메이션을 셋팅
+	m_pAnimController->SetTrackAnimationSet(1, pPrevAnimSet); //1번 트랙에 이전 애니메이션을 셋팅
+															  //(함수에 들어왔을 때 0번이 항상 현재 애니메이션이여야 하므로)
+
+	m_pAnimController->SetTrackWeight(0, 0.0f); //0번트랙은 다음애니메이션이므로 가중치를 0으로
+	m_pAnimController->SetTrackWeight(1, 1.0f); //1번트랙은 이전애니메이션이므로 가중치를 1로
+
+	SAFE_RELEASE(pPrevAnimSet);
+	SAFE_RELEASE(pNextAnimSet);
+
+	m_fPassedAnimBlendTime = 0.0f; //블랜딩 시간 초기화
 }
 
 void cHair::Destroy()

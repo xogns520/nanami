@@ -108,9 +108,9 @@ void cMainGame::Setup()
 	m_pCharController->SetPosition(&D3DXVECTOR3(-10.0f, 0.0f, 10.0f));
 
 	m_pPlayer = new cPlayer;
-	//m_pPlayer->Setup("./Tera/Character/", "Elin_Body_Wait.X", "Elin_Head_Wait.X", "Elin_Hair_Wait.X", NULL);
-	m_pPlayer->Setup("./Tera/Character/", "Elin_Body_WD.X", "Elin_Face_WD.X", "Elin_Hair_WD.X", "Elin_Tail_WD.X");
-	
+	m_pPlayer->Setup("./Tera/Character/", "Elin_Body_WDC.X", "Elin_Face_WDC.X", "Elin_Hair_WDC.X", "Elin_Tail_WDC.X");
+	//m_pPlayer->Setup("./Tera/Character/", "Elin_Body_WD.X", "Elin_Face_WD.X", "Elin_Hair_WD.X", "Elin_Tail_WD.X");
+	m_pPlayer->Update(5);
 
 	//m_pPlayerDash = new cPlayer;
 	//m_pPlayerDash->Setup("./Tera/Character/", "ELin_Body_Wait.X", "ELin_Head_Wait.X", "ELin_Hair_Wait.X", NULL);
@@ -132,7 +132,7 @@ void cMainGame::Update()
 	
 	if(m_pCharController)
 		//m_pCharController->Update(m_pField);
-		m_pCharController->Update(m_pTerrain);
+		m_pCharController->Update(m_pTerrain, m_pPlayer);
 
 
 	if (m_pCamera)
@@ -141,8 +141,8 @@ void cMainGame::Update()
 		m_pCamera->FrustumUpdate();
 	}
 
-	if (m_pPlayer)
-		m_pPlayer->Update(m_pCharController->GetMoveKey());
+	//if (m_pPlayer)
+	//	m_pPlayer->Update(m_pCharController->GetMoveKey());
 
 	//if (m_RealMap)
 	//	m_RealMap->Update();

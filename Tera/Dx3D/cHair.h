@@ -18,6 +18,8 @@ private:
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXVECTOR3					m_vPosition;
 	ST_BOX						m_stBoundingBox;
+	float						m_fPassedAnimBlendTime;
+	float						m_fAnimBlendTime;
 
 public:
 	D3DXMATRIX					m_matNeckTM;
