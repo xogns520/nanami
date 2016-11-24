@@ -32,10 +32,11 @@ private:
 	iMap*						m_pGate1;
 	iMap*						m_pGate2;
 	
-	iMap*						m_effectTest;
-
 	cMap*						m_RealMap;
 	cMapSkinnedMesh*			m_pTerrain;
+
+	cEffect*					m_effectTest;
+	
 	
 public:
 	cMainGame(void);

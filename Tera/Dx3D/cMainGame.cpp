@@ -67,11 +67,6 @@ void cMainGame::Setup()
 	m_pGrid = new cGrid;
 	m_pGrid->Setup(30);
 
-	//m_effects = new cEffect;
-	
-	
-	//m_mapEffect["fileBall"] = g_pSkinnedMeshManager->GetSkinnedMesh(m_folderNm, "EffectFireball.X");
-
 	LPSTR sky[6] = { "skybox/Top.bmp", "skybox/Front.bmp", "skybox/Back.bmp", "skybox/Right.bmp", "skybox/Left.bmp", "skybox/Bottom.bmp" };
 
 	//skybox
@@ -81,13 +76,6 @@ void cMainGame::Setup()
 	//m_RealMap = new cMap;
 	//m_RealMap->Setup();
 
-	//m_effectTest = new cSkinnedMesh("./Tera/Effects/", "EffectFireball.X", "NOANIMATION");
-	//m_effectTest = new cSkinnedMesh("./Zealot/", "zealot.X", "NOANIMATION");
-	//m_effectTest->SetPosition(D3DXVECTOR3(0, 0, 0));
-	
-	//2016-11-20
-	//skinnedMesh Render함수 분리 혹은 별도로 사용하도록 수정 필요!!!!!
-	
 	for (int x = -20; x < -10; ++x)
 	{
 		//if (x > -15 && x < 10) continue;
@@ -122,6 +110,10 @@ void cMainGame::Setup()
 	m_pTerrain->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	//m_pTerrain->GetHeight(m_pCharController->GetPosition()->x, m_pCharController->GetPosition()->y, m_pCharController->GetPosition()->z);
+
+	//------------ EffectTest
+	m_effectTest = new cEffect;
+
 
 	SetLight();
 }
