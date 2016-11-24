@@ -11,6 +11,7 @@ cCharController::cCharController(void)
 	, m_fSpeed(0.25f)
 	, m_bAtt(false)
 	, m_state(Pempty)
+	, m_fAniPlayTime(0.0f)
 	//, m_nMoveKey(false)
 {
 	D3DXMatrixIdentity(&m_matWorld);
@@ -173,20 +174,27 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 			}
 		}
 	}
-
-	if (g_pKeyManager->isOnceKeyDown('L'))
+	if (!m_bAtt ||
+		(m_nMoveKey == 3 && m_fAniPlayTime > 0.4f && m_fAniPlayTime < 0.59f) ||
+		(m_nMoveKey == 2 && m_fAniPlayTime > 0.6f && m_fAniPlayTime < 0.79f) ||
+		(m_nMoveKey == 1 && m_fAniPlayTime > 0.25f && m_fAniPlayTime < 0.39f))
 	{
-		m_bAtt = true;
-		if (m_nMoveKey > 3)
+		if (g_pKeyManager->isOnceKeyDown('L'))
 		{
-			m_state = attack;
-			pPlayer->Update(3);
-			m_nMoveKey = 3;
-		}
-		else
-		{
-			if (m_nMoveKey > -1)
-				pPlayer->Update(--m_nMoveKey);
+			m_bAtt = true;
+			if (m_nMoveKey > 3)
+			{
+				m_state = attack;
+				pPlayer->Update(3);
+				m_nMoveKey = 3;
+				m_fAniPlayTime = 0.0f;
+			}
+			else
+			{
+				m_fAniPlayTime = 0.0f;
+				if (m_nMoveKey > -1)
+					pPlayer->Update(--m_nMoveKey);
+			}
 		}
 	}
 	// 0.01~0.005
@@ -207,7 +215,47 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 				m_nMoveKey = 4;
 			}
 		}
+	}
 
+	if (m_bAtt)
+	{
+		m_fAniPlayTime += g_pTimeManager->GetDeltaTime();
+		if (m_nMoveKey == 3)
+		{
+			if (m_fAniPlayTime > 0.55f)
+			{
+				m_bAtt = false;
+				m_nMoveKey = 4;
+
+			}
+		}
+		else if (m_nMoveKey == 2)
+		{
+			if (m_fAniPlayTime > 0.8f)
+			{
+				m_bAtt = false;
+				m_nMoveKey = 4;
+				//m_fAniPlayTime = 0.0f;
+			}
+		}
+		else if (m_nMoveKey == 1)
+		{
+			if (m_fAniPlayTime > 0.4f)
+			{
+				m_bAtt = false;
+				m_nMoveKey = 4;
+				//m_fAniPlayTime = 0.0f;
+			}
+		}
+		else if (m_nMoveKey == 0)
+		{
+			if (m_fAniPlayTime > 1.5f)
+			{
+				m_bAtt = false;
+				m_nMoveKey = 4;
+				//m_fAniPlayTime = 0.0f;
+			}
+		}
 	}
 
 	if (pMap && pMap->GetHeight(p.x, p.y, p.z))

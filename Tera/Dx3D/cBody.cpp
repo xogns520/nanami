@@ -409,6 +409,7 @@ void cBody::SetAnimationIndex(int nIndex)
 	m_pAnimController->GetAnimationSet(nIndex, &pNextAnimSet); //인자로 받은 애니메이션세트를 다음 애니메이션세트로
 	
 	D3DXTRACK_DESC stTrackDest;
+	m_pAnimController->SetTrackPosition(0, 0);
 	m_pAnimController->GetTrackDesc(0, &stTrackDest); //0번 트랙의 설정을 받아와서
 	m_pAnimController->SetTrackDesc(1, &stTrackDest); //1번 트랙으로 옮겨줌 (스왚)
 	

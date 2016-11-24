@@ -23,6 +23,7 @@ private:
 	SYNTHESIZE_PASS_BY_REF(D3DXMATRIXA16, m_matWorld, WorldTM);
 	SYNTHESIZE(int, m_nMoveKey, MoveKey);
 	PlayerState					m_state;
+	float						m_fAniPlayTime;
 
 public:
 	cCharController(void);
