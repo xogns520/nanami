@@ -12,10 +12,15 @@ private :
 	float						m_fAlpha;
 	
 	bool						m_bIsSprite;			//스프라이트인지 mesh인지
-	LPD3DXSPRITE				m_pSprite;	
 
+	//sprite 변수
+	LPD3DXSPRITE				m_pSprite;	
+	LPDIRECT3DTEXTURE9			m_pSpriteTexture;
+	RECT						m_rSpriteRect;
+
+	//Mesh변수
 	LPD3DXMESH					m_pMesh;
-	std::vector<cMtlTex*>		m_vecMtlTex;
+	std::vector<cMtlTex*>		m_vecMeshMtlTex;
 
 public :
 	cEffect();
