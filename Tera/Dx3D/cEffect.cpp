@@ -3,6 +3,7 @@
 
 
 
+
 cEffect::cEffect()
 	: m_filePath("")
 	, m_bIsOn(false)
@@ -29,20 +30,22 @@ void cEffect::Destroy()
 void cEffect::Setup(char* path, bool isSprite, float animationSpeed, float alpha)
 {
 	m_bIsSprite = isSprite;
+	D3DXMATRIXA16 mat;
+	D3DXMatrixIdentity(&mat);
+
 	if (m_bIsSprite) {
 		//스프라이트로 로딩하는 경우
 		D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
 		D3DXIMAGE_INFO stImageInfo;
 		m_pSpriteTexture = g_pTextureManager->GetTexture(path, &stImageInfo);
-		SetRect(&m_rSpriteRect, 0, 0, 10, 10);
-		
-
+		SetRect(&m_rSpriteRect, 0, 0, stImageInfo.Width, stImageInfo.Height);
 	}
 	else {
 		//메쉬로 로딩하는 경우
-
-
+		cObjLoader* l = new cObjLoader;
+		bool isUvFlip = true;
+		m_pMesh = l->Load(path, m_vecMeshMtlTex, isUvFlip, &mat);
 	}
 }
 
@@ -79,7 +82,7 @@ void cEffect::Render()
 		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 	}
 	else {
-
+		//쉐이더 추가 예정
 
 
 	}

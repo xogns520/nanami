@@ -1,6 +1,6 @@
 #pragma once
 #include "cMtlTex.h"
-
+#include "cObjLoader.h"
 
 class cEffect
 {
@@ -34,7 +34,7 @@ public :
 	void Render();
 
 	//Get/Set
-	vector<cMtlTex*>*	GetVecMtlTexRef()	{ return &m_vecMtlTex; }
+	vector<cMtlTex*>*	GetVecMtlTexRef()	{ return &m_vecMeshMtlTex; }
 	LPD3DXMESH*			GetMesh()			{ return &m_pMesh; }
 	LPD3DXSPRITE*		GetSprite()			{ return &m_pSprite; }
 };
