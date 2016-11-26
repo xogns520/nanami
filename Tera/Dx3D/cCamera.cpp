@@ -63,14 +63,15 @@ void cCamera::Update(D3DXVECTOR3* pTarget)
 
 void cCamera::Update(float Angle, D3DXVECTOR3 * pTarget)
 {
-	m_vEye = D3DXVECTOR3(0, 1, -m_fDistance);
+	m_vEye = D3DXVECTOR3(0, 2.5, -m_fDistance);
+	//m_vEye = D3DXVECTOR3(0, 2.5, -4.5);
 	m_vLookAt = D3DXVECTOR3(0, 0.7, 0);
 
 	D3DXMATRIXA16 matRotX, matRotY;
 
 	D3DXMatrixRotationX(&matRotX, m_fAngleX);
-	D3DXMatrixRotationY(&matRotY, m_fAngleY);		//마우스로 y조절
-	//D3DXMatrixRotationY(&matRotY, Angle);			//캐릭터로 y조절
+	//D3DXMatrixRotationY(&matRotY, m_fAngleY);		//마우스로 y조절
+	D3DXMatrixRotationY(&matRotY, Angle);			//캐릭터로 y조절
 
 	D3DXMATRIXA16 matRot = matRotX * matRotY;
 
