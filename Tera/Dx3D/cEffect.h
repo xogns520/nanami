@@ -5,6 +5,8 @@
 class cEffect
 {
 private :
+	D3DXMATRIXA16				m_matWorld;
+
 	char*						m_filePath;
 	
 	bool						m_bIsOn;
@@ -22,6 +24,8 @@ private :
 	LPD3DXMESH					m_pMesh;
 	std::vector<cMtlTex*>		m_vecMeshMtlTex;
 
+	D3DXVECTOR3					m_centerPosition;
+
 public :
 	cEffect();
 
@@ -37,5 +41,10 @@ public :
 	vector<cMtlTex*>*	GetVecMtlTexRef()	{ return &m_vecMeshMtlTex; }
 	LPD3DXMESH*			GetMesh()			{ return &m_pMesh; }
 	LPD3DXSPRITE*		GetSprite()			{ return &m_pSprite; }
+	D3DXVECTOR3			GetPosition()		{ return m_centerPosition; }
+
+
+	void		SetCenter(D3DXVECTOR3 pos)	{ m_centerPosition = pos; }
+	void		SetSpriteSize(D3DXMATRIXA16 mat);
 };
 

@@ -112,8 +112,8 @@ void cMainGame::Setup()
 	//m_pTerrain->GetHeight(m_pCharController->GetPosition()->x, m_pCharController->GetPosition()->y, m_pCharController->GetPosition()->z);
 
 	//------------ EffectTest
-	m_effectTest = new cEffect;
-
+	m_effectTest = g_pEffectManager->PushEffect("EFF01", "./Tera/Effects/A_DistortrrrBall001_emis.tga", true);
+	g_pEffectManager->SetSize("EFF01", 100);
 
 	SetLight();
 }
@@ -125,7 +125,9 @@ void cMainGame::Update()
 	if(m_pCharController)
 		//m_pCharController->Update(m_pField);
 		m_pCharController->Update(m_pTerrain, m_pPlayer);
-
+	
+	if (m_effectTest)
+		m_effectTest->SetCenter(*m_pCharController->GetPosition());
 
 	if (m_pCamera)
 	{
@@ -188,31 +190,35 @@ void cMainGame::Render()
 	//if (m_pGate2)
 	//	m_pGate2->Render(&matT);
 	
+
 	if (m_pGrid)
 		m_pGrid->Render();
 
-	for each (auto p in m_vecSkinnedMesh)
-	{
-		if (m_pTerrain->GetHeight(p->GetPosition()->x, p->GetPosition()->y, p->GetPosition()->z))
-		{
-			m_pTerrain->GetHeight(p->GetPosition()->x, p->GetBoundingSphere()->vCenter.y, p->GetPosition()->z);
-			if (m_pCamera->IsIn(p->GetBoundingSphere()))
-			{
-				p->UpdateAndRender();
-			}
-		}
-	}
+	//for each (auto p in m_vecSkinnedMesh)
+	//{
+	//	if (m_pTerrain->GetHeight(p->GetPosition()->x, p->GetPosition()->y, p->GetPosition()->z))
+	//	{
+	//		m_pTerrain->GetHeight(p->GetPosition()->x, p->GetBoundingSphere()->vCenter.y, p->GetPosition()->z);
+	//		if (m_pCamera->IsIn(p->GetBoundingSphere()))
+	//		{
+	//			p->UpdateAndRender();
+	//		}
+	//	}
+	//}
 
 	//if(!m_pCharController->GetMoveKey())
 
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
+	if (m_effectTest)
+		m_effectTest->Render();
+
 	//if (m_RealMap)
 	//	m_RealMap->Render();
 
-	if (m_pTerrain)
-		m_pTerrain->Render();
+	//if (m_pTerrain)
+	//	m_pTerrain->Render();
 
 	//2016-11-20 
 	//수정하다 말았음
