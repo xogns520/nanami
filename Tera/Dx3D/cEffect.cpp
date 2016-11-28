@@ -35,7 +35,8 @@ void cEffect::Setup(char* path, bool isSprite, float animationSpeed, float alpha
 
 		D3DXIMAGE_INFO stImageInfo;
 		m_pSpriteTexture = g_pTextureManager->GetTexture(path, &stImageInfo);
-		SetRect(&m_rSpriteRect, 0, 0, 10, 10);
+		SetRect(&m_rSpriteRect, 0, 0, stImageInfo.Width, stImageInfo.Height);
+		//SetRect(&m_rSpriteRect, 0, 0, 10, 10);
 		
 
 	}
