@@ -45,6 +45,6 @@ public :
 
 
 	void		SetCenter(D3DXVECTOR3 pos)	{ m_centerPosition = pos; }
-	void		SetSpriteSize(D3DXMATRIXA16 mat);
+	void		SetSpriteSize(D3DXMATRIX mat);
 };
 

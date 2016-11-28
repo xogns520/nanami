@@ -88,7 +88,7 @@ void cEffect::Render()
 
 		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
 		g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
-		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+		//g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 	}
 	else {
 		//쉐이더 추가 예정
@@ -100,7 +100,7 @@ void cEffect::Render()
 }
 
 
-void cEffect::SetSpriteSize(D3DXMATRIXA16 mat) {
-
-
-}
+//void cEffect::SetSpriteSize(D3DXMATRIX mat) {
+//
+//
+//}
