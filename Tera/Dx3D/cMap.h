@@ -23,7 +23,7 @@ private:
 	cMapSkinnedMesh*				m_pTrees_bossZoneLeft;
 	cMapSkinnedMesh*				m_pStones_bossZoneLeft;
 
-
+	bool							m_bSurFace;
 
 public:
 	cMap();

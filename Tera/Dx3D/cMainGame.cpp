@@ -140,8 +140,8 @@ void cMainGame::Update()
 	//if (m_pPlayer)
 	//	m_pPlayer->Update(m_pCharController->GetMoveKey());
 
-	//if (m_RealMap)
-	//	m_RealMap->Update();
+	if (m_RealMap)
+		m_RealMap->Update();
 
 	//2016 11 28 승현 기존 터레인 주석 
 	//if (m_pTerrain)

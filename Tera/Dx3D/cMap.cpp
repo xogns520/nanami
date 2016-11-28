@@ -11,6 +11,7 @@ cMap::cMap()
 , m_pPie(NULL)
 , m_pTrees_bossZoneLeft(NULL)
 , m_pStones_bossZoneLeft(NULL)
+, m_bSurFace(false)
 {
 }
 cMap::~cMap()
@@ -67,6 +68,7 @@ void cMap::Setup()
 
 void cMap::Update()
 {
+	int a = 0;
 	//업데이트에서 포지션변경
 	//if (m_pTerrain)
 	//	m_pTerrain->Update();
@@ -88,15 +90,22 @@ void cMap::Update()
 
 	//if (m_pPie)
 	//	m_pPie->Update();
+
+	if (g_pKeyManager->isOnceKeyDown(VK_SPACE))
+	{
+		m_bSurFace = !m_bSurFace;
+	}
 }
 
 void cMap::Render()
 {
 	if (m_pTerrain)
+		if(!m_bSurFace)
 		m_pTerrain->Render();
 
-	//if (m_pSurface_ter)
-	//	m_pSurface_ter->Render();
+	if (m_pSurface_ter)
+		if (m_bSurFace)
+		m_pSurface_ter->Render();
 
 	//float tempy = 0;
 	//if (m_pTest)
