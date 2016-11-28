@@ -10,7 +10,7 @@ private:
 	char*							m_folderNm;
 	std::map<std::string, cEffect*>	m_mapEffect;
 
-	
+
 public:
 	SINGLETONE(cEffectManager);
 
@@ -23,7 +23,7 @@ public:
 
 	D3DXVECTOR3 GetPosition(std::string keyName);
 	ST_SIZE		GetSize(std::string keyName);
-		
+
 	void Render(std::string keyName);
 
 	void Destroy();

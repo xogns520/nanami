@@ -16,18 +16,18 @@
 
 
 cMainGame::cMainGame(void)
-	: m_pCamera(NULL)
-	, m_pGrid(NULL)
-	, m_pCharController(NULL)
-	, m_pMap(NULL)
-	, m_pPlayer(NULL)
-	, m_pPlayerDash(NULL)
-	, m_pSkyBox(NULL)
-	, m_pField(NULL)
-	, m_pWall(NULL)
-	, m_pGate1(NULL)
-	, m_pGate2(NULL)
-	, m_RealMap(NULL)
+: m_pCamera(NULL)
+, m_pGrid(NULL)
+, m_pCharController(NULL)
+, m_pMap(NULL)
+, m_pPlayer(NULL)
+, m_pPlayerDash(NULL)
+, m_pSkyBox(NULL)
+, m_pField(NULL)
+, m_pWall(NULL)
+, m_pGate1(NULL)
+, m_pGate2(NULL)
+, m_RealMap(NULL)
 {
 }
 
@@ -121,11 +121,11 @@ void cMainGame::Setup()
 void cMainGame::Update()
 {
 	g_pTimeManager->Update();
-	
-	if(m_pCharController)
+
+	if (m_pCharController)
 		//m_pCharController->Update(m_pField);
 		m_pCharController->Update(m_pTerrain, m_pPlayer);
-	
+
 	if (m_effectTest)
 		m_effectTest->SetCenter(*m_pCharController->GetPosition());
 
@@ -145,11 +145,11 @@ void cMainGame::Update()
 		m_pTerrain->Update();
 
 	// 	if(m_pSkinnedMesh)
-// 	{
-// 		D3DXMATRIXA16 mat;
-// 		D3DXMatrixTranslation(&mat, 1, 0, 0);
-// 		m_pSkinnedMesh->Update(&mat);
-// 	}
+	// 	{
+	// 		D3DXMATRIXA16 mat;
+	// 		D3DXMatrixTranslation(&mat, 1, 0, 0);
+	// 		m_pSkinnedMesh->Update(&mat);
+	// 	}
 	g_pAutoReleasePool->Drain();
 }
 
@@ -189,7 +189,7 @@ void cMainGame::Render()
 
 	//if (m_pGate2)
 	//	m_pGate2->Render(&matT);
-	
+
 
 	if (m_pGrid)
 		m_pGrid->Render();
@@ -224,7 +224,7 @@ void cMainGame::Render()
 	//수정하다 말았음
 	//if (m_effectTest)
 	//	m_effectTest->UpdateAndRender();
-	
+
 	//if (m_pCharController->GetMoveKey())
 	//	if (m_pPlayerDash)
 	//		m_pPlayerDash->Render(&m_pCharController->GetWorldTM());
@@ -237,40 +237,40 @@ void cMainGame::Render()
 	sprintf(szTemp, "FPS : %d", g_pTimeManager->GetFPS());
 	pFont->DrawTextA(NULL, szTemp, strlen(szTemp), &rc, DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
-		
+
 	g_pD3DDevice->EndScene();
 
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 }
 
-void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
+void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if(m_pCamera)
+	if (m_pCamera)
 	{
 		m_pCamera->WndProc(hWnd, message, wParam, lParam);
 	}
 
-	switch(message)
+	switch (message)
 	{
 	case WM_KEYDOWN:
-		{
-			//if (wParam == 'W')
-			//{
-			//	//static int n = 0;
-			//	//m_pSkinnedMesh->SetAnimationIndex(++n);
-			//	if (m_pPlayer)
-			//		m_pPlayer->Update(2);
-			//}
-		}
+	{
+					   //if (wParam == 'W')
+					   //{
+					   //	//static int n = 0;
+					   //	//m_pSkinnedMesh->SetAnimationIndex(++n);
+					   //	if (m_pPlayer)
+					   //		m_pPlayer->Update(2);
+					   //}
+	}
 		break;
 
 	case WM_KEYUP:
 	{
-		//if (wParam == 'W')
-		//{
-		//	if (m_pPlayer)
-		//		m_pPlayer->Update(1);
-		//}
+					 //if (wParam == 'W')
+					 //{
+					 //	if (m_pPlayer)
+					 //		m_pPlayer->Update(1);
+					 //}
 	}
 		break;
 	}

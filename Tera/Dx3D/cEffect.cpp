@@ -5,14 +5,14 @@
 
 
 cEffect::cEffect()
-	: m_filePath("")
-	, m_bIsOn(false)
-	, m_fAnimationSpeed(0.f)
-	, m_fAlpha(0.f)
-	, m_bIsSprite(false)
-	, m_pSprite(NULL)
-	, m_pMesh(NULL)
-	, m_centerPosition(0, 0, 0)
+: m_filePath("")
+, m_bIsOn(false)
+, m_fAnimationSpeed(0.f)
+, m_fAlpha(0.f)
+, m_bIsSprite(false)
+, m_pSprite(NULL)
+, m_pMesh(NULL)
+, m_centerPosition(0, 0, 0)
 {
 }
 
@@ -33,7 +33,7 @@ void cEffect::Setup(char* path, bool isSprite, float animationSpeed, float alpha
 	D3DXMatrixIdentity(&m_matWorld);
 
 	m_bIsSprite = isSprite;
-	
+
 	m_centerPosition = D3DXVECTOR3(0, 0, 0);	//임시
 
 	if (isSprite) {
@@ -62,30 +62,51 @@ void cEffect::Render()
 		g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 		g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
 		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
-
+		
 		//worldmatrix적용하는부분 확인해야함!!
-		D3DXMATRIXA16 matWorld, matView, matInvView;
+		
+		D3DXMATRIXA16 matWorld, matView, matProj, matS;
+		D3DXMatrixIdentity(&matWorld);
+		D3DXMatrixScaling(&matS, 0.2, 0.2, 0.2);
+		m_pSprite->SetTransform(&matS);
 		
 		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
-		D3DXMatrixInverse(&matInvView, 0, &matView);
+		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProj);
 		
-		matWorld = matInvView;
-		matWorld._41 = 0; matWorld._42 = 0; matWorld._43 = 0;
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
-
-		//sprite 위치 계산
-		//&m_centerPosition
+		
+		D3DXVec3TransformCoord(&m_centerPosition, &m_centerPosition, &matView);
+		D3DXVec3TransformCoord(&m_centerPosition, &m_centerPosition, &matView);
+		
 		RECT rc;
 		GetClientRect(g_hWnd, &rc);
 		
+		/*
+		
+		var viewProj = mMainCamera.View * mMainCamera.Projection;
+		var vp = mDevice.ImmediateContext.Rasterizer.GetViewports()[0];
+		var screenCoords = Vector3.Project(worldSpaceCoordinates, vp.X, vp.Y, vp.Width, vp.Height, vp.MinZ, vp.MaxZ, viewProj);
+		*/
+		
+		D3DVIEWPORT9 vp;
+		//D3DXVECTOR3 pos = 
+		
+		
+		//D3DXVECTOR3 pos = D3DXVECTOR3(
+		//	(0.5 * (m_centerPosition.x + 1) * m_rSpriteRect.right - m_rSpriteRect.left),
+		//	(0.5 * (m_centerPosition.y + 1) * m_rSpriteRect.bottom - m_rSpriteRect.top),
+		//	0);
+		
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 		m_pSprite->Draw(m_pSpriteTexture,
-			&m_rSpriteRect,
+			//&m_rSpriteRect,
+			NULL,
+			NULL,
 			&D3DXVECTOR3(0, 0, 0),
-			&D3DXVECTOR3(0, 0, 0),
-			D3DCOLOR_XRGB(255, 255, 255));
+			//&pos,
+			D3DCOLOR_RGBA(255, 255, 255, 255));
 		m_pSprite->End();
-
+		
 		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
 		g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 		//g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
@@ -100,7 +121,3 @@ void cEffect::Render()
 }
 
 
-//void cEffect::SetSpriteSize(D3DXMATRIX mat) {
-//
-//
-//}

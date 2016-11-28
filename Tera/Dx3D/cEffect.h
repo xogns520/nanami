@@ -4,19 +4,19 @@
 
 class cEffect
 {
-private :
+private:
 	D3DXMATRIXA16				m_matWorld;
 
 	char*						m_filePath;
-	
+
 	bool						m_bIsOn;
 	float						m_fAnimationSpeed;
 	float						m_fAlpha;
-	
+
 	bool						m_bIsSprite;			//스프라이트인지 mesh인지
 
 	//sprite 변수
-	LPD3DXSPRITE				m_pSprite;	
+	LPD3DXSPRITE				m_pSprite;
 	LPDIRECT3DTEXTURE9			m_pSpriteTexture;
 	RECT						m_rSpriteRect;
 
@@ -26,7 +26,7 @@ private :
 
 	D3DXVECTOR3					m_centerPosition;
 
-public :
+public:
 	cEffect();
 
 	~cEffect();
