@@ -8,7 +8,7 @@ cCharController::cCharController(void)
 	: m_vPosition(0, 0, 0)
 	, m_vDirection(0, 0, 1)
 	, m_fAngle(0.0f)
-	, m_fSpeed(0.25f)
+	, m_fSpeed(0.15f)
 	, m_bAtt(false)
 	, m_state(Pempty)
 	, m_fAniPlayTime(0.0f)
@@ -174,6 +174,53 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 			}
 		}
 	}
+	if (m_bAtt)
+	{
+		m_fAniPlayTime += g_pTimeManager->GetDeltaTime();
+		if (m_nMoveKey == 3)
+		{
+			if (m_fAniPlayTime > 0.55f)
+			{
+				m_bAtt = false;
+				m_nMoveKey = 4;
+				p.x = pPlayer->GetRootBone()->_41;
+				p.z = pPlayer->GetRootBone()->_43;
+			}
+		}
+		else if (m_nMoveKey == 2)
+		{
+			if (m_fAniPlayTime > 0.8f)
+			{
+				m_bAtt = false;
+				m_nMoveKey = 4;
+				p.x = pPlayer->GetRootBone()->_41;
+				p.z = pPlayer->GetRootBone()->_43;
+				//m_fAniPlayTime = 0.0f;
+			}
+		}
+		else if (m_nMoveKey == 1)
+		{
+			if (m_fAniPlayTime > 0.4f)
+			{
+				m_bAtt = false;
+				m_nMoveKey = 4;
+				p.x = pPlayer->GetRootBone()->_41;
+				p.z = pPlayer->GetRootBone()->_43;
+				//m_fAniPlayTime = 0.0f;
+			}
+		}
+		else if (m_nMoveKey == 0)
+		{
+			if (m_fAniPlayTime > 1.5f)
+			{
+				m_bAtt = false;
+				m_nMoveKey = 4;
+				p.x = pPlayer->GetRootBone()->_41;
+				p.z = pPlayer->GetRootBone()->_43;
+				//m_fAniPlayTime = 0.0f;
+			}
+		}
+	}
 	if (!m_bAtt ||
 		(m_nMoveKey == 3 && m_fAniPlayTime > 0.4f && m_fAniPlayTime < 0.59f) ||
 		(m_nMoveKey == 2 && m_fAniPlayTime > 0.6f && m_fAniPlayTime < 0.79f) ||
@@ -181,6 +228,8 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 	{
 		if (g_pKeyManager->isOnceKeyDown('L'))
 		{
+			p.x = pPlayer->GetRootBone()->_41;
+			p.z = pPlayer->GetRootBone()->_43;
 			m_bAtt = true;
 			if (m_nMoveKey > 3)
 			{
@@ -195,6 +244,8 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 				if (m_nMoveKey > -1)
 					pPlayer->Update(--m_nMoveKey);
 			}
+			//
+			//
 		}
 	}
 	// 0.01~0.005
@@ -217,46 +268,7 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 		}
 	}
 
-	if (m_bAtt)
-	{
-		m_fAniPlayTime += g_pTimeManager->GetDeltaTime();
-		if (m_nMoveKey == 3)
-		{
-			if (m_fAniPlayTime > 0.55f)
-			{
-				m_bAtt = false;
-				m_nMoveKey = 4;
-
-			}
-		}
-		else if (m_nMoveKey == 2)
-		{
-			if (m_fAniPlayTime > 0.8f)
-			{
-				m_bAtt = false;
-				m_nMoveKey = 4;
-				//m_fAniPlayTime = 0.0f;
-			}
-		}
-		else if (m_nMoveKey == 1)
-		{
-			if (m_fAniPlayTime > 0.4f)
-			{
-				m_bAtt = false;
-				m_nMoveKey = 4;
-				//m_fAniPlayTime = 0.0f;
-			}
-		}
-		else if (m_nMoveKey == 0)
-		{
-			if (m_fAniPlayTime > 1.5f)
-			{
-				m_bAtt = false;
-				m_nMoveKey = 4;
-				//m_fAniPlayTime = 0.0f;
-			}
-		}
-	}
+	
 
 	if (pMap && pMap->GetHeight(p.x, p.y, p.z))
 	{

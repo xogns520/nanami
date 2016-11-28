@@ -333,8 +333,6 @@ void cBody::Update(ST_BONE* pCurrent, D3DXMATRIXA16* pmatParent)
 {
 	pCurrent->CombinedTransformationMatrix = pCurrent->TransformationMatrix;
 
-	
-
 	if (pmatParent)
 	{
 		pCurrent->CombinedTransformationMatrix =

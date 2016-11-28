@@ -131,7 +131,7 @@ void cMainGame::Update()
 
 	if (m_pCamera)
 	{
-		m_pCamera->Update(m_pCharController->GetAngle(), m_pCharController->GetPosition());
+		m_pCamera->Update(m_pCharController->GetAngle(), &D3DXVECTOR3(m_pPlayer->GetRootBone()->_41, m_pPlayer->GetRootBone()->_42, m_pPlayer->GetRootBone()->_43));
 		m_pCamera->FrustumUpdate();
 	}
 
