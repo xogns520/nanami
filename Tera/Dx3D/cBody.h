@@ -47,6 +47,14 @@ public:
 	{
 		return &m_stBoundingSphere;
 	}
+	D3DXMATRIX* GetRootTM()
+	{
+		return &m_matRootTM;
+	}
+	bool GetAniFinal()
+	{
+		//if()
+	}
 	void GetNeckWorld(D3DXFRAME* pFrame, D3DXMATRIX* pParentTM);
 private:
 	cBody();

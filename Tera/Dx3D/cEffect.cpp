@@ -106,7 +106,3 @@ void cEffect::Render()
 }
 
 
-//void cEffect::SetSpriteSize(D3DXMATRIXA16 mat) {
-//
-//
-//}

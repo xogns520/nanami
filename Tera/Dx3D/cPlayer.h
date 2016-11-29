@@ -26,5 +26,6 @@ public:
 	void Setup(char* Directory, char* PathBody, char* PathFace, char* PathHair, char* PathTail);
 	void Update(int AniIndex);
 	void Render(D3DXMATRIX* pMat);
+	D3DXMATRIX* GetRootBone();
 };
 

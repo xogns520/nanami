@@ -73,8 +73,9 @@ void cMainGame::Setup()
 	m_pSkyBox = new cSkyBox;
 	m_pSkyBox->Setup(sky);
 
-	//m_RealMap = new cMap;
-	//m_RealMap->Setup();
+	//2016 11 28 승현 realMap 주석 해제
+	m_RealMap = new cMap;
+	m_RealMap->Setup();
 
 	for (int x = -20; x < -10; ++x)
 	{
@@ -93,7 +94,7 @@ void cMainGame::Setup()
 	//D3DXMATRIXA16 matT;
 	//D3DXMatrixTranslation(&matT, -10.0f, 0.0f, 10.0f);
 	m_pCharController = new cCharController;
-	m_pCharController->SetPosition(&D3DXVECTOR3(-10.0f, 0.0f, 10.0f));
+	m_pCharController->SetPosition(&D3DXVECTOR3(70.0f, 0.0f, 40.0f)); //2016 11 28 승현 수정 //기존 수치 -10, 0, 10
 
 	m_pPlayer = new cPlayer;
 	m_pPlayer->Setup("./Tera/Character/", "Elin_Body_WDC.X", "Elin_Face_WDC.X", "Elin_Hair_WDC.X", "Elin_Tail_WDC.X");
@@ -103,13 +104,14 @@ void cMainGame::Setup()
 	//m_pPlayerDash = new cPlayer;
 	//m_pPlayerDash->Setup("./Tera/Character/", "ELin_Body_Wait.X", "ELin_Head_Wait.X", "ELin_Hair_Wait.X", NULL);
 
-	//지형
-	m_pTerrain = new cMapSkinnedMesh;
-	m_pTerrain->Load("Tera/Map", "map00.X");
-	//m_pTerrain->SetPosition(D3DXVECTOR3(50.0f, -30.0f, -50.0f));
-	m_pTerrain->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	//2016 11 28 승현 주석 
+	////지형
+	//m_pTerrain = new cMapSkinnedMesh;
+	//m_pTerrain->Load("Tera/Map", "map00.X");
+	////m_pTerrain->SetPosition(D3DXVECTOR3(50.0f, -30.0f, -50.0f));
+	//m_pTerrain->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
-	//m_pTerrain->GetHeight(m_pCharController->GetPosition()->x, m_pCharController->GetPosition()->y, m_pCharController->GetPosition()->z);
+	////m_pTerrain->GetHeight(m_pCharController->GetPosition()->x, m_pCharController->GetPosition()->y, m_pCharController->GetPosition()->z);
 
 	//------------ EffectTest
 	m_effectTest = g_pEffectManager->PushEffect("EFF01", "./Tera/Effects/A_DistortrrrBall001_emis.tga", true);
@@ -124,25 +126,26 @@ void cMainGame::Update()
 
 	if (m_pCharController)
 		//m_pCharController->Update(m_pField);
-		m_pCharController->Update(m_pTerrain, m_pPlayer);
+		m_pCharController->Update(m_RealMap->getSurface(), m_pPlayer);
 
 	if (m_effectTest)
 		m_effectTest->SetCenter(*m_pCharController->GetPosition());
 
 	if (m_pCamera)
 	{
-		m_pCamera->Update(m_pCharController->GetAngle(), m_pCharController->GetPosition());
+		m_pCamera->Update(m_pCharController->GetAngle(), &D3DXVECTOR3(m_pPlayer->GetRootBone()->_41, m_pPlayer->GetRootBone()->_42, m_pPlayer->GetRootBone()->_43));
 		m_pCamera->FrustumUpdate();
 	}
 
 	//if (m_pPlayer)
 	//	m_pPlayer->Update(m_pCharController->GetMoveKey());
 
-	//if (m_RealMap)
-	//	m_RealMap->Update();
+	if (m_RealMap)
+		m_RealMap->Update();
 
-	if (m_pTerrain)
-		m_pTerrain->Update();
+	//2016 11 28 승현 기존 터레인 주석 
+	//if (m_pTerrain)
+	//	m_pTerrain->Update();
 
 	// 	if(m_pSkinnedMesh)
 	// 	{
@@ -208,18 +211,20 @@ void cMainGame::Render()
 
 	//if(!m_pCharController->GetMoveKey())
 
-	if (m_pTerrain)
-		m_pTerrain->Render();
-
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
 	if (m_effectTest)
 		m_effectTest->Render();
 
-	//if (m_RealMap)
-	//	m_RealMap->Render();
+	//2016 11 28 승현 리얼맵 주석 해제
+	if (m_RealMap)
+		m_RealMap->Render();
+	//
 
+	//2016 11 28 승현 기존 터레인 주석 
+	//if (m_pTerrain)
+	//	m_pTerrain->Render();
 
 	//2016-11-20 
 	//수정하다 말았음

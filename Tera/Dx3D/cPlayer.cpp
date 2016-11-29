@@ -125,3 +125,8 @@ void cPlayer::Render(D3DXMATRIX* pMat)
 	//	m_pT->UpdateAndRender();
 	//}
 }
+
+D3DXMATRIX * cPlayer::GetRootBone()
+{
+	return m_pBody->GetRootTM();
+}
