@@ -78,7 +78,7 @@ void cEffectManager::SetSize(std::string keyName, float size)
 		D3DXMatrixIdentity(&matT);
 		D3DXMatrixScaling(&matT, size, size, size);
 
-		m_mapEffect[keyName]->SetSpriteSize(matT);
+		//m_mapEffect[keyName]->SetSpriteSize(matT);
 	}
 }
 

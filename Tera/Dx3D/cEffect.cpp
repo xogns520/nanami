@@ -67,43 +67,28 @@ void cEffect::Render()
 		
 		D3DXMATRIXA16 matWorld, matView, matProj, matS;
 		D3DXMatrixIdentity(&matWorld);
-		D3DXMatrixScaling(&matS, 0.2, 0.2, 0.2);
+		D3DXMatrixScaling(&matS, 0.3, 0.3, 0.3);
 		m_pSprite->SetTransform(&matS);
 		
 		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
 		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProj);
 		
-		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
-		
-		D3DXVec3TransformCoord(&m_centerPosition, &m_centerPosition, &matView);
-		D3DXVec3TransformCoord(&m_centerPosition, &m_centerPosition, &matView);
-		
-		RECT rc;
-		GetClientRect(g_hWnd, &rc);
-		
-		/*
-		
-		var viewProj = mMainCamera.View * mMainCamera.Projection;
-		var vp = mDevice.ImmediateContext.Rasterizer.GetViewports()[0];
-		var screenCoords = Vector3.Project(worldSpaceCoordinates, vp.X, vp.Y, vp.Width, vp.Height, vp.MinZ, vp.MaxZ, viewProj);
-		*/
-		
-		D3DVIEWPORT9 vp;
-		//D3DXVECTOR3 pos = 
-		
-		
-		//D3DXVECTOR3 pos = D3DXVECTOR3(
-		//	(0.5 * (m_centerPosition.x + 1) * m_rSpriteRect.right - m_rSpriteRect.left),
-		//	(0.5 * (m_centerPosition.y + 1) * m_rSpriteRect.bottom - m_rSpriteRect.top),
-		//	0);
+		D3DXMATRIXA16 mat = matWorld * matView * matProj;
+		//g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
+		D3DXVec3TransformCoord(&m_centerPosition, &m_centerPosition, &mat);
+
+		D3DXVECTOR3 pos = D3DXVECTOR3(
+			(0.5 * (m_centerPosition.x + 1) * (m_rSpriteRect.right - m_rSpriteRect.left)),
+			(0.5 * (m_centerPosition.y + 1) * (m_rSpriteRect.bottom - m_rSpriteRect.top)),
+			0);
 		
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 		m_pSprite->Draw(m_pSpriteTexture,
 			//&m_rSpriteRect,
 			NULL,
 			NULL,
-			&D3DXVECTOR3(0, 0, 0),
-			//&pos,
+			//&D3DXVECTOR3(0, 0, 0),
+			&pos,
 			D3DCOLOR_RGBA(255, 255, 255, 255));
 		m_pSprite->End();
 		

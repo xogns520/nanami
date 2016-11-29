@@ -208,6 +208,9 @@ void cMainGame::Render()
 
 	//if(!m_pCharController->GetMoveKey())
 
+	if (m_pTerrain)
+		m_pTerrain->Render();
+
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
@@ -217,8 +220,6 @@ void cMainGame::Render()
 	//if (m_RealMap)
 	//	m_RealMap->Render();
 
-	//if (m_pTerrain)
-	//	m_pTerrain->Render();
 
 	//2016-11-20 
 	//수정하다 말았음
