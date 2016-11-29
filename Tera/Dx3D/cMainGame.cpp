@@ -132,11 +132,9 @@ void cMainGame::Update()
 
 	//Test -- 임시로 player 포지션값
 	for each(auto v in m_vecEffect) {
+		v->Update();
 		v->SetCenter(*m_pCharController->GetPosition());
 	}
-
-	//if (m_effectTest)
-	//	m_effectTest->SetCenter(*m_pCharController->GetPosition());
 
 	if (m_pCamera)
 	{
@@ -225,10 +223,7 @@ void cMainGame::Render()
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
-	for each(auto e in m_vecEffect)
-	{
-		e->Render();
-	}
+	g_pEffectManager->GetEffect("EFF02")->Render();
 
 	//if (m_effectTest)
 	//	m_effectTest->Render();

@@ -2,10 +2,13 @@
 #include "cMtlTex.h"
 #include "cObjLoader.h"
 
+class cGroup;
+
 class cEffect
 {
 private:
 	D3DXMATRIXA16				m_matWorld;
+	float						m_worldTime;
 
 	char*						m_filePath;
 
@@ -23,6 +26,7 @@ private:
 
 	//Meshº¯¼ö
 	LPD3DXMESH					m_pMesh;
+	std::vector<cGroup*>		m_vecObj;
 	std::vector<cMtlTex*>		m_vecMeshMtlTex;
 	LPD3DXEFFECT				m_pEffect;
 

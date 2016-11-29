@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "cEffect.h"
-
-
+#include "cGroup.h"
 
 
 cEffect::cEffect()
-: m_filePath("")
-, m_bIsOn(false)
-, m_fAnimationSpeed(0.f)
-, m_fAlpha(0.f)
-, m_bIsSprite(false)
-, m_pSprite(NULL)
-, m_pMesh(NULL)
-, m_centerPosition(0, 0, 0)
+	: m_filePath("")
+	, m_bIsOn(false)
+	, m_fAnimationSpeed(0.f)
+	, m_fAlpha(0.f)
+	, m_bIsSprite(false)
+	, m_pSprite(NULL)
+	, m_pMesh(NULL)
+	, m_centerPosition(0, 0, 0)
+	, m_worldTime(0)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	m_centerPosition = D3DXVECTOR3(0, 0, 0);	//임시
@@ -21,6 +21,7 @@ cEffect::cEffect()
 
 cEffect::~cEffect()
 {
+
 }
 
 
@@ -51,7 +52,11 @@ void cEffect::Setup(char* path, char* shaderPath)
 	//메쉬로 로딩하는 경우
 	cObjLoader* l = new cObjLoader;
 	bool isUvFlip = true;
-	m_pMesh = l->Load(path, m_vecMeshMtlTex, isUvFlip, &m_matWorld);
+
+	l->Load(path, m_vecObj, isUvFlip, &m_matWorld);
+
+	//void cObjLoader::Load(IN char* szFilename, OUT std::vector<cGroup*>& vecGroup, IN bool isUvFlip, IN D3DXMATRIXA16* pmat)
+	//m_pMesh = l->Load(path, m_vecMeshMtlTex, isUvFlip, &m_matWorld);
 	
 	m_pEffect = LoadEffect(shaderPath);
 }
@@ -105,6 +110,11 @@ LPD3DXEFFECT cEffect::LoadEffect(const char* szFileName)
 	return pEffect;
 }
 
+void cEffect::Update()
+{
+	m_worldTime++;
+}
+
 
 void cEffect::Render()
 {
@@ -144,6 +154,18 @@ void cEffect::Render()
 		g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
 		
+
+		// 텍스쳐 알파 옵션 설정
+		g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+		g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+		g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+
+		// 알파블랜딩 방식 결정.
+		g_pD3DDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+		g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+
+		
 		D3DXMATRIXA16 matWorld;
 		D3DXMatrixIdentity(&matWorld);
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
@@ -168,29 +190,36 @@ void cEffect::Render()
 	}
 	else {
 		//쉐이더 추가 예정 -- TEST중!!
-
+		//m_matWorld;
 		D3DXMATRIXA16 matWorld, matView, matProjection;
 		D3DXMatrixIdentity(&matWorld);
+		D3DXMatrixTranslation(&matWorld, m_centerPosition.x, m_centerPosition.y, m_centerPosition.z);
 		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
 		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
 
 		m_pEffect->SetMatrix("matWorld", &matWorld);
 		m_pEffect->SetMatrix("matView", &matView);
 		m_pEffect->SetMatrix("matProjection", &matProjection);
-		m_pEffect->SetFloat("fTime", g_pTimeManager->GetDeltaTime());
-
-		if (m_vecMeshMtlTex.size() > 0)
-			m_pEffect->SetTexture(0, m_vecMeshMtlTex[0]->GetTexture());
+		m_pEffect->SetFloat("fTime", m_worldTime/10);
 		
-		if (m_pMesh)
-			m_pMesh->DrawSubset(0);
+		UINT numPasses = 0;
+		m_pEffect->Begin(&numPasses, NULL);
 
-		//m_pMesh
+		for (UINT i = 0; i < numPasses; ++i)
+		{
+			m_pEffect->BeginPass(i);
+		
+			for each(auto p in m_vecObj)
+			{
+				p->Render();
+			}
+		
+			m_pEffect->EndPass();
+		}
 
-		//LPDIRECT3DTEXTURE9 temp;
-		//D3DXCreateTextureFromFile(g_pD3DDevice, "./A_DistortrrrBall001_emis.tga", &temp);
-		//m_pEffect->SetTexture("DiffuseMap_Tex", temp);
-
+		m_pEffect->End();
+		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
+		g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	}
 
 
