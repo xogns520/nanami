@@ -46,7 +46,7 @@ cEffect* cEffectManager::PushEffect(std::string keyName, std::string fileName, b
 {
 	if (m_mapEffect.find(keyName) == m_mapEffect.end()) {
 		m_mapEffect[keyName] = new cEffect;
-		m_mapEffect[keyName]->Setup((char*)fileName.c_str(), isSprite, NULL, 1.0f);		//animationspeed alpha 수정될 수 있음
+		m_mapEffect[keyName]->Setup((char*)fileName.c_str(), isSprite, 1.0f, NULL, 1.0f);		//animationspeed alpha 수정될 수 있음
 	}
 
 	return m_mapEffect[keyName];

@@ -28,11 +28,12 @@ void cEffect::Destroy()
 }
 
 
-void cEffect::Setup(char* path, bool isSprite, float animationSpeed, float alpha)
+void cEffect::Setup(char* path, bool isSprite, float size, float animationSpeed, float alpha)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 
 	m_bIsSprite = isSprite;
+	m_fSpriteSize = size;
 
 	m_centerPosition = D3DXVECTOR3(0, 0, 0);	//임시
 
@@ -56,42 +57,59 @@ void cEffect::Setup(char* path, bool isSprite, float animationSpeed, float alpha
 void cEffect::Render()
 {
 	if (m_bIsSprite) {
-		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
-		g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+		//파티클 이용!!
+		
+		//----------------------------------------------------------------------
+		// 포인트를 확대 축소 할 수 있게 해줌
+		g_pD3DDevice->SetRenderState(D3DRS_POINTSCALEENABLE, true);
+		// 포인트 스케일링 Factor값 설정
+		g_pD3DDevice->SetRenderState(D3DRS_POINTSCALE_A, FtoDw(0.0f));
+		g_pD3DDevice->SetRenderState(D3DRS_POINTSCALE_B, FtoDw(0.0f));
+		g_pD3DDevice->SetRenderState(D3DRS_POINTSCALE_C, FtoDw(1.0f));
+
+		// 포인트에 텍스쳐를 입힐 수 있게 해줌
+		g_pD3DDevice->SetRenderState(D3DRS_POINTSPRITEENABLE, true);
+		
+		// 텍스쳐 알파 옵션 설정
+		g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+		g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+		g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+
+		// 알파블랜딩 방식 결정.
 		g_pD3DDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 		g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 		g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+
+		// 포인트 최소 크기
+		g_pD3DDevice->SetRenderState(D3DRS_POINTSIZE_MIN, FtoDw(1.0f));
+		// 포인트 최대 크기
+		g_pD3DDevice->SetRenderState(D3DRS_POINTSIZE_MAX, FtoDw(1000.0f));
+		// 포인트 사이즈 설정
+		g_pD3DDevice->SetRenderState(D3DRS_POINTSIZE, FtoDw(m_fSpriteSize));
+		//----------------------------------------------------------------------
+
+		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+		g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
 		
-		//worldmatrix적용하는부분 확인해야함!!
-		
-		D3DXMATRIXA16 matWorld, matView, matProj, matS;
+		D3DXMATRIXA16 matWorld;
 		D3DXMatrixIdentity(&matWorld);
-		D3DXMatrixScaling(&matS, 0.3, 0.3, 0.3);
-		m_pSprite->SetTransform(&matS);
-		
-		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
-		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProj);
-		
-		D3DXMATRIXA16 mat = matWorld * matView * matProj;
-		//g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
-		D3DXVec3TransformCoord(&m_centerPosition, &m_centerPosition, &mat);
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
 
-		D3DXVECTOR3 pos = D3DXVECTOR3(
-			(0.5 * (m_centerPosition.x + 1) * (m_rSpriteRect.right - m_rSpriteRect.left)),
-			(0.5 * (m_centerPosition.y + 1) * (m_rSpriteRect.bottom - m_rSpriteRect.top)),
-			0);
-		
-		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-		m_pSprite->Draw(m_pSpriteTexture,
-			//&m_rSpriteRect,
-			NULL,
-			NULL,
-			//&D3DXVECTOR3(0, 0, 0),
-			&pos,
-			D3DCOLOR_RGBA(255, 255, 255, 255));
-		m_pSprite->End();
-		
+		g_pD3DDevice->SetTexture(0, m_pSpriteTexture);
+		g_pD3DDevice->SetFVF(ST_PC_VERTEX::FVF);
+
+		std::vector<ST_PC_VERTEX> t;
+		ST_PC_VERTEX temp;
+		temp.p = m_centerPosition;
+		temp.c = D3DCOLOR_ARGB(255, 255, 255, 255);
+		t.push_back(temp);
+
+		g_pD3DDevice->DrawPrimitiveUP(D3DPT_POINTLIST,
+			t.size(),
+			&t[0],
+			sizeof(ST_PC_VERTEX));
+
 		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
 		g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 		//g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);

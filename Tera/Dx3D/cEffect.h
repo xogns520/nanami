@@ -19,6 +19,7 @@ private:
 	LPD3DXSPRITE				m_pSprite;
 	LPDIRECT3DTEXTURE9			m_pSpriteTexture;
 	RECT						m_rSpriteRect;
+	float						m_fSpriteSize;
 
 	//Meshº¯¼ö
 	LPD3DXMESH					m_pMesh;
@@ -33,7 +34,7 @@ public:
 
 	void Destroy();
 
-	void Setup(char* path, bool isSprite, float animationSpeed, float alpha);
+	void Setup(char* path, bool isSprite, float size, float animationSpeed, float alpha);
 	void Update();
 	void Render();
 
@@ -42,9 +43,13 @@ public:
 	LPD3DXMESH*			GetMesh()			{ return &m_pMesh; }
 	LPD3DXSPRITE*		GetSprite()			{ return &m_pSprite; }
 	D3DXVECTOR3			GetPosition()		{ return m_centerPosition; }
+	float				GetSize()			{ return m_fSpriteSize; }
 
 
 	void		SetCenter(D3DXVECTOR3 pos)	{ m_centerPosition = pos; }
 	void		SetSpriteSize(D3DXMATRIX mat);
+	void		SetSize(float size) { m_fSpriteSize = size; }
+
+	DWORD FtoDw(float f) { return *((DWORD*)&f); }
 };
 

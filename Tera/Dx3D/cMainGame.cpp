@@ -161,8 +161,8 @@ void cMainGame::Render()
 	g_pD3DDevice->Clear(NULL,
 		NULL,
 		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(47, 121, 112),
-		//D3DCOLOR_XRGB(0, 0, 255),
+		//D3DCOLOR_XRGB(47, 121, 112),
+		D3DCOLOR_XRGB(0, 0, 0),
 		1.0f, 0);
 
 	g_pD3DDevice->BeginScene();
@@ -211,15 +211,17 @@ void cMainGame::Render()
 
 	//if(!m_pCharController->GetMoveKey())
 
+	//2016 11 28 승현 리얼맵 주석 해제
+	//if (m_RealMap)
+	//	m_RealMap->Render();
+
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
 	if (m_effectTest)
 		m_effectTest->Render();
 
-	//2016 11 28 승현 리얼맵 주석 해제
-	if (m_RealMap)
-		m_RealMap->Render();
+	
 	//
 
 	//2016 11 28 승현 기존 터레인 주석 
