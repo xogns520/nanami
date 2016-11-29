@@ -114,8 +114,10 @@ void cMainGame::Setup()
 	////m_pTerrain->GetHeight(m_pCharController->GetPosition()->x, m_pCharController->GetPosition()->y, m_pCharController->GetPosition()->z);
 
 	//------------ EffectTest
-	m_effectTest = g_pEffectManager->PushEffect("EFF01", "./Tera/Effects/A_DistortrrrBall001_emis.tga", true);
-	g_pEffectManager->SetSize("EFF01", 100);
+	m_vecEffect.push_back(g_pEffectManager->PushSpriteEffect("EFF01", "./Tera/Effects/A_DistortrrrBall001_emis.tga"));
+	g_pEffectManager->SetSize("EFF01", 2.f);
+
+	m_vecEffect.push_back(g_pEffectManager->PushMeshEffect("EFF02", "./Tera/Effects/TubeRing.object", "./Tera/Shader/Test02.fx"));
 
 	SetLight();
 }
@@ -128,8 +130,13 @@ void cMainGame::Update()
 		//m_pCharController->Update(m_pField);
 		m_pCharController->Update(m_RealMap->getSurface(), m_pPlayer);
 
-	if (m_effectTest)
-		m_effectTest->SetCenter(*m_pCharController->GetPosition());
+	//Test -- 임시로 player 포지션값
+	for each(auto v in m_vecEffect) {
+		v->SetCenter(*m_pCharController->GetPosition());
+	}
+
+	//if (m_effectTest)
+	//	m_effectTest->SetCenter(*m_pCharController->GetPosition());
 
 	if (m_pCamera)
 	{
@@ -218,8 +225,13 @@ void cMainGame::Render()
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
-	if (m_effectTest)
-		m_effectTest->Render();
+	for each(auto e in m_vecEffect)
+	{
+		e->Render();
+	}
+
+	//if (m_effectTest)
+	//	m_effectTest->Render();
 
 	
 	//

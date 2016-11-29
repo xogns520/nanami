@@ -42,15 +42,26 @@ cEffect* cEffectManager::GetEffect(std::string keyName) {
 }
 
 
-cEffect* cEffectManager::PushEffect(std::string keyName, std::string fileName, bool isSprite)
+cEffect* cEffectManager::PushSpriteEffect(std::string keyName, std::string fileName)
 {
 	if (m_mapEffect.find(keyName) == m_mapEffect.end()) {
 		m_mapEffect[keyName] = new cEffect;
-		m_mapEffect[keyName]->Setup((char*)fileName.c_str(), isSprite, 1.0f, NULL, 1.0f);		//animationspeed alpha 수정될 수 있음
+		m_mapEffect[keyName]->Setup((char*)fileName.c_str(), 1.0f, NULL, 1.0f);		//animationspeed alpha 수정될 수 있음
 	}
 
 	return m_mapEffect[keyName];
 }
+
+cEffect* cEffectManager::PushMeshEffect(std::string keyName, std::string fileName, std::string shaderPath)
+{
+	if (m_mapEffect.find(keyName) == m_mapEffect.end()) {
+		m_mapEffect[keyName] = new cEffect;
+		m_mapEffect[keyName]->Setup((char*)fileName.c_str(), (char*)shaderPath.c_str());
+	}
+
+	return m_mapEffect[keyName];
+}
+
 
 
 void cEffectManager::SetPosition(std::string keyName, D3DXVECTOR3 pos)
@@ -74,26 +85,17 @@ D3DXVECTOR3 cEffectManager::GetPosition(std::string keyName)
 void cEffectManager::SetSize(std::string keyName, float size)
 {
 	if (m_mapEffect.find(keyName) != m_mapEffect.end()) {
-		D3DXMATRIXA16 matT;
-		D3DXMatrixIdentity(&matT);
-		D3DXMatrixScaling(&matT, size, size, size);
-
-		//m_mapEffect[keyName]->SetSpriteSize(matT);
+		m_mapEffect[keyName]->SetSpriteSize(size);
 	}
 }
 
-ST_SIZE cEffectManager::GetSize(std::string keyName)
+float cEffectManager::GetSize(std::string keyName)
 {
-	ST_SIZE t;
-
-	//RECT크기를 반환하면 안됨!!!!
-	//if (m_mapEffect.find(keyName) != m_mapEffect.end()) {
-	//	RECT* rc = m_mapEffect[keyName]->GetSpriteRectRef();
-	//	t.fWidth = rc->right - rc->left;
-	//	t.fWidth = rc->bottom - rc->top;
-	//}
-
-	return t;
+	float r = -1;
+	if (m_mapEffect.find(keyName) != m_mapEffect.end()) {
+		r = m_mapEffect[keyName]->GetSpriteSize();
+	}
+	return r;
 }
 
 void cEffectManager::Render(std::string keyName)

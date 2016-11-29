@@ -24,17 +24,20 @@ private:
 	//Meshº¯¼ö
 	LPD3DXMESH					m_pMesh;
 	std::vector<cMtlTex*>		m_vecMeshMtlTex;
+	LPD3DXEFFECT				m_pEffect;
 
 	D3DXVECTOR3					m_centerPosition;
 
+private:
+	LPD3DXEFFECT LoadEffect(const char* szFileName);
 public:
 	cEffect();
-
 	~cEffect();
 
 	void Destroy();
 
-	void Setup(char* path, bool isSprite, float size, float animationSpeed, float alpha);
+	void Setup(char* path, float size, float animationSpeed, float alpha);
+	void Setup(char* path, char* shaderPath);
 	void Update();
 	void Render();
 
@@ -43,12 +46,11 @@ public:
 	LPD3DXMESH*			GetMesh()			{ return &m_pMesh; }
 	LPD3DXSPRITE*		GetSprite()			{ return &m_pSprite; }
 	D3DXVECTOR3			GetPosition()		{ return m_centerPosition; }
-	float				GetSize()			{ return m_fSpriteSize; }
+	float				GetSpriteSize()		{ return m_fSpriteSize; }
 
 
 	void		SetCenter(D3DXVECTOR3 pos)	{ m_centerPosition = pos; }
-	void		SetSpriteSize(D3DXMATRIX mat);
-	void		SetSize(float size) { m_fSpriteSize = size; }
+	void		SetSpriteSize(float size) { m_fSpriteSize = size; }
 
 	DWORD FtoDw(float f) { return *((DWORD*)&f); }
 };

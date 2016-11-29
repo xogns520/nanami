@@ -35,7 +35,7 @@ private:
 	cMap*						m_RealMap;
 	cMapSkinnedMesh*			m_pTerrain;
 
-	cEffect*					m_effectTest;
+	std::vector<cEffect*>		m_vecEffect;
 	
 	
 public:
