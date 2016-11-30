@@ -200,6 +200,7 @@ void cEffect::Render()
 		m_pEffect->SetMatrix("matWorld", &matWorld);
 		m_pEffect->SetMatrix("matView", &matView);
 		m_pEffect->SetMatrix("matProjection", &matProjection);
+		
 		m_pEffect->SetFloat("fTime", m_worldTime/10);
 		
 		UINT numPasses = 0;
