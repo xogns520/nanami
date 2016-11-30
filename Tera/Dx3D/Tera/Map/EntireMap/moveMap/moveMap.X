@@ -123,7 +123,7 @@ Material VK_4357_SL_MI {
  0.000000;0.000000;0.000000;;
 
  TextureFilename {
-  "VK_4357_SL_Diff copy.bmp";
+  "VK_4357_SL_Diff.bmp";
  }
 }
 
