@@ -117,7 +117,7 @@ void cMainGame::Setup()
 	m_vecEffect.push_back(g_pEffectManager->PushSpriteEffect("EFF01", "./Tera/Effects/A_DistortrrrBall001_emis.tga"));
 	g_pEffectManager->SetSize("EFF01", 2.f);
 
-	m_vecEffect.push_back(g_pEffectManager->PushMeshEffect("EFF02", "./Tera/Effects/TubeRing.object", "./Tera/Shader/Test02.fx"));
+	m_vecEffect.push_back(g_pEffectManager->PushMeshEffect("EFF02", "./Tera/Effects/MagicCircle.object", ""));
 
 	SetLight();
 }
@@ -217,13 +217,15 @@ void cMainGame::Render()
 	//if(!m_pCharController->GetMoveKey())
 
 	//2016 11 28 ½ÂÇö ¸®¾ó¸Ê ÁÖ¼® ÇØÁ¦
-	//if (m_RealMap)
-	//	m_RealMap->Render();
+	if (m_RealMap)
+		m_RealMap->Render();
+
+	g_pEffectManager->GetEffect("EFF02")->Render();
 
 	if (m_pPlayer)
 		m_pPlayer->Render(&m_pCharController->GetWorldTM());
 
-	g_pEffectManager->GetEffect("EFF02")->Render();
+	
 
 	//if (m_effectTest)
 	//	m_effectTest->Render();

@@ -13,6 +13,7 @@ cEffect::cEffect()
 	, m_pMesh(NULL)
 	, m_centerPosition(0, 0, 0)
 	, m_worldTime(0)
+	, m_bUsFx(false)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	m_centerPosition = D3DXVECTOR3(0, 0, 0);	//임시
@@ -58,7 +59,10 @@ void cEffect::Setup(char* path, char* shaderPath)
 	//void cObjLoader::Load(IN char* szFilename, OUT std::vector<cGroup*>& vecGroup, IN bool isUvFlip, IN D3DXMATRIXA16* pmat)
 	//m_pMesh = l->Load(path, m_vecMeshMtlTex, isUvFlip, &m_matWorld);
 	
-	m_pEffect = LoadEffect(shaderPath);
+	if (strlen(shaderPath) > 0) {
+		m_bUsFx = true;
+		m_pEffect = LoadEffect(shaderPath);
+	}	
 }
 
 
@@ -189,36 +193,63 @@ void cEffect::Render()
 		//g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 	}
 	else {
-		//쉐이더 추가 예정 -- TEST중!!
-		//m_matWorld;
 		D3DXMATRIXA16 matWorld, matView, matProjection;
 		D3DXMatrixIdentity(&matWorld);
-		D3DXMatrixTranslation(&matWorld, m_centerPosition.x, m_centerPosition.y, m_centerPosition.z);
+		D3DXMatrixTranslation(&matWorld, m_centerPosition.x, m_centerPosition.y + 0.08f , m_centerPosition.z);
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
+
 		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
 		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
 
-		m_pEffect->SetMatrix("matWorld", &matWorld);
-		m_pEffect->SetMatrix("matView", &matView);
-		m_pEffect->SetMatrix("matProjection", &matProjection);
-		
-		m_pEffect->SetFloat("fTime", m_worldTime/10);
-		
-		UINT numPasses = 0;
-		m_pEffect->Begin(&numPasses, NULL);
+		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+		g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
 
-		for (UINT i = 0; i < numPasses; ++i)
-		{
-			m_pEffect->BeginPass(i);
-		
+
+		// 텍스쳐 알파 옵션 설정
+		g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+		g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+		g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+
+		// 알파블랜딩 방식 결정.
+		g_pD3DDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+		g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+
+		if (m_bUsFx) {
+			//쉐이더 추가 예정 -- TEST중!!
+			//m_matWorld;
+
+			m_pEffect->SetMatrix("matWorld", &matWorld);
+			m_pEffect->SetMatrix("matView", &matView);
+			m_pEffect->SetMatrix("matProjection", &matProjection);
+
+			m_pEffect->SetFloat("fTime", m_worldTime / 10);
+
+			UINT numPasses = 0;
+			m_pEffect->Begin(&numPasses, NULL);
+
+			for (UINT i = 0; i < numPasses; ++i)
+			{
+				m_pEffect->BeginPass(i);
+
+				for each(auto p in m_vecObj)
+				{
+					p->Render();
+				}
+
+				m_pEffect->EndPass();
+			}
+
+			m_pEffect->End();
+		}
+		else {
 			for each(auto p in m_vecObj)
 			{
 				p->Render();
 			}
-		
-			m_pEffect->EndPass();
 		}
 
-		m_pEffect->End();
 		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
 		g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	}

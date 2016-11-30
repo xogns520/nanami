@@ -29,6 +29,7 @@ private:
 	std::vector<cGroup*>		m_vecObj;
 	std::vector<cMtlTex*>		m_vecMeshMtlTex;
 	LPD3DXEFFECT				m_pEffect;
+	bool						m_bUsFx;
 
 	D3DXVECTOR3					m_centerPosition;
 
