@@ -20,6 +20,7 @@ private:
 	ST_BOX						m_stBoundingBox;
 	float						m_fPassedAnimBlendTime;
 	float						m_fAnimBlendTime;
+	float						m_fAniPlayTime;
 
 public:
 	D3DXMATRIX					m_matNeckTM;
@@ -51,10 +52,11 @@ public:
 	{
 		return &m_matRootTM;
 	}
-	bool GetAniFinal()
+	float GetAniTime()
 	{
-		//if()
+		return m_fAniPlayTime;
 	}
+	bool GetAniEnd(int _index);
 	void GetNeckWorld(D3DXFRAME* pFrame, D3DXMATRIX* pParentTM);
 private:
 	cBody();

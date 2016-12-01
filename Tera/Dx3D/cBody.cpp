@@ -12,6 +12,8 @@ cBody::cBody(char* szFolder, char* szFilename)
 	, m_vPosition(0, 0, 0)
 	, m_fPassedAnimBlendTime(0.0f)
 	, m_fAnimBlendTime(0.3f)
+	, m_fAniPlayTime(0.0f)
+	
 {
 	cBody* pSkinnedMesh = (cBody*)g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
 
@@ -28,6 +30,29 @@ cBody::cBody(char* szFolder, char* szFilename)
 		pSkinnedMesh->m_pAnimController->GetMaxNumTracks(),
 		pSkinnedMesh->m_pAnimController->GetMaxNumEvents(),
 		&m_pAnimController);
+}
+
+bool cBody::GetAniEnd(int _index)
+{
+	LPD3DXANIMATIONSET pNowAniSet = NULL;
+	//ÀÎµ¦½º ¹Þ¾ÆºÁ¾ßÇÔ
+	m_pAnimController->GetAnimationSet(_index, &pNowAniSet);
+
+	D3DXTRACK_DESC stTrackDesc;
+	m_pAnimController->GetTrackDesc(0, &stTrackDesc);
+
+	m_fAniPlayTime = stTrackDesc.Position / pNowAniSet->GetPeriod();
+
+	if (m_fAniPlayTime >= 1)
+	{
+		SAFE_RELEASE(pNowAniSet);
+		return true;
+	}
+	else
+	{
+		int a = 0;
+		return false;
+	}
 }
 
 void cBody::GetNeckWorld(D3DXFRAME * pFrame, D3DXMATRIX * pParentTM)

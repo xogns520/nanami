@@ -27,5 +27,6 @@ public:
 	void Update(int AniIndex);
 	void Render(D3DXMATRIX* pMat);
 	D3DXMATRIX* GetRootBone();
+	bool GetAniEnd(int _index);
 };
 

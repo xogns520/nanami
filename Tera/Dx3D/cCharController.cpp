@@ -177,48 +177,12 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 	if (m_bAtt)
 	{
 		m_fAniPlayTime += g_pTimeManager->GetDeltaTime();
-		if (m_nMoveKey == 3)
+		if (pPlayer->GetAniEnd(m_nMoveKey))
 		{
-			if (m_fAniPlayTime > 0.55f)
-			{
-				m_bAtt = false;
-				m_nMoveKey = 4;
-				p.x = pPlayer->GetRootBone()->_41;
-				p.z = pPlayer->GetRootBone()->_43;
-			}
-		}
-		else if (m_nMoveKey == 2)
-		{
-			if (m_fAniPlayTime > 0.8f)
-			{
-				m_bAtt = false;
-				m_nMoveKey = 4;
-				p.x = pPlayer->GetRootBone()->_41;
-				p.z = pPlayer->GetRootBone()->_43;
-				//m_fAniPlayTime = 0.0f;
-			}
-		}
-		else if (m_nMoveKey == 1)
-		{
-			if (m_fAniPlayTime > 0.4f)
-			{
-				m_bAtt = false;
-				m_nMoveKey = 4;
-				p.x = pPlayer->GetRootBone()->_41;
-				p.z = pPlayer->GetRootBone()->_43;
-				//m_fAniPlayTime = 0.0f;
-			}
-		}
-		else if (m_nMoveKey == 0)
-		{
-			if (m_fAniPlayTime > 1.5f)
-			{
-				m_bAtt = false;
-				m_nMoveKey = 4;
-				p.x = pPlayer->GetRootBone()->_41;
-				p.z = pPlayer->GetRootBone()->_43;
-				//m_fAniPlayTime = 0.0f;
-			}
+			p.x = pPlayer->GetRootBone()->_41;
+			p.z = pPlayer->GetRootBone()->_43;
+			m_nMoveKey = 4;
+			m_bAtt = false;
 		}
 	}
 	if (!m_bAtt ||

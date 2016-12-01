@@ -130,3 +130,8 @@ D3DXMATRIX * cPlayer::GetRootBone()
 {
 	return m_pBody->GetRootTM();
 }
+
+bool cPlayer::GetAniEnd(int _index)
+{
+	return m_pBody->GetAniEnd(_index);
+}
