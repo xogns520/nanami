@@ -135,3 +135,8 @@ bool cPlayer::GetAniEnd(int _index)
 {
 	return m_pBody->GetAniEnd(_index);
 }
+
+float cPlayer::GetAniTime()
+{
+	return m_pBody->GetAniTime();
+}

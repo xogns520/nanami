@@ -174,21 +174,8 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 			}
 		}
 	}
-	if (m_bAtt)
-	{
-		m_fAniPlayTime += g_pTimeManager->GetDeltaTime();
-		if (pPlayer->GetAniEnd(m_nMoveKey))
-		{
-			p.x = pPlayer->GetRootBone()->_41;
-			p.z = pPlayer->GetRootBone()->_43;
-			m_nMoveKey = 4;
-			m_bAtt = false;
-		}
-	}
-	if (!m_bAtt ||
-		(m_nMoveKey == 3 && m_fAniPlayTime > 0.4f && m_fAniPlayTime < 0.59f) ||
-		(m_nMoveKey == 2 && m_fAniPlayTime > 0.6f && m_fAniPlayTime < 0.79f) ||
-		(m_nMoveKey == 1 && m_fAniPlayTime > 0.25f && m_fAniPlayTime < 0.39f))
+	
+	if (!m_bAtt || (pPlayer->GetAniTime() > 0.8f && pPlayer->GetAniTime() < 0.99f))
 	{
 		if (g_pKeyManager->isOnceKeyDown('L'))
 		{
@@ -208,8 +195,17 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 				if (m_nMoveKey > -1)
 					pPlayer->Update(--m_nMoveKey);
 			}
-			//
-			//
+		}
+	}
+	if (m_bAtt)
+	{
+		//m_fAniPlayTime += g_pTimeManager->GetDeltaTime();
+		if (pPlayer->GetAniEnd(m_nMoveKey))
+		{
+			m_nMoveKey = 4;
+			m_bAtt = false;
+			p.x = pPlayer->GetRootBone()->_41;
+			p.z = pPlayer->GetRootBone()->_43;
 		}
 	}
 	// 0.01~0.005

@@ -254,6 +254,12 @@ void cMainGame::Render()
 	sprintf(szTemp, "FPS : %d", g_pTimeManager->GetFPS());
 	pFont->DrawTextA(NULL, szTemp, strlen(szTemp), &rc, DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
+	char szTemp1[1024];
+	RECT rc1;
+	SetRect(&rc1, 10, 50, 11, 51);
+	sprintf(szTemp1, "Ani : %.2f", m_pPlayer->GetAniTime());
+	pFont->DrawTextA(NULL, szTemp1, strlen(szTemp1), &rc1, DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+
 
 	g_pD3DDevice->EndScene();
 

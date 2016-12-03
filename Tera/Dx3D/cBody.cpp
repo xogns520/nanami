@@ -43,7 +43,7 @@ bool cBody::GetAniEnd(int _index)
 
 	m_fAniPlayTime = stTrackDesc.Position / pNowAniSet->GetPeriod();
 
-	if (m_fAniPlayTime >= 1)
+	if (m_fAniPlayTime >= 0.98f)
 	{
 		SAFE_RELEASE(pNowAniSet);
 		return true;

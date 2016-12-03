@@ -28,5 +28,6 @@ public:
 	void Render(D3DXMATRIX* pMat);
 	D3DXMATRIX* GetRootBone();
 	bool GetAniEnd(int _index);
+	float GetAniTime();
 };
 
