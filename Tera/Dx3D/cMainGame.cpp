@@ -133,7 +133,7 @@ void cMainGame::Update()
 	//Test -- 임시로 player 포지션값
 	for each(auto v in m_vecEffect) {
 		v->Update();
-		v->SetCenter(*m_pCharController->GetPosition());
+		v->SetCenter(D3DXVECTOR3(m_pPlayer->GetRootBone()->_41, m_pCharController->GetPosition()->y, m_pPlayer->GetRootBone()->_43));
 	}
 
 	if (m_pCamera)
