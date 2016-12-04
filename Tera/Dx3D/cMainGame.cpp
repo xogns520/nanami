@@ -77,10 +77,10 @@ void cMainGame::Setup()
 	m_RealMap = new cMap;
 	m_RealMap->Setup();
 
-	for (int x = -20; x < -10; ++x)
+	for (int x = 75; x < 80; ++x)
 	{
 		//if (x > -15 && x < 10) continue;
-		for (int z = 10; z < 20; ++z)
+		for (int z = 45; z < 50; ++z)
 		{
 			//if (z > 17 && z < 23) continue;
 			cSkinnedMesh* p = new cSkinnedMesh("Zealot/", "zealot.X");
@@ -202,17 +202,29 @@ void cMainGame::Render()
 	if (m_pGrid)
 		m_pGrid->Render();
 
-	//for each (auto p in m_vecSkinnedMesh)
-	//{
-	//	if (m_pTerrain->GetHeight(p->GetPosition()->x, p->GetPosition()->y, p->GetPosition()->z))
-	//	{
-	//		m_pTerrain->GetHeight(p->GetPosition()->x, p->GetBoundingSphere()->vCenter.y, p->GetPosition()->z);
-	//		if (m_pCamera->IsIn(p->GetBoundingSphere()))
-	//		{
-	//			p->UpdateAndRender();
-	//		}
-	//	}
-	//}
+	for each (auto p in m_vecSkinnedMesh)
+	{
+		if (m_RealMap->getSurface()->GetHeight(p->GetPosition()->x, p->GetPosition()->y, p->GetPosition()->z))
+		{
+			float y;
+			m_RealMap->getSurface()->GetHeight(p->GetPosition()->x, y, p->GetPosition()->z);
+			p->SetBoundingSphereY(y + 0.5f);
+			if (m_pCamera->IsIn(p->GetBoundingSphere()))
+			{
+				if (m_pCharController->isAttack())
+				{
+					if (cAABB::IsCollision(m_pPlayer->GetRWeaponSphere(), p->GetBoundingSphere()) || cAABB::IsCollision(m_pPlayer->GetLWeaponSphere(), p->GetBoundingSphere()))
+						//{
+						//	m_pPlayer->SetRWeaponColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+						//	m_pPlayer->SetLWeaponColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+						//}
+						p->UpdateAndRender();
+				}
+					else
+						p->UpdateAndRender();
+			}
+		}
+	}
 
 	//if(!m_pCharController->GetMoveKey())
 

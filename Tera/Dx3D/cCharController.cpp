@@ -137,13 +137,16 @@ void cCharController::Update(cMapSkinnedMesh* pMap)
 
 void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 {
-	if (GetKeyState('A') & 0x8000)
+	if (!m_bAtt)
 	{
-		m_fAngle -= 0.1f;
-	}
-	if (GetKeyState('D') & 0x8000)
-	{
-		m_fAngle += 0.1f;
+		if (GetKeyState('A') & 0x8000)
+		{
+			m_fAngle -= 0.1f;
+		}
+		if (GetKeyState('D') & 0x8000)
+		{
+			m_fAngle += 0.1f;
+		}
 	}
 
 	m_vDirection = D3DXVECTOR3(0, 0, 1);
@@ -192,7 +195,7 @@ void cCharController::Update(cMapSkinnedMesh * pMap, cPlayer * pPlayer)
 			else
 			{
 				m_fAniPlayTime = 0.0f;
-				if (m_nMoveKey > -1)
+				if (m_nMoveKey > 0)
 					pPlayer->Update(--m_nMoveKey);
 			}
 		}

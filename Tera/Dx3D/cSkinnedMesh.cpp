@@ -96,15 +96,15 @@ void cSkinnedMesh::Load( char* szDirectory, char* szFilename )
 	m_stBoundingSphere = ah.GetBoundingSphere();
 	m_stBoundingBox = ah.GetBoundingBox();
 
-	//if (pBoundingSphereMesh == NULL)
-	//{
-	//	D3DXCreateSphere(g_pD3DDevice,
-	//		m_stBoundingSphere.fRadius,
-	//		20,
-	//		20,
-	//		&pBoundingSphereMesh,
-	//		NULL);
-	//}
+	if (pBoundingSphereMesh == NULL)
+	{
+		D3DXCreateSphere(g_pD3DDevice,
+			m_stBoundingSphere.fRadius,
+			20,
+			20,
+			&pBoundingSphereMesh,
+			NULL);
+	}
 
 	if( m_pmWorkingPalette )
 		delete [] m_pmWorkingPalette;
@@ -141,17 +141,17 @@ void cSkinnedMesh::UpdateAndRender(D3DXMATRIXA16* pmat)
 
 		Update(m_pRootFrame, &mat);
 		Render(m_pRootFrame);
-		//if (pBoundingSphereMesh)
-		//{
-		//	D3DXMatrixTranslation(&mat,
-		//		m_stBoundingSphere.vCenter.x,
-		//		m_stBoundingSphere.vCenter.y,
-		//		m_stBoundingSphere.vCenter.z);
-		//	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
-		//	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		//	pBoundingSphereMesh->DrawSubset(0);
-		//	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-		//}
+		if (pBoundingSphereMesh)
+		{
+			D3DXMatrixTranslation(&mat,
+				m_stBoundingSphere.vCenter.x,
+				m_stBoundingSphere.vCenter.y,
+				m_stBoundingSphere.vCenter.z);
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+			g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+			pBoundingSphereMesh->DrawSubset(0);
+			g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		}
 	}
 }
 

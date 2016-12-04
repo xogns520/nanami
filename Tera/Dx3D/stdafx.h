@@ -190,6 +190,7 @@ enum tagPlane
 #include "cGameObject.h"
 #include "cAutoReleasePool.h"
 #include "cObjectPool.h"
+#include "cAABB.h"
 
 #define ROOM_LENGTH 256
 #define RESOURCE_FOLDER "./Resources/"

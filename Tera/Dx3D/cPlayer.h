@@ -29,5 +29,10 @@ public:
 	D3DXMATRIX* GetRootBone();
 	bool GetAniEnd(int _index);
 	float GetAniTime();
+
+	ST_SPHERE* GetRWeaponSphere();
+	ST_SPHERE* GetLWeaponSphere();
+	void SetRWeaponColor(D3DXCOLOR _color);
+	void SetLWeaponColor(D3DXCOLOR _color);
 };
 

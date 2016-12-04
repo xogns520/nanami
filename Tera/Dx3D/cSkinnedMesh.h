@@ -18,6 +18,7 @@ private:
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXVECTOR3					m_vPosition;
 	ST_BOX						m_stBoundingBox;
+	D3DXCOLOR					m_Color;
 
 public:
 	cSkinnedMesh(char* szFolder, char* szFilename);
@@ -41,6 +42,10 @@ public:
 	ST_SPHERE* GetBoundingSphere()
 	{
 		return &m_stBoundingSphere;
+	}
+	void SetBoundingSphereY(float _y)
+	{
+		m_stBoundingSphere.vCenter.y = _y;
 	}
 	ST_BOX* GetBoundingBox()
 	{

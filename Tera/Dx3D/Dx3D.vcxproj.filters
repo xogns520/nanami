@@ -64,6 +64,9 @@
     <Filter Include="테라\OBB">
       <UniqueIdentifier>{f4820fdd-5d7d-48bf-b3dc-90411379ca4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="테라\AABB">
+      <UniqueIdentifier>{3716f700-a263-4ec9-99b7-c52cf34fe849}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -243,6 +246,9 @@
     <ClInclude Include="cKeyManager.h">
       <Filter>Main\Util-Manager</Filter>
     </ClInclude>
+    <ClInclude Include="cAABB.h">
+      <Filter>테라\AABB</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -403,6 +409,9 @@
     </ClCompile>
     <ClCompile Include="cKeyManager.cpp">
       <Filter>Main\Util-Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cAABB.cpp">
+      <Filter>테라\AABB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

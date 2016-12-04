@@ -77,6 +77,11 @@ void cObjLoader::Load(IN char* szFilename, OUT std::vector<cGroup*>& vecGroup, I
 				float x, y, z;
 				sscanf_s(szBuf, "%*s %f %f %f", &x, &y, &z);
 				vecV.push_back(D3DXVECTOR3(x, y, z));
+				//D3DXComputeBoundingSphere((D3DXVECTOR3*)pV,
+				//	pMeshData->pMesh->GetNumVertices(),
+				//	D3DXGetFVFVertexSize(pMeshData->pMesh->GetFVF()),
+				//	&(m_stSphere.vCenter),
+				//	&(m_stSphere.fRadius));
 			}
 		}
 		else if (szBuf[0] == 'u')

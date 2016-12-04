@@ -70,6 +70,13 @@ void cWeapon::Load(char* szMap, D3DXMATRIXA16* pmat)
 	cObjLoader l;
 	bool isFlipUv = true;		//20161122 UV Flip여부 추가l.Load(szMap, m_vecGroup, isFlipUv);}
 	l.Load(szMap, m_vecGroup, isFlipUv ,pmat);
+
+	//m_Sphere.vCenter = D3DXVECTOR3(0.0f, 0.75f, 0.0f);
+	m_Sphere.fRadius = 0.2f;
+
+	D3DXCreateSphere(g_pD3DDevice, m_Sphere.fRadius, 20, 20, &m_pSphere, NULL);
+	m_Color = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
+	
 }
 
 bool cWeapon::GetHeight(IN float x, OUT float& y, IN float z)
@@ -114,8 +121,32 @@ void cWeapon::Render()
 void cWeapon::Render(D3DXMATRIX * pMat)
 {
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, pMat);
+
 	for each(auto p in m_vecGroup)
 	{
 		p->Render();
 	}
+
+	if (m_pSphere)
+	{
+		D3DXMATRIXA16 matY, mat;
+		D3DXMatrixIdentity(&matY);
+		D3DXMatrixTranslation(&matY, 0.0f, 0.75f, 0.0f);
+
+		mat = matY * *pMat;
+
+		m_Sphere.vCenter = D3DXVECTOR3(mat._41, mat._42, mat._43);
+
+		D3DMATERIAL9 stMtl;
+		ZeroMemory(&stMtl, sizeof(D3DMATERIAL9));
+
+		stMtl.Ambient = stMtl.Diffuse = stMtl.Specular = m_Color;
+
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+		//g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		g_pD3DDevice->SetMaterial(&stMtl);
+		m_pSphere->DrawSubset(0);
+		g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	}
+	
 }

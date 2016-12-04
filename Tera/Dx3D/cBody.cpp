@@ -72,7 +72,7 @@ void cBody::GetNeckWorld(D3DXFRAME * pFrame, D3DXMATRIX * pParentTM)
 		m_matHairTM = pBone->CombinedTransformationMatrix;
 		//D3DXMatrixRotationX(&m_matNeckTM, D3DXToRadian(90));
 	}
-	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("Bip01-L-Hand"))
+	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("L_Sword"))
 	{
 		pBone->CombinedTransformationMatrix = pBone->TransformationMatrix * (*pParentTM);
 		D3DXMATRIXA16 matT, matYR, matXR;
@@ -83,7 +83,7 @@ void cBody::GetNeckWorld(D3DXFRAME * pFrame, D3DXMATRIX * pParentTM)
 		//D3DXMatrixRotationX(&m_matNeckTM, D3DXToRadian(90));
 	}
 	//R_Sword or Bip01-R-Hand or Bip01-R-Finger3Nub
-	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("Bip01-R-Hand"))
+	else if (pBone->Name != nullptr && std::string(pBone->Name) == std::string("R_Sword"))
 	{
 		pBone->CombinedTransformationMatrix = pBone->TransformationMatrix * (*pParentTM);
 		D3DXMATRIXA16 matT, matYR, matXR;

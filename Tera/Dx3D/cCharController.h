@@ -46,5 +46,10 @@ public:
 	{
 		return m_fAngle;
 	}
+
+	bool isAttack()
+	{
+		return m_bAtt;
+	}
 };
 

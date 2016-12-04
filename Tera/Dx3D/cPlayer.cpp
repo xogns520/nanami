@@ -49,21 +49,21 @@ void cPlayer::Setup(char * Directory, char * PathBody, char * PathFace, char * P
 	//pW->Load("./Tera/Character/Weapon_R.obj", &mat);
 	//m_pMap = pW;
 
-	D3DXMATRIXA16 matT, matYR, matXR;
-	D3DXMatrixRotationY(&matYR, -1.75f);
-	D3DXMatrixRotationX(&matXR, 0.25f);
-	D3DXMatrixTranslation(&matT, -0.01f, 0.0f, 0.03f);
-
-	mat = matXR * matT;
+	//D3DXMATRIXA16 matT, matYR, matXR;
+	//D3DXMatrixRotationY(&matYR, -1.75f);
+	//D3DXMatrixRotationX(&matXR, 0.25f);
+	//D3DXMatrixTranslation(&matT, -0.01f, 0.0f, 0.03f);
+	//
+	//mat = matXR * matT;
 
 	m_pRWeapon = new cWeapon;
 	m_pRWeapon->Load("./Tera/Character/Weapon_R.object", &mat);
 
-	D3DXMatrixRotationY(&matYR, -1.75f);
-	D3DXMatrixRotationX(&matXR, 3.25f);
-	D3DXMatrixRotationZ(&matXR, -2.75f);
-	D3DXMatrixTranslation(&matT, 0.01f, 0.0f, -0.0075f);
-	mat = matYR * matXR * matT;
+	//D3DXMatrixRotationY(&matYR, -1.75f);
+	//D3DXMatrixRotationX(&matXR, 3.25f);
+	//D3DXMatrixRotationZ(&matXR, -2.75f);
+	//D3DXMatrixTranslation(&matT, 0.01f, 0.0f, -0.0075f);
+	//mat = matYR * matXR * matT;
 
 	m_pLWeapon = new cWeapon;
 	m_pLWeapon->Load("./Tera/Character/Weapon_L.object", &mat);
@@ -139,4 +139,24 @@ bool cPlayer::GetAniEnd(int _index)
 float cPlayer::GetAniTime()
 {
 	return m_pBody->GetAniTime();
+}
+
+ST_SPHERE * cPlayer::GetRWeaponSphere()
+{
+	return m_pRWeapon->GetSphere();
+}
+
+ST_SPHERE * cPlayer::GetLWeaponSphere()
+{
+	return m_pLWeapon->GetSphere();
+}
+
+void cPlayer::SetRWeaponColor(D3DXCOLOR _color)
+{
+	m_pRWeapon->SetColor(_color);
+}
+
+void cPlayer::SetLWeaponColor(D3DXCOLOR _color)
+{
+	m_pLWeapon->SetColor(_color);
 }
